@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FreeShapeGH.cs" />
+    <Compile Include="RebarPropertiesGH.cs" />
     <Compile Include="T_RexInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

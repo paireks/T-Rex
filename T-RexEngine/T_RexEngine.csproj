@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="FreeShape.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RebarMeshRepresentation.cs" />
+    <Compile Include="RebarProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
