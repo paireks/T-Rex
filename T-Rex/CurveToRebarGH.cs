@@ -8,35 +8,35 @@ using T_RexEngine;
 
 namespace T_Rex
 {
-    public class FreeShapeGH : GH_Component
+    public class CurveToRebarGH : GH_Component
     {
-        public FreeShapeGH()
-          : base("Free Shape", "Free Shape",
-              "Create free shape for reinforcement",
+        public CurveToRebarGH()
+          : base("Curve To Rebar", "Curve To Rebar",
+              "Convert curve to reinforcement bar",
               "T-Rex", "Rebar")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Vertices", "Vertices", "Vertices needed to create a reinforcement bar shape, as list",
-                GH_ParamAccess.list);
+            pManager.AddCurveParameter("Curve", "Curve", "Curve needed to create a reinforcement bar shape",
+                GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("Mesh Points", "Mesh Points", "Desc", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Mesh", "Mesh", "Desc", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Point3d> vertices = new List<Point3d>();
+            Curve rebarCurve = null;
             RebarProperties props = null;
 
-            DA.GetDataList(0, vertices);
+            DA.GetData(0, ref rebarCurve);
             DA.GetData(1, ref props);
 
-            FreeShape newShape = new FreeShape(vertices, props);
+            CurveToRebar newShape = new CurveToRebar(rebarCurve, props);
 
-            DA.SetDataList(0, newShape.MeshPoints);
+            DA.SetData(0, newShape.RebarMesh);
         }
         protected override System.Drawing.Bitmap Icon
         {

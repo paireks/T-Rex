@@ -8,20 +8,18 @@ namespace T_RexEngine
 {
     public class RebarProperties
     {
-        public RebarProperties(int diameter, string material, int bendingRoller)
+        public RebarProperties(int diameter, string material)
         {
             Diameter = diameter;
             Material = material;
-            BendingRoller = bendingRoller;
         }
 
         public override string ToString()
         {
-            return $"Diameter: {Diameter}\r\nMaterial: {Material}\r\nBending Roller: {BendingRoller}";
+            return $"Diameter: {Diameter}\r\nMaterial: {Material}";
         }
 
         public int Diameter { get; set; }
         public string Material { get; set; }
-        public int BendingRoller { get; set; }
     }
 }

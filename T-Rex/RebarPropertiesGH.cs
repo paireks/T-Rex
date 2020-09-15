@@ -19,8 +19,6 @@ namespace T_Rex
         {
             pManager.AddIntegerParameter("Diameter", "Diameter", "Diameter of the bar", GH_ParamAccess.item);
             pManager.AddTextParameter("Material", "Material", "Material of the rebar", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Bending Roller", "Bending Roller", "Diameter of the bending roller",
-                GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -30,13 +28,11 @@ namespace T_Rex
         {
             int diameter = 0;
             string material = String.Empty;
-            int bendingRoller = 0;
 
             DA.GetData(0, ref diameter);
             DA.GetData(1, ref material);
-            DA.GetData(2, ref bendingRoller);
 
-            RebarProperties prop = new RebarProperties(diameter, material, bendingRoller);
+            RebarProperties prop = new RebarProperties(diameter, material);
 
             DA.SetData(0, prop);
         }

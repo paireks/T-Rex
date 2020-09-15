@@ -58,7 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FreeShapeGH.cs" />
+    <Compile Include="CurveToRebarGH.cs" />
     <Compile Include="RebarPropertiesGH.cs" />
     <Compile Include="T_RexInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,7 +81,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "C:\Users\EngineerDesign\AppData\Roaming\Grasshopper\Libraries\T-Rex\T-Rex.gha"</PostBuildEvent>
+    <PostBuildEvent>Copy "$(TargetPath)" "C:\Users\code-structures\AppData\Roaming\Grasshopper\Libraries\T-Rex\T-Rex.gha"
+Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>

@@ -58,10 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FreeShape.cs" />
+    <Compile Include="CurveToRebar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RebarCurveTools.cs" />
-    <Compile Include="RebarMeshRepresentation.cs" />
     <Compile Include="RebarProperties.cs" />
   </ItemGroup>
   <ItemGroup>
