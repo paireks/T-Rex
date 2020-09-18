@@ -14,6 +14,11 @@ namespace T_RexEngine
             RebarMesh = Mesh.CreateFromCurvePipe(RebarCurve, Props.Diameter / 2.0, 10, 70, MeshPipeCapStyle.Flat, false);
 
         }
+        public override string ToString()
+        {
+            return "Rebar Shape";
+        }
+
         public Mesh RebarMesh { get; set; }
         public Curve RebarCurve { get; set; }
         public RebarProperties Props { get; set; }

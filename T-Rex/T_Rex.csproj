@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="CurveToRebarGH.cs" />
     <Compile Include="RebarPropertiesGH.cs" />
+    <Compile Include="SpacingGH.cs" />
     <Compile Include="T_RexInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

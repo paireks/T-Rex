@@ -11,9 +11,9 @@ namespace T_Rex
     public class CurveToRebarGH : GH_Component
     {
         public CurveToRebarGH()
-          : base("Curve To Rebar", "Curve To Rebar",
-              "Convert curve to reinforcement bar",
-              "T-Rex", "Rebar")
+          : base("Curve To Rebar Shape", "Curve To Rebar Shape",
+              "Convert single curve to reinforcement bar shape",
+              "T-Rex", "Rebar Shape")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
@@ -24,6 +24,7 @@ namespace T_Rex
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Reinforcement bar shape", GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Desc", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -36,7 +37,8 @@ namespace T_Rex
 
             CurveToRebar newShape = new CurveToRebar(rebarCurve, props);
 
-            DA.SetData(0, newShape.RebarMesh);
+            DA.SetData(0, newShape);
+            DA.SetData(1, newShape.RebarMesh);
         }
         protected override System.Drawing.Bitmap Icon
         {
