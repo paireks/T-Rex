@@ -58,6 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
     <Compile Include="PolylineToRebarShapeGH.cs" />
     <Compile Include="RebarPropertiesGH.cs" />

@@ -7,11 +7,11 @@ using T_RexEngine;
 
 namespace T_Rex
 {
-    public class SpacingGH : GH_Component
+    public class CurveSpacingGH : GH_Component
     {
-        public SpacingGH()
-          : base("Spacing", "Spacing",
-              "Creates Rebar Group with spacing between each rebar",
+        public CurveSpacingGH()
+          : base("Curve Spacing", "Curve Spacing",
+              "Creates Rebar Group with spacing along a curve",
               "T-Rex", "Rebar Group")
         {
         }
@@ -21,8 +21,9 @@ namespace T_Rex
                 GH_ParamAccess.item);
             pManager.AddIntegerParameter("Count", "Count", "Set how many bars should be in the group",
                 GH_ParamAccess.item);
-            pManager.AddVectorParameter("Space Vector", "Space Vector", "Set spacing between bars as a vector",
+            pManager.AddCurveParameter("Curve", "Curve", "Curve to divide and create Rebar Group along this curve",
                 GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Plane", "Plane", "Rebar Shape origin plane", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -34,14 +35,16 @@ namespace T_Rex
         {
             RebarShape rebarShape = null;
             int count = 0;
-            Vector3d spaceVector = new Vector3d();
+            Curve curve = null;
+            Plane plane = Plane.Unset;
 
             DA.GetData(0, ref rebarShape);
             DA.GetData(1, ref count);
-            DA.GetData(2, ref spaceVector);
+            DA.GetData(2, ref curve);
+            DA.GetData(3, ref plane);
 
             RebarGroup rebarGroup = new RebarGroup(rebarShape);
-            rebarGroup.Spacing(count, spaceVector);
+            rebarGroup.CurveSpacing(count, plane, curve);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);
@@ -55,7 +58,7 @@ namespace T_Rex
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("9e5f8c11-d3bb-4934-b7c2-6b096e3dd6da"); }
+            get { return new Guid("5eef3b17-2baf-40f8-866b-9b97f93379b9"); }
         }
     }
 }
