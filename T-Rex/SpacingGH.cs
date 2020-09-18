@@ -32,7 +32,7 @@ namespace T_Rex
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            CurveToRebar rebarShape = null;
+            RebarShape rebarShape = null;
             int count = 0;
             Vector3d spaceVector = new Vector3d();
 

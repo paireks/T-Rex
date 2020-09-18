@@ -58,9 +58,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurveToRebar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RebarGroup.cs" />
     <Compile Include="RebarProperties.cs" />
+    <Compile Include="RebarShape.cs" />
     <Compile Include="Spacing.cs" />
   </ItemGroup>
   <ItemGroup>

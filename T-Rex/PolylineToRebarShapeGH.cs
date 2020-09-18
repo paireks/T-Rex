@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using Grasshopper.Kernel;
-using Rhino.Display;
 using Rhino.Geometry;
 using T_RexEngine;
 
 namespace T_Rex
 {
-    public class CurveToRebarGH : GH_Component
+    public class PolylineToRebarShapeGH : GH_Component
     {
-        public CurveToRebarGH()
-          : base("Curve To Rebar Shape", "Curve To Rebar Shape",
-              "Convert single curve to reinforcement bar shape",
+        public PolylineToRebarShapeGH()
+          : base("Polyline To Rebar Shape", "Polyline To Rebar Shape",
+              "Convert single polyline curve to reinforcement bar shape",
               "T-Rex", "Rebar Shape")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Curve", "Curve", "Curve needed to create a reinforcement bar shape",
+            pManager.AddCurveParameter("Polyline", "Polyline", "Polyline needed to create a reinforcement bar shape",
                 GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Bending Roller Diameter", "Bending Roller Diameter",
+                "Bending roller diameter as integer", GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -30,15 +31,18 @@ namespace T_Rex
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Curve rebarCurve = null;
+            int bendingRollerDiameter = 0;
             RebarProperties props = null;
 
             DA.GetData(0, ref rebarCurve);
-            DA.GetData(1, ref props);
+            DA.GetData(1, ref bendingRollerDiameter);
+            DA.GetData(2, ref props);
 
-            CurveToRebar newShape = new CurveToRebar(rebarCurve, props);
+            RebarShape rebarShape = new RebarShape(props);
+            rebarShape.PolylineToRebarShape(rebarCurve, bendingRollerDiameter);
 
-            DA.SetData(0, newShape);
-            DA.SetData(1, newShape.RebarMesh);
+            DA.SetData(0, rebarShape);
+            DA.SetData(1, rebarShape.RebarMesh);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -49,7 +53,7 @@ namespace T_Rex
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("87d954f3-f567-4d80-bbdd-78caaabec4da"); }
+            get { return new Guid("ca05a488-e6a3-40ee-89c4-1563d3ec0a64"); }
         }
     }
 }

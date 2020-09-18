@@ -9,16 +9,16 @@ namespace T_RexEngine
 {
     public class Spacing
     {
-        public Spacing(CurveToRebar rebarShape, int count, Vector3d spaceVector)
+        public Spacing(RebarShape rebarShape, int count, Vector3d spaceVector)
         {
             RebarShape = rebarShape;
             Count = count;
             SpaceVector = spaceVector;
 
             Transform moveMesh = Transform.Translation(spaceVector);
-            RebarMesh = new List<Mesh>();
             Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
-            RebarMesh.Add(rebarShapeMesh);
+            RebarMesh = new List<Mesh>();
+            RebarMesh.Add(rebarShapeMesh.DuplicateMesh());
             for (int i = 0; i < count - 1; i++)
             {
                 rebarShapeMesh.Transform(moveMesh);
@@ -31,7 +31,7 @@ namespace T_RexEngine
             return "Rebar Group";
         }
 
-        public CurveToRebar RebarShape { get; set; }
+        public RebarShape RebarShape { get; set; }
         public int Count { get; set; }
         public Vector3d SpaceVector { get; set; }
         public List<Mesh> RebarMesh { get; set; }
