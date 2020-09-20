@@ -18,7 +18,7 @@ namespace T_Rex
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddIntegerParameter("Diameter", "Diameter", "Diameter of the bar", GH_ParamAccess.item);
-            pManager.AddTextParameter("Material", "Material", "Material of the rebar", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Material", "Material", "Material of the rebar", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -27,7 +27,7 @@ namespace T_Rex
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             int diameter = 0;
-            string material = String.Empty;
+            Material material = null;
 
             DA.GetData(0, ref diameter);
             DA.GetData(1, ref material);
