@@ -8,9 +8,11 @@ namespace T_RexEngine
 {
     public class RebarProperties
     {
-        public RebarProperties(int diameter, Material material)
+        public RebarProperties(double diameter, Material material)
         {
             Diameter = diameter;
+            Radius = diameter / 2.0;
+
             Material = material;
         }
 
@@ -19,7 +21,8 @@ namespace T_RexEngine
             return $"Diameter: {Diameter}\r\nMaterial: {Material.Name}";
         }
 
-        public int Diameter { get; set; }
+        public double Radius { get; set; }
+        public double Diameter { get; set; }
         public Material Material { get; set; }
     }
 }

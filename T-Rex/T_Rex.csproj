@@ -58,14 +58,18 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoverDimensionsGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
+    <Compile Include="LineBarShapeGH.cs" />
     <Compile Include="MaterialGH.cs" />
     <Compile Include="PolylineToRebarShapeGH.cs" />
     <Compile Include="RebarPropertiesGH.cs" />
     <Compile Include="SpacingGH.cs" />
+    <Compile Include="StirrupBarShapeGH.cs" />
     <Compile Include="T_RexInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UBarShapeGH.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\T-RexEngine\T_RexEngine.csproj">

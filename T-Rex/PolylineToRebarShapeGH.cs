@@ -19,7 +19,7 @@ namespace T_Rex
         {
             pManager.AddCurveParameter("Polyline", "Polyline", "Polyline needed to create a reinforcement bar shape",
                 GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Bending Roller Diameter", "Bending Roller Diameter",
+            pManager.AddNumberParameter("Bending Roller Diameter", "Bending Roller Diameter",
                 "Bending roller diameter as integer", GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
         }
@@ -31,7 +31,7 @@ namespace T_Rex
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             Curve rebarCurve = null;
-            int bendingRollerDiameter = 0;
+            double bendingRollerDiameter = 0;
             RebarProperties props = null;
 
             DA.GetData(0, ref rebarCurve);

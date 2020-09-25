@@ -19,9 +19,6 @@ namespace T_Rex
         {
             pManager.AddTextParameter("Name", "Name", "Name of the material", GH_ParamAccess.item, "Reinforcement steel");
             pManager.AddTextParameter("Grade", "Grade", "Grade of the material", GH_ParamAccess.item, "B500SP");
-            pManager.AddIntegerParameter("Density", "Density", "Density in kg/m3 as integer", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Price Of Kilo", "Price Of Kilo", "Price of the kilogram of this material",
-                GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -31,15 +28,11 @@ namespace T_Rex
         {
             string name = string.Empty;
             string grade = string.Empty;
-            int density = 0;
-            double priceOfKilo = 0;
 
             DA.GetData(0, ref name);
             DA.GetData(1, ref grade);
-            DA.GetData(2, ref density);
-            DA.GetData(3, ref priceOfKilo);
 
-            Material material = new Material(name, grade, density, priceOfKilo);
+            Material material = new Material(name, grade);
 
             DA.SetData(0, material);
         }
