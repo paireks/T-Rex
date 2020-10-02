@@ -118,11 +118,11 @@ namespace T_RexEngine
                 stirrupPoints.Add(new Point3d(xLeft, yBottom, 0));
                 stirrupPoints.Add(new Point3d(xRight, yBottom, 0));
                 stirrupPoints.Add(new Point3d(xRight, yTop, properties.Diameter));
-                stirrupPoints.Add(new Point3d(xLeft - bendingRollerRadius * Math.Sqrt(2) - Props.Diameter / Math.Sqrt(2),
+                stirrupPoints.Add(new Point3d(xLeft - (bendingRollerRadius + Props.Radius) * Math.Sqrt(2),
                                                    yTop,
                                                   properties.Diameter));
-                stirrupPoints.Add(new Point3d(xLeft - bendingRollerRadius * Math.Sqrt(2) - Props.Diameter / Math.Sqrt(2) + (bendingRollerRadius * (Math.Sqrt(2) - 1) + hookLength + bendingRollerRadius + Props.Radius) / Math.Sqrt(2),
-                                                  yTop - (bendingRollerRadius * (Math.Sqrt(2) - 1) + hookLength + bendingRollerRadius + Props.Radius) / Math.Sqrt(2),
+                stirrupPoints.Add(new Point3d(xLeft - (bendingRollerRadius + Props.Radius) * Math.Sqrt(2) + ((Math.Sqrt(2) - 1) * (bendingRollerRadius + Props.Radius) - Props.Radius + hookLength + (bendingRollerRadius + Props.Radius)) / Math.Sqrt(2),
+                                                  yTop - ((Math.Sqrt(2) - 1) * (bendingRollerRadius + Props.Radius) - Props.Radius + hookLength + (bendingRollerRadius + Props.Radius)) / Math.Sqrt(2),
                                                   properties.Diameter));
             }
             else
