@@ -90,7 +90,7 @@ namespace T_RexEngine
         }
 
         public void StirrupBarShape(Rectangle3d rectangle, RebarProperties properties, double bendingRollerDiameter,
-            int hooksCorner, int hooksType, CoverDimensions coverDimensions, double hookLength)
+             int hooksType, CoverDimensions coverDimensions, double hookLength)
         {
             List<Point3d> stirrupPoints = new List<Point3d>();
 
@@ -113,16 +113,19 @@ namespace T_RexEngine
             }
             else if (hooksType == 1)
             {
-                stirrupPoints.Add(new Point3d(xLeft + hookLength - properties.Radius, yTop, 0));
-                stirrupPoints.Add(new Point3d(xLeft, yTop, 0));
+                double polylinePointOffsetForHook = (bendingRollerRadius + Props.Radius) * Math.Sqrt(2);
+                double hookEndPointOffset =
+                    ((Math.Sqrt(2) - 1) * (bendingRollerRadius + Props.Radius) - Props.Radius + hookLength +
+                     (bendingRollerRadius + Props.Radius)) / Math.Sqrt(2);
+
+                stirrupPoints.Add(new Point3d(xLeft + hookEndPointOffset, yTop + polylinePointOffsetForHook - hookEndPointOffset, 0));
+                stirrupPoints.Add(new Point3d(xLeft, yTop + polylinePointOffsetForHook, 0));
                 stirrupPoints.Add(new Point3d(xLeft, yBottom, 0));
                 stirrupPoints.Add(new Point3d(xRight, yBottom, 0));
                 stirrupPoints.Add(new Point3d(xRight, yTop, properties.Diameter));
-                stirrupPoints.Add(new Point3d(xLeft - (bendingRollerRadius + Props.Radius) * Math.Sqrt(2),
-                                                   yTop,
-                                                  properties.Diameter));
-                stirrupPoints.Add(new Point3d(xLeft - (bendingRollerRadius + Props.Radius) * Math.Sqrt(2) + ((Math.Sqrt(2) - 1) * (bendingRollerRadius + Props.Radius) - Props.Radius + hookLength + (bendingRollerRadius + Props.Radius)) / Math.Sqrt(2),
-                                                  yTop - ((Math.Sqrt(2) - 1) * (bendingRollerRadius + Props.Radius) - Props.Radius + hookLength + (bendingRollerRadius + Props.Radius)) / Math.Sqrt(2),
+                stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook, yTop, properties.Diameter));
+                stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook + hookEndPointOffset,
+                                                  yTop - hookEndPointOffset,
                                                   properties.Diameter));
             }
             else
@@ -138,9 +141,6 @@ namespace T_RexEngine
 
             RebarCurve = rebarPolyline;
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
-            X = stirrupPoints;
-            Radius = Props.Radius;
-            Diameter = Props.Diameter;
         }
 
         public override string ToString()
@@ -151,8 +151,5 @@ namespace T_RexEngine
         public Mesh RebarMesh { get; set; }
         public Curve RebarCurve { get; set; }
         public RebarProperties Props { get; set; }
-        public List<Point3d> X { get; set; }
-        public double Radius { get; set; }
-        public double Diameter { get; set; }
     }
 }
