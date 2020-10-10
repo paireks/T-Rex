@@ -7,9 +7,9 @@ using T_RexEngine;
 
 namespace T_Rex
 {
-    public class SpacingGH : GH_Component
+    public class VectorSpacingGH : GH_Component
     {
-        public SpacingGH()
+        public VectorSpacingGH()
           : base("Vector Spacing", "Vector Spacing",
               "Creates Rebar Group with vector spacing between each rebar",
               "T-Rex", "Rebar Group")

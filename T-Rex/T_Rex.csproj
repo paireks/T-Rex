@@ -64,8 +64,9 @@
     <Compile Include="LineBarShapeGH.cs" />
     <Compile Include="MaterialGH.cs" />
     <Compile Include="PolylineToRebarShapeGH.cs" />
+    <Compile Include="RebarGroupInfoGH.cs" />
     <Compile Include="RebarPropertiesGH.cs" />
-    <Compile Include="SpacingGH.cs" />
+    <Compile Include="VectorSpacingGH.cs" />
     <Compile Include="StirrupBarShapeGH.cs" />
     <Compile Include="T_RexInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

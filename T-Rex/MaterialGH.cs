@@ -19,6 +19,8 @@ namespace T_Rex
         {
             pManager.AddTextParameter("Name", "Name", "Name of the material", GH_ParamAccess.item, "Reinforcement steel");
             pManager.AddTextParameter("Grade", "Grade", "Grade of the material", GH_ParamAccess.item, "B500SP");
+            pManager.AddNumberParameter("Density", "Density", "Density of the material, unit-less." +
+                                        " This density will be multiplied by the volume of rebars to calculate the weight.", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -28,11 +30,13 @@ namespace T_Rex
         {
             string name = string.Empty;
             string grade = string.Empty;
+            double density = double.NaN;
 
             DA.GetData(0, ref name);
             DA.GetData(1, ref grade);
+            DA.GetData(2, ref density);
 
-            Material material = new Material(name, grade);
+            Material material = new Material(name, grade, density);
 
             DA.SetData(0, material);
         }

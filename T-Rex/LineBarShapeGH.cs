@@ -20,9 +20,8 @@ namespace T_Rex
             pManager.AddRectangleParameter("Rectangle", "Rectangle", "Boundary rectangle when rebar will be placed",
                 GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("IsBottom", "IsBottom",
-                "If true = Bar will be placed at the bottom of the rectangle, false = at the top",
-                GH_ParamAccess.item, true);
+            pManager.AddIntegerParameter("Position", "Position", "0 = top, 1 = right, 2 = bottom, 3 = left",
+                GH_ParamAccess.item);
             pManager.AddGenericParameter("Cover Dimensions", "Cover Dimensions", "Dimensions of a concrete cover",
                 GH_ParamAccess.item);
         }
@@ -35,16 +34,16 @@ namespace T_Rex
         {
             Rectangle3d rectangle = Rectangle3d.Unset;
             RebarProperties properties = null;
-            bool isBottom = true;
+            int position = 0;
             CoverDimensions coverDimensions = null;
 
             DA.GetData(0, ref rectangle);
             DA.GetData(1, ref properties);
-            DA.GetData(2, ref isBottom);
+            DA.GetData(2, ref position);
             DA.GetData(3, ref coverDimensions);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.LineBarShape(rectangle, properties, isBottom, coverDimensions);
+            rebarShape.LineBarShape(rectangle, properties, position, coverDimensions);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);
@@ -55,6 +54,10 @@ namespace T_Rex
             {
                 return null;
             }
+        }
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.secondary; }
         }
         public override Guid ComponentGuid
         {

@@ -37,16 +37,36 @@ namespace T_RexEngine
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
 
-        public void LineBarShape(Rectangle3d rectangle, RebarProperties properties, bool isBottom,
+        public void LineBarShape(Rectangle3d rectangle, RebarProperties properties, int position,
             CoverDimensions coverDimensions)
         {
-            double yLevel;
+            Point3d startPoint;
+            Point3d endPoint;
 
-            if (isBottom) { yLevel = rectangle.Y.Min + coverDimensions.Bottom + properties.Radius; }
-            else { yLevel = rectangle.Y.Max - coverDimensions.Top - properties.Radius; }
-
-            Point3d startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left, yLevel, 0);
-            Point3d endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right, yLevel, 0);
+            if (position == 0)
+            {
+                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left, rectangle.Y.Max - coverDimensions.Top - properties.Radius, 0);
+                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right, rectangle.Y.Max - coverDimensions.Top - properties.Radius, 0);
+            }
+            else if (position == 1)
+            {
+                startPoint = new Point3d(rectangle.X.Max - coverDimensions.Right - properties.Radius, rectangle.Y.Max - coverDimensions.Top,0);
+                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right - properties.Radius, rectangle.Y.Min + coverDimensions.Bottom,0);
+            }
+            else if (position == 2)
+            {
+                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left, rectangle.Y.Min + coverDimensions.Bottom + properties.Radius, 0);
+                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right, rectangle.Y.Min + coverDimensions.Bottom + properties.Radius, 0);
+            }
+            else if (position == 3)
+            {
+                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left + properties.Radius, rectangle.Y.Min + coverDimensions.Bottom,0);
+                endPoint = new Point3d(rectangle.X.Min + coverDimensions.Left + properties.Radius, rectangle.Y.Max - coverDimensions.Top,0);
+            }
+            else
+            {
+                throw new ArgumentException("Position should be between 0 and 3");
+            }
 
             LineCurve line = new LineCurve(startPoint, endPoint);
 

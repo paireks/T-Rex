@@ -56,6 +56,10 @@ namespace T_Rex
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);
         }
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.secondary; }
+        }
         protected override System.Drawing.Bitmap Icon
         {
             get
