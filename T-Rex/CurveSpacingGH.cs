@@ -19,17 +19,16 @@ namespace T_Rex
         {
             pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Rebar Shape to create Rebar Group",
                 GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Count", "Count", "Set how many bars should be in the group",
-                GH_ParamAccess.item);
             pManager.AddCurveParameter("Curve", "Curve", "Curve to divide and create Rebar Group along this curve",
                 GH_ParamAccess.item);
-            pManager.AddPlaneParameter("Plane", "Plane", "Rebar Shape origin plane", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Count", "Count", "Set how many bars should be in the group",
+                GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Rebar Group", "Rebar Group", "Group of reinforcement bars",
                 GH_ParamAccess.item);
-            pManager.AddMeshParameter("Mesh", "Mesh", "Mesh group representation", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Mesh", "Mesh", "Mesh that represents reinforcement", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -39,12 +38,11 @@ namespace T_Rex
             Plane plane = Plane.Unset;
 
             DA.GetData(0, ref rebarShape);
-            DA.GetData(1, ref count);
-            DA.GetData(2, ref curve);
-            DA.GetData(3, ref plane);
+            DA.GetData(1, ref curve);
+            DA.GetData(2, ref count);
 
             RebarGroup rebarGroup = new RebarGroup(rebarShape);
-            rebarGroup.CurveSpacing(count, plane, curve);
+            rebarGroup.CurveSpacing(count, curve);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

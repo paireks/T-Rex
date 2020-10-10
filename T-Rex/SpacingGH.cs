@@ -10,8 +10,8 @@ namespace T_Rex
     public class SpacingGH : GH_Component
     {
         public SpacingGH()
-          : base("Spacing", "Spacing",
-              "Creates Rebar Group with spacing between each rebar",
+          : base("Vector Spacing", "Vector Spacing",
+              "Creates Rebar Group with vector spacing between each rebar",
               "T-Rex", "Rebar Group")
         {
         }
@@ -19,10 +19,11 @@ namespace T_Rex
         {
             pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Rebar Shape to create Rebar Group",
                 GH_ParamAccess.item);
+            pManager.AddVectorParameter("Vector", "Vector", "Set spacing between bars as a vector",
+                GH_ParamAccess.item);
             pManager.AddIntegerParameter("Count", "Count", "Set how many bars should be in the group",
                 GH_ParamAccess.item);
-            pManager.AddVectorParameter("Space Vector", "Space Vector", "Set spacing between bars as a vector",
-                GH_ParamAccess.item);
+
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -37,11 +38,12 @@ namespace T_Rex
             Vector3d spaceVector = new Vector3d();
 
             DA.GetData(0, ref rebarShape);
-            DA.GetData(1, ref count);
-            DA.GetData(2, ref spaceVector);
+            DA.GetData(1, ref spaceVector);
+            DA.GetData(2, ref count);
+
 
             RebarGroup rebarGroup = new RebarGroup(rebarShape);
-            rebarGroup.Spacing(count, spaceVector);
+            rebarGroup.VectorSpacing(count, spaceVector);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

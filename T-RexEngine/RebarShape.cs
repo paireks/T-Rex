@@ -13,6 +13,7 @@ namespace T_RexEngine
         public RebarShape(RebarProperties props)
         {
             Props = props;
+            RebarPlane = Plane.WorldXY;
         }
 
         private Mesh CreateRebarMesh(Curve rebarCurve, double radius)
@@ -55,6 +56,7 @@ namespace T_RexEngine
 
             RebarCurve = rebarLine;
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
+            RebarPlane = rectangle.Plane;
         }
 
         public void UBarShape(Rectangle3d rectangle, RebarProperties properties, double bendingRollerDiameter,
@@ -87,6 +89,7 @@ namespace T_RexEngine
 
             RebarCurve = rebarPolyline;
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
+            RebarPlane = rectangle.Plane;
         }
 
         public void StirrupBarShape(Rectangle3d rectangle, RebarProperties properties, double bendingRollerDiameter,
@@ -103,13 +106,13 @@ namespace T_RexEngine
 
             if (hooksType == 0)
             {
-                stirrupPoints.Add(new Point3d(xLeft + hookLength - properties.Radius, yTop, 0));
-                stirrupPoints.Add(new Point3d(xLeft, yTop, 0));
-                stirrupPoints.Add(new Point3d(xLeft, yBottom, 0));
-                stirrupPoints.Add(new Point3d(xRight, yBottom, 0));
-                stirrupPoints.Add(new Point3d(xRight, yTop, properties.Diameter));
-                stirrupPoints.Add(new Point3d(xLeft, yTop, properties.Diameter));
-                stirrupPoints.Add(new Point3d(xLeft, yTop - hookLength + properties.Radius, properties.Diameter));
+                stirrupPoints.Add(new Point3d(xLeft + hookLength - properties.Radius, yTop, - properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop, - properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yBottom, - properties.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yBottom, - properties.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yTop, properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop, properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop - hookLength + properties.Radius, properties.Radius));
             }
             else if (hooksType == 1)
             {
@@ -118,15 +121,15 @@ namespace T_RexEngine
                     ((Math.Sqrt(2) - 1) * (bendingRollerRadius + Props.Radius) - Props.Radius + hookLength +
                      (bendingRollerRadius + Props.Radius)) / Math.Sqrt(2);
 
-                stirrupPoints.Add(new Point3d(xLeft + hookEndPointOffset, yTop + polylinePointOffsetForHook - hookEndPointOffset, 0));
-                stirrupPoints.Add(new Point3d(xLeft, yTop + polylinePointOffsetForHook, 0));
-                stirrupPoints.Add(new Point3d(xLeft, yBottom, 0));
-                stirrupPoints.Add(new Point3d(xRight, yBottom, 0));
-                stirrupPoints.Add(new Point3d(xRight, yTop, properties.Diameter));
-                stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook, yTop, properties.Diameter));
+                stirrupPoints.Add(new Point3d(xLeft + hookEndPointOffset, yTop + polylinePointOffsetForHook - hookEndPointOffset, -properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop + polylinePointOffsetForHook, -properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yBottom, -properties.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yBottom, -properties.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yTop, properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook, yTop, properties.Radius));
                 stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook + hookEndPointOffset,
                                                   yTop - hookEndPointOffset,
-                                                  properties.Diameter));
+                                                  properties.Radius));
             }
             else
             {
@@ -141,6 +144,7 @@ namespace T_RexEngine
 
             RebarCurve = rebarPolyline;
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
+            RebarPlane = rectangle.Plane;
         }
 
         public override string ToString()
@@ -150,6 +154,7 @@ namespace T_RexEngine
 
         public Mesh RebarMesh { get; set; }
         public Curve RebarCurve { get; set; }
+        public Plane RebarPlane { get; set; }
         public RebarProperties Props { get; set; }
     }
 }

@@ -9,11 +9,13 @@ namespace T_RexEngine
 {
     public class RebarGroup
     {
+        private int _count;
+
         public RebarGroup(RebarShape rebarShape)
         {
             RebarShape = rebarShape;
         }
-        public void Spacing(int count, Vector3d spaceVector)
+        public void VectorSpacing(int count, Vector3d spaceVector)
         {
             Count = count;
             Transform moveMesh = Transform.Translation(spaceVector);
@@ -29,17 +31,17 @@ namespace T_RexEngine
                 RebarGroupMesh.Add(duplicateMesh);
             }
         }
-        public void CurveSpacing(int count, Plane rebarShapePlane, Curve spaceCurve)
+        public void CurveSpacing(int count, Curve spaceCurve)
         {
             Count = count;
-            double[] divideParameters = spaceCurve.DivideByCount(Count, true);
+            double[] divideParameters = spaceCurve.DivideByCount(Count - 1, true);
             Plane[] perpendicularPlanes = spaceCurve.GetPerpendicularFrames(divideParameters);
 
             RebarGroupMesh = new List<Mesh>();
 
             foreach (var plane in perpendicularPlanes)
             {
-                Transform planeToPlane = Transform.PlaneToPlane(rebarShapePlane, plane);
+                Transform planeToPlane = Transform.PlaneToPlane(RebarShape.RebarPlane, plane);
                 Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
                 rebarShapeMesh.Transform(planeToPlane);
                 RebarGroupMesh.Add(rebarShapeMesh);
@@ -51,7 +53,21 @@ namespace T_RexEngine
         }
 
         public RebarShape RebarShape { get; set; }
-        public int Count { get; set; }
+        public int Count
+        {
+            get { return _count; }
+            set
+            {
+                if (value > 1)
+                {
+                    _count = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Count parameter should be larger than 1");
+                }
+            }
+        }
         public List<Mesh> RebarGroupMesh { get; set; }
     }
 }
