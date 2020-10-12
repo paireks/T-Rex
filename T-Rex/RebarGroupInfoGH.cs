@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Grasshopper.Kernel;
 using Rhino.Geometry;
+using T_RexEngine;
 
 namespace T_Rex
 {
@@ -28,6 +29,14 @@ namespace T_Rex
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            RebarGroup rebarGroup = null;
+
+            DA.GetData(0, ref rebarGroup);
+
+            DA.SetData(0, rebarGroup.Count);
+            DA.SetData(1, rebarGroup.RebarShape.Props.Material);
+            DA.SetData(2, rebarGroup.Volume);
+            DA.SetData(3, rebarGroup.Weight);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -35,6 +44,10 @@ namespace T_Rex
             {
                 return null;
             }
+        }
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.secondary; }
         }
         public override Guid ComponentGuid
         {

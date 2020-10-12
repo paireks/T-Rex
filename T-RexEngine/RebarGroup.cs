@@ -47,6 +47,69 @@ namespace T_RexEngine
                 RebarGroupMesh.Add(rebarShapeMesh);
             }
         }
+        public void VectorLengthSpacing(Vector3d startEndVector, double spacingLength, int spacingType)
+        {
+            if (startEndVector.Length < spacingLength)
+            {
+                throw new ArgumentException("Spacing Length should be smaller than Vector length");
+            }
+
+            double divisionOfVectorLengthAndSpacing = startEndVector.Length / spacingLength;
+            Count = Convert.ToInt32(Math.Floor(divisionOfVectorLengthAndSpacing));
+            double restOfDistance = (divisionOfVectorLengthAndSpacing - Count) * spacingLength;
+
+            startEndVector.Unitize();
+            Vector3d constantDistanceVector = startEndVector * spacingLength;
+            Vector3d restDistanceVector = startEndVector * restOfDistance;
+            Transform moveConstantValue = Transform.Translation(constantDistanceVector);
+            Transform moveRestValue = Transform.Translation(restDistanceVector);
+
+            RebarGroupMesh = new List<Mesh>();
+
+            Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
+            RebarGroupMesh.Add(rebarShapeMesh);
+            Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
+            Mesh duplicateMesh;
+
+            if (spacingType == 0)
+            {
+                for (int i = 0; i < Count - 2; i++)
+                {
+                    duplicateMeshForTranslation.Transform(moveConstantValue);
+                    duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                    RebarGroupMesh.Add(duplicateMesh);
+                }
+
+                duplicateMeshForTranslation.Transform(moveRestValue);
+                duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                RebarGroupMesh.Add(duplicateMesh);
+            }
+            else if (spacingType == 1)
+            {
+                duplicateMeshForTranslation.Transform(moveRestValue);
+                duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                RebarGroupMesh.Add(duplicateMesh);
+
+                for (int i = 0; i < Count - 2; i++)
+                {
+                    duplicateMeshForTranslation.Transform(moveConstantValue);
+                    duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                    RebarGroupMesh.Add(duplicateMesh);
+                }
+            }
+            else if (spacingType == 2)
+            {
+
+            }
+            else if (spacingType == 3)
+            {
+
+            }
+            else
+            {
+                throw new ArgumentException("Spacing type should be between 0 and 3");
+            }
+        }
         public override string ToString()
         {
             return "Rebar Group";
@@ -69,5 +132,21 @@ namespace T_RexEngine
             }
         }
         public List<Mesh> RebarGroupMesh { get; set; }
+
+        public double Volume
+        {
+            get
+            {
+                return Count * RebarShape.RebarCurve.GetLength() * Math.PI * Math.Pow(RebarShape.Props.Radius, 2.0);
+            }
+        }
+
+        public double Weight
+        {
+            get
+            {
+                return Count * Volume * RebarShape.Props.Material.Density;
+            }
+        }
     }
 }

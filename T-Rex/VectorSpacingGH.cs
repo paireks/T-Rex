@@ -19,7 +19,7 @@ namespace T_Rex
         {
             pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Rebar Shape to create Rebar Group",
                 GH_ParamAccess.item);
-            pManager.AddVectorParameter("Vector", "Vector", "Set spacing between bars as a vector",
+            pManager.AddVectorParameter("Spacing Vector", "Spacing Vector", "Set spacing between bars as a vector",
                 GH_ParamAccess.item);
             pManager.AddIntegerParameter("Count", "Count", "Set how many bars should be in the group",
                 GH_ParamAccess.item);

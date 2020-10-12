@@ -16,6 +16,15 @@ namespace T_RexEngine
             Density = density;
         }
 
+        public override string ToString()
+        {
+            return String.Format("Material{0}" +
+                                 "Name: {1}{0}" +
+                                 "Grade: {2}{0}" +
+                                 "Density: {3}{0}",
+                Environment.NewLine, Name, Grade, Density);
+        }
+
         public string Name { get; set; }
         public string Grade { get; set; }
         public double Density { get; set; }
