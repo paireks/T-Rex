@@ -55,7 +55,7 @@ namespace T_RexEngine
             }
 
             double divisionOfVectorLengthAndSpacing = startEndVector.Length / spacingLength;
-            Count = Convert.ToInt32(Math.Floor(divisionOfVectorLengthAndSpacing));
+            Count = Convert.ToInt32(Math.Floor(divisionOfVectorLengthAndSpacing)) + 1;
             double restOfDistance = (divisionOfVectorLengthAndSpacing - Count) * spacingLength;
 
             startEndVector.Unitize();
@@ -73,16 +73,19 @@ namespace T_RexEngine
 
             if (spacingType == 0)
             {
-                for (int i = 0; i < Count - 2; i++)
+                for (int i = 0; i < Count - 1; i++)
                 {
                     duplicateMeshForTranslation.Transform(moveConstantValue);
                     duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                     RebarGroupMesh.Add(duplicateMesh);
                 }
 
-                duplicateMeshForTranslation.Transform(moveRestValue);
-                duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
-                RebarGroupMesh.Add(duplicateMesh);
+                if (restOfDistance < RebarShape.Props.Diameter)
+                {
+                    duplicateMeshForTranslation.Transform(moveRestValue);
+                    duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                    RebarGroupMesh.Add(duplicateMesh);
+                }
             }
             else if (spacingType == 1)
             {
@@ -90,7 +93,7 @@ namespace T_RexEngine
                 duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                 RebarGroupMesh.Add(duplicateMesh);
 
-                for (int i = 0; i < Count - 2; i++)
+                for (int i = 0; i < Count - 1; i++)
                 {
                     duplicateMeshForTranslation.Transform(moveConstantValue);
                     duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
