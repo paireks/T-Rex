@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rhino.Geometry;
 
 namespace T_RexEngine
 {
     public class RebarGroup
     {
-        private int _count;
-
         public RebarGroup(RebarShape rebarShape)
         {
             RebarShape = rebarShape;
         }
         public void VectorSpacing(int count, Vector3d spaceVector)
         {
+            if (count <= 1)
+            {
+                throw new ArgumentException("Count parameter should be larger than 1");
+            }
             Count = count;
             Transform moveMesh = Transform.Translation(spaceVector);
 
             Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
-            RebarGroupMesh = new List<Mesh>();
-            RebarGroupMesh.Add(rebarShapeMesh.DuplicateMesh());
+            RebarGroupMesh = new List<Mesh> {rebarShapeMesh.DuplicateMesh()};
 
             for (int i = 0; i < count - 1; i++)
             {
@@ -33,6 +31,10 @@ namespace T_RexEngine
         }
         public void CurveSpacing(int count, Curve spaceCurve)
         {
+            if (count <= 1)
+            {
+                throw new ArgumentException("Count parameter should be larger than 1");
+            }
             Count = count;
             double[] divideParameters = spaceCurve.DivideByCount(Count - 1, true);
             Plane[] perpendicularPlanes = spaceCurve.GetPerpendicularFrames(divideParameters);
@@ -54,61 +56,106 @@ namespace T_RexEngine
                 throw new ArgumentException("Spacing Length should be smaller than Vector length");
             }
 
-            double divisionOfVectorLengthAndSpacing = startEndVector.Length / spacingLength;
-            Count = Convert.ToInt32(Math.Floor(divisionOfVectorLengthAndSpacing)) + 1;
-            double restOfDistance = startEndVector.Length % spacingLength;
+            double lengthFromStartToEnd = startEndVector.Length;
+            double restOfDistance = lengthFromStartToEnd % spacingLength;
+            double halfRestOfDistance = restOfDistance / 2.0;
 
             startEndVector.Unitize();
             Vector3d constantDistanceVector = startEndVector * spacingLength;
             Vector3d restDistanceVector = startEndVector * restOfDistance;
+            Vector3d halfOfRestDistanceVector = startEndVector * halfRestOfDistance;
             Transform moveConstantValue = Transform.Translation(constantDistanceVector);
             Transform moveRestValue = Transform.Translation(restDistanceVector);
+            Transform moveHalfOfRestValue = Transform.Translation(halfOfRestDistanceVector);
 
             RebarGroupMesh = new List<Mesh>();
+            Count = 0;
 
             Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
             RebarGroupMesh.Add(rebarShapeMesh);
+            Count += 1;
+            
             Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
             Mesh duplicateMesh;
-            Mesh duplicateEndMesh;
+            double distanceToCover = lengthFromStartToEnd;
 
             switch (spacingType)
             {
                 case 0:
                 {
-                    for (int i = 0; i < Count - 1; i++)
+                    while (distanceToCover > restOfDistance)
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         RebarGroupMesh.Add(duplicateMesh);
+                        distanceToCover -= spacingLength;
+                        Count += 1;
                     }
 
                     if (restOfDistance > tolerance)
                     {
                         duplicateMeshForTranslation.Transform(moveRestValue);
-                        duplicateEndMesh = duplicateMeshForTranslation.DuplicateMesh();
-                        RebarGroupMesh.Add(duplicateEndMesh);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                        distanceToCover -= restOfDistance;
+                        Count += 1;
                     }
-                    
+
                     break;
                 }
                 case 1:
                 {
-                    duplicateMeshForTranslation.Transform(moveRestValue);
-                    duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
-                    RebarGroupMesh.Add(duplicateMesh);
+                    if (restOfDistance > tolerance)
+                    {
+                        duplicateMeshForTranslation.Transform(moveRestValue);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                        distanceToCover -= restOfDistance;
+                        Count += 1;
+                    }
 
-                    for (int i = 0; i < Count - 1; i++)
+                    while (distanceToCover > restOfDistance)
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         RebarGroupMesh.Add(duplicateMesh);
+                        distanceToCover -= spacingLength;
+                        Count += 1;
                     }
 
                     break;
                 }
                 case 2:
+                {
+                    if (restOfDistance > tolerance)
+                    {
+                        duplicateMeshForTranslation.Transform(moveHalfOfRestValue);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                        distanceToCover -= halfRestOfDistance;
+                        Count += 1;
+                    }
+                    
+                    while (distanceToCover > halfRestOfDistance)
+                    {
+                        duplicateMeshForTranslation.Transform(moveConstantValue);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                        distanceToCover -= spacingLength;
+                        Count += 1;
+                    }
+
+                    if (restOfDistance > tolerance)
+                    {
+                        duplicateMeshForTranslation.Transform(moveHalfOfRestValue);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                        distanceToCover -= halfRestOfDistance;
+                        Count += 1;
+                    }
+
                     break;
+                }
                 case 3:
                     break;
                 default:
@@ -120,38 +167,10 @@ namespace T_RexEngine
             return "Rebar Group";
         }
 
-        public RebarShape RebarShape { get; set; }
-        public int Count
-        {
-            get { return _count; }
-            set
-            {
-                if (value > 1)
-                {
-                    _count = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Count parameter should be larger than 1");
-                }
-            }
-        }
-        public List<Mesh> RebarGroupMesh { get; set; }
-
-        public double Volume
-        {
-            get
-            {
-                return Count * RebarShape.RebarCurve.GetLength() * Math.PI * Math.Pow(RebarShape.Props.Radius, 2.0);
-            }
-        }
-
-        public double Weight
-        {
-            get
-            {
-                return Count * Volume * RebarShape.Props.Material.Density;
-            }
-        }
+        public RebarShape RebarShape { get; }
+        public int Count { get; private set; }
+        public List<Mesh> RebarGroupMesh { get; private set; }
+        public double Volume => Count * RebarShape.RebarCurve.GetLength() * Math.PI * Math.Pow(RebarShape.Props.Radius, 2.0);
+        public double Weight => Count * Volume * RebarShape.Props.Material.Density;
     }
 }
