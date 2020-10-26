@@ -27,6 +27,8 @@ namespace T_Rex
                                                          "1: Constant spacing with different first one, " +
                                                          "2: Constant spacing with first and last different, " +
                                                          "3: Smaller (or the same) spacing length than given, but constant for all bars from start to end", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Tolerance", "Tolerance",
+                "Tolerance to remove duplicate meshes at the end or start of vectors", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -40,14 +42,16 @@ namespace T_Rex
             Vector3d vector = new Vector3d();
             double spacingDistance = double.NaN;
             int spacingType = 0;
+            double tolerance = double.NaN;
 
             DA.GetData(0, ref rebarShape);
             DA.GetData(1, ref vector);
             DA.GetData(2, ref spacingDistance);
             DA.GetData(3, ref spacingType);
+            DA.GetData(4, ref tolerance);
 
             RebarGroup rebarGroup = new RebarGroup(rebarShape);
-            rebarGroup.VectorLengthSpacing(vector, spacingDistance, spacingType);
+            rebarGroup.VectorLengthSpacing(vector, spacingDistance, spacingType, tolerance);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

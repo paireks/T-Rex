@@ -47,7 +47,7 @@ namespace T_RexEngine
                 RebarGroupMesh.Add(rebarShapeMesh);
             }
         }
-        public void VectorLengthSpacing(Vector3d startEndVector, double spacingLength, int spacingType)
+        public void VectorLengthSpacing(Vector3d startEndVector, double spacingLength, int spacingType, double tolerance)
         {
             if (startEndVector.Length < spacingLength)
             {
@@ -56,7 +56,7 @@ namespace T_RexEngine
 
             double divisionOfVectorLengthAndSpacing = startEndVector.Length / spacingLength;
             Count = Convert.ToInt32(Math.Floor(divisionOfVectorLengthAndSpacing)) + 1;
-            double restOfDistance = (divisionOfVectorLengthAndSpacing - Count) * spacingLength;
+            double restOfDistance = startEndVector.Length % spacingLength;
 
             startEndVector.Unitize();
             Vector3d constantDistanceVector = startEndVector * spacingLength;
@@ -70,47 +70,49 @@ namespace T_RexEngine
             RebarGroupMesh.Add(rebarShapeMesh);
             Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
             Mesh duplicateMesh;
+            Mesh duplicateEndMesh;
 
-            if (spacingType == 0)
+            switch (spacingType)
             {
-                for (int i = 0; i < Count - 1; i++)
+                case 0:
                 {
-                    duplicateMeshForTranslation.Transform(moveConstantValue);
-                    duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
-                    RebarGroupMesh.Add(duplicateMesh);
-                }
+                    for (int i = 0; i < Count - 1; i++)
+                    {
+                        duplicateMeshForTranslation.Transform(moveConstantValue);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                    }
 
-                if (restOfDistance < RebarShape.Props.Diameter)
+                    if (restOfDistance > tolerance)
+                    {
+                        duplicateMeshForTranslation.Transform(moveRestValue);
+                        duplicateEndMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateEndMesh);
+                    }
+                    
+                    break;
+                }
+                case 1:
                 {
                     duplicateMeshForTranslation.Transform(moveRestValue);
                     duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                     RebarGroupMesh.Add(duplicateMesh);
+
+                    for (int i = 0; i < Count - 1; i++)
+                    {
+                        duplicateMeshForTranslation.Transform(moveConstantValue);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                    }
+
+                    break;
                 }
-            }
-            else if (spacingType == 1)
-            {
-                duplicateMeshForTranslation.Transform(moveRestValue);
-                duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
-                RebarGroupMesh.Add(duplicateMesh);
-
-                for (int i = 0; i < Count - 1; i++)
-                {
-                    duplicateMeshForTranslation.Transform(moveConstantValue);
-                    duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
-                    RebarGroupMesh.Add(duplicateMesh);
-                }
-            }
-            else if (spacingType == 2)
-            {
-
-            }
-            else if (spacingType == 3)
-            {
-
-            }
-            else
-            {
-                throw new ArgumentException("Spacing type should be between 0 and 3");
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    throw new ArgumentException("Spacing type should be between 0 and 3");
             }
         }
         public override string ToString()
