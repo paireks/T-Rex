@@ -157,7 +157,30 @@ namespace T_RexEngine
                     break;
                 }
                 case 3:
+
+                    Count = Convert.ToInt32(Math.Floor( lengthFromStartToEnd / spacingLength ));
+
+                    if (restOfDistance > tolerance)
+                    {
+                        Count += 1;
+                    }
+
+                    double actualSmallerSpacingLength = lengthFromStartToEnd / Convert.ToDouble(Count);
+                    
+                    Vector3d actualSmallerSpacingVector = startEndVector * actualSmallerSpacingLength;
+                    Transform moveSmallerConstantValue = Transform.Translation(actualSmallerSpacingVector);
+
+                    for (int i = 0; i < Count; i++)
+                    {
+                        duplicateMeshForTranslation.Transform(moveSmallerConstantValue);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                    }
+
+                    Count += 1;
+                    
                     break;
+                
                 default:
                     throw new ArgumentException("Spacing type should be between 0 and 3");
             }
