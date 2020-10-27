@@ -10,26 +10,7 @@ namespace T_RexEngine
         {
             RebarShape = rebarShape;
         }
-        public void VectorSpacing(int count, Vector3d spaceVector)
-        {
-            if (count <= 1)
-            {
-                throw new ArgumentException("Count parameter should be larger than 1");
-            }
-            Count = count;
-            Transform moveMesh = Transform.Translation(spaceVector);
-
-            Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
-            RebarGroupMesh = new List<Mesh> {rebarShapeMesh.DuplicateMesh()};
-
-            for (int i = 0; i < count - 1; i++)
-            {
-                rebarShapeMesh.Transform(moveMesh);
-                Mesh duplicateMesh = rebarShapeMesh.DuplicateMesh();
-                RebarGroupMesh.Add(duplicateMesh);
-            }
-        }
-        public void CurveSpacing(int count, Curve spaceCurve)
+        public void CurveSpacing(int count, Curve spaceCurve, double angle)
         {
             if (count <= 1)
             {
@@ -43,10 +24,36 @@ namespace T_RexEngine
 
             foreach (var plane in perpendicularPlanes)
             {
+                plane.Rotate(angle, plane.ZAxis);
                 Transform planeToPlane = Transform.PlaneToPlane(RebarShape.RebarPlane, plane);
                 Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
                 rebarShapeMesh.Transform(planeToPlane);
                 RebarGroupMesh.Add(rebarShapeMesh);
+            }
+        }
+        public void VectorCountSpacing(Vector3d startEndVector, int count)
+        {
+            if (count <= 1)
+            {
+                throw new ArgumentException("Count parameter should be larger than 1");
+            }
+            Count = count;
+            double lengthFromStartToEnd = startEndVector.Length;
+            double spacingLength = lengthFromStartToEnd / (Convert.ToDouble(Count) - 1);
+            startEndVector.Unitize();
+            Vector3d constantDistanceVector = startEndVector * spacingLength;
+            Transform moveConstantValue = Transform.Translation(constantDistanceVector);
+            Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
+
+            RebarGroupMesh = new List<Mesh> {rebarShapeMesh};
+
+            Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
+            Mesh duplicateMesh;
+            for (int i = 0; i < Count - 1; i++)
+            {
+                duplicateMeshForTranslation.Transform(moveConstantValue);
+                duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                RebarGroupMesh.Add(duplicateMesh);
             }
         }
         public void VectorLengthSpacing(Vector3d startEndVector, double spacingLength, int spacingType, double tolerance)

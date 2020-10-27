@@ -7,11 +7,11 @@ using T_RexEngine;
 
 namespace T_Rex
 {
-    public class VectorSpacingGH : GH_Component
+    public class VectorCountSpacingGH : GH_Component
     {
-        public VectorSpacingGH()
-          : base("Vector Spacing", "Vector Spacing",
-              "Creates Rebar Group with vector spacing between each rebar",
+        public VectorCountSpacingGH()
+          : base("Vector Count Spacing", "Vector Count Spacing",
+              "Creates Rebar Group with vector and rebar count. Start begin where the rebar shape is.",
               "T-Rex", "Rebar Group")
         {
         }
@@ -19,11 +19,9 @@ namespace T_Rex
         {
             pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Rebar Shape to create Rebar Group",
                 GH_ParamAccess.item);
-            pManager.AddVectorParameter("Spacing Vector", "Spacing Vector", "Set spacing between bars as a vector",
+            pManager.AddVectorParameter("Vector", "Vector", "Vector that defines direction and distance where all rebars will be created",
                 GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Count", "Count", "Set how many bars should be in the group",
-                GH_ParamAccess.item);
-
+            pManager.AddIntegerParameter("Count", "Count", "How many rebars will be in a group", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -34,16 +32,15 @@ namespace T_Rex
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             RebarShape rebarShape = null;
+            Vector3d vector = new Vector3d();
             int count = 0;
-            Vector3d spaceVector = new Vector3d();
 
             DA.GetData(0, ref rebarShape);
-            DA.GetData(1, ref spaceVector);
+            DA.GetData(1, ref vector);
             DA.GetData(2, ref count);
 
-
             RebarGroup rebarGroup = new RebarGroup(rebarShape);
-            rebarGroup.VectorSpacing(count, spaceVector);
+            rebarGroup.VectorCountSpacing(vector, count);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);
@@ -57,7 +54,7 @@ namespace T_Rex
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("9e5f8c11-d3bb-4934-b7c2-6b096e3dd6da"); }
+            get { return new Guid("9dd8dbe4-4e1c-47be-9e3a-57816e581207"); }
         }
     }
 }
