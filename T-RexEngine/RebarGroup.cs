@@ -84,13 +84,13 @@ namespace T_RexEngine
             
             Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
             Mesh duplicateMesh;
-            double distanceToCover = lengthFromStartToEnd;
+            double distanceToCover = lengthFromStartToEnd; // 1.432
 
             switch (spacingType)
             {
                 case 0:
                 {
-                    while (distanceToCover > restOfDistance)
+                    while (distanceToCover > restOfDistance + tolerance) // 1.432 > 0.232 // 1.032 > 0.232 // 0.632 > 0.232 // 0.232 > 0.232 nie, więc break (jego zdaniem tak)
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
@@ -121,7 +121,7 @@ namespace T_RexEngine
                         Count += 1;
                     }
 
-                    while (distanceToCover > restOfDistance)
+                    while (distanceToCover > restOfDistance + tolerance)
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
@@ -143,7 +143,7 @@ namespace T_RexEngine
                         Count += 1;
                     }
                     
-                    while (distanceToCover > halfRestOfDistance)
+                    while (distanceToCover > halfRestOfDistance + tolerance)
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
@@ -201,6 +201,6 @@ namespace T_RexEngine
         public int Count { get; private set; }
         public List<Mesh> RebarGroupMesh { get; private set; }
         public double Volume => Count * RebarShape.RebarCurve.GetLength() * Math.PI * Math.Pow(RebarShape.Props.Radius, 2.0);
-        public double Weight => Count * Volume * RebarShape.Props.Material.Density;
+        public double Weight => Volume * RebarShape.Props.Material.Density;
     }
 }
