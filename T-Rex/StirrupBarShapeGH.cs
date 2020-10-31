@@ -10,8 +10,8 @@ namespace T_Rex
     public class StirrupBarShapeGH : GH_Component
     {
         public StirrupBarShapeGH()
-          : base("Stirrup Bar Shape", "Stirrup Bar Shape",
-              "Create Stirrup Bar Shape",
+          : base("Stirrup Shape", "Stirrup Shape",
+              "Create Stirrup Shape",
               "T-Rex", "Rebar Shape")
         {
         }
@@ -51,7 +51,7 @@ namespace T_Rex
             DA.GetData(5, ref hookLength);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.StirrupBarShape(rectangle, properties, bendingRollerDiameter,  hooksType, coverDimensions, hookLength);
+            rebarShape.StirrupShape(rectangle, bendingRollerDiameter,  hooksType, coverDimensions, hookLength);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

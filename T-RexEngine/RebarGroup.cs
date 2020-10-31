@@ -84,13 +84,13 @@ namespace T_RexEngine
             
             Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
             Mesh duplicateMesh;
-            double distanceToCover = lengthFromStartToEnd; // 1.432
+            double distanceToCover = lengthFromStartToEnd;
 
             switch (spacingType)
             {
                 case 0:
                 {
-                    while (distanceToCover > restOfDistance + tolerance) // 1.432 > 0.232 // 1.032 > 0.232 // 0.632 > 0.232 // 0.232 > 0.232 nie, więc break (jego zdaniem tak)
+                    while (distanceToCover > restOfDistance + tolerance)
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();

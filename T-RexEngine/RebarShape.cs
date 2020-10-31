@@ -37,31 +37,30 @@ namespace T_RexEngine
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
 
-        public void LineBarShape(Rectangle3d rectangle, RebarProperties properties, int position,
-            CoverDimensions coverDimensions)
+        public void LineBarShape(Rectangle3d rectangle, int position, CoverDimensions coverDimensions)
         {
             Point3d startPoint;
             Point3d endPoint;
 
             if (position == 0)
             {
-                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left, rectangle.Y.Max - coverDimensions.Top - properties.Radius, 0);
-                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right, rectangle.Y.Max - coverDimensions.Top - properties.Radius, 0);
+                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left, rectangle.Y.Max - coverDimensions.Top - Props.Radius, 0);
+                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right, rectangle.Y.Max - coverDimensions.Top - Props.Radius, 0);
             }
             else if (position == 1)
             {
-                startPoint = new Point3d(rectangle.X.Max - coverDimensions.Right - properties.Radius, rectangle.Y.Max - coverDimensions.Top,0);
-                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right - properties.Radius, rectangle.Y.Min + coverDimensions.Bottom,0);
+                startPoint = new Point3d(rectangle.X.Max - coverDimensions.Right - Props.Radius, rectangle.Y.Max - coverDimensions.Top,0);
+                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right - Props.Radius, rectangle.Y.Min + coverDimensions.Bottom,0);
             }
             else if (position == 2)
             {
-                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left, rectangle.Y.Min + coverDimensions.Bottom + properties.Radius, 0);
-                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right, rectangle.Y.Min + coverDimensions.Bottom + properties.Radius, 0);
+                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left, rectangle.Y.Min + coverDimensions.Bottom + Props.Radius, 0);
+                endPoint = new Point3d(rectangle.X.Max - coverDimensions.Right, rectangle.Y.Min + coverDimensions.Bottom + Props.Radius, 0);
             }
             else if (position == 3)
             {
-                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left + properties.Radius, rectangle.Y.Min + coverDimensions.Bottom,0);
-                endPoint = new Point3d(rectangle.X.Min + coverDimensions.Left + properties.Radius, rectangle.Y.Max - coverDimensions.Top,0);
+                startPoint = new Point3d(rectangle.X.Min + coverDimensions.Left + Props.Radius, rectangle.Y.Min + coverDimensions.Bottom,0);
+                endPoint = new Point3d(rectangle.X.Min + coverDimensions.Left + Props.Radius, rectangle.Y.Max - coverDimensions.Top,0);
             }
             else
             {
@@ -79,7 +78,7 @@ namespace T_RexEngine
             RebarPlane = rectangle.Plane;
         }
 
-        public void UBarShape(Rectangle3d rectangle, RebarProperties properties, double bendingRollerDiameter,
+        public void UBarShape(Rectangle3d rectangle, double bendingRollerDiameter,
             bool isBottom, CoverDimensions coverDimensions, double hookLength)
         {
             double yBottomLevel;
@@ -87,19 +86,19 @@ namespace T_RexEngine
 
             if (isBottom)
             {
-                yBottomLevel = rectangle.Y.Min + coverDimensions.Bottom + properties.Radius;
+                yBottomLevel = rectangle.Y.Min + coverDimensions.Bottom + Props.Radius;
                 yTopLevel = rectangle.Y.Min + coverDimensions.Bottom + hookLength;
             }
             else
             {
-                yBottomLevel = rectangle.Y.Max - coverDimensions.Top - properties.Radius;
+                yBottomLevel = rectangle.Y.Max - coverDimensions.Top - Props.Radius;
                 yTopLevel = rectangle.Y.Max - coverDimensions.Top - hookLength;
             }
 
-            Point3d topLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + properties.Radius, yTopLevel, 0);
-            Point3d bottomLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + properties.Radius, yBottomLevel, 0);
-            Point3d bottomRight = new Point3d(rectangle.X.Max - coverDimensions.Right - properties.Radius, yBottomLevel, 0);
-            Point3d topRight = new Point3d(rectangle.X.Max - coverDimensions.Right - properties.Radius, yTopLevel, 0);
+            Point3d topLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + Props.Radius, yTopLevel, 0);
+            Point3d bottomLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + Props.Radius, yBottomLevel, 0);
+            Point3d bottomRight = new Point3d(rectangle.X.Max - coverDimensions.Right - Props.Radius, yBottomLevel, 0);
+            Point3d topRight = new Point3d(rectangle.X.Max - coverDimensions.Right - Props.Radius, yTopLevel, 0);
 
             PolylineCurve polyline = new PolylineCurve(new List<Point3d> {topLeft, bottomLeft, bottomRight, topRight});
             Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, rectangle.Plane);
@@ -112,27 +111,48 @@ namespace T_RexEngine
             RebarPlane = rectangle.Plane;
         }
 
-        public void StirrupBarShape(Rectangle3d rectangle, RebarProperties properties, double bendingRollerDiameter,
+        public void SpacerShape(Point3d insertPoint, double height, double length, double width, double bendingRollerDiameter)
+        {
+            List<Point3d> spacerPoints = new List<Point3d>
+            {
+                new Point3d(insertPoint.X - length / 2.0, insertPoint.Y - width / 2.0 + Props.Radius, insertPoint.Z + Props.Radius),
+                new Point3d(insertPoint.X, insertPoint.Y - width / 2.0 + Props.Radius, insertPoint.Z + Props.Radius),
+                new Point3d(insertPoint.X, insertPoint.Y - width / 2.0 + Props.Radius, insertPoint.Z + height - Props.Radius),
+                new Point3d(insertPoint.X, insertPoint.Y + width / 2.0 - Props.Radius , insertPoint.Z + height - Props.Radius),
+                new Point3d(insertPoint.X, insertPoint.Y + width / 2.0 - Props.Radius, insertPoint.Z + Props.Radius),
+                new Point3d(insertPoint.X + length / 2.0, insertPoint.Y + width / 2.0 - Props.Radius, insertPoint.Z + Props.Radius)
+            };
+
+
+            PolylineCurve polyline = new PolylineCurve(spacerPoints);
+            Curve rebarPolyline = CreateFilletPolylineWithBendingRoller(polyline, bendingRollerDiameter);
+            
+            RebarCurve = rebarPolyline;
+            RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
+            RebarPlane = new Plane(insertPoint, Vector3d.XAxis, Vector3d.YAxis);
+        }
+
+        public void StirrupShape(Rectangle3d rectangle, double bendingRollerDiameter,
              int hooksType, CoverDimensions coverDimensions, double hookLength)
         {
             List<Point3d> stirrupPoints = new List<Point3d>();
 
             double bendingRollerRadius = bendingRollerDiameter / 2.0;
 
-            double yBottom = rectangle.Y.Min + coverDimensions.Bottom + properties.Radius;
-            double yTop = rectangle.Y.Max - coverDimensions.Top - properties.Radius;
-            double xLeft = rectangle.X.Min + coverDimensions.Left + properties.Radius;
-            double xRight = rectangle.X.Max - coverDimensions.Right - properties.Radius;
+            double yBottom = rectangle.Y.Min + coverDimensions.Bottom + Props.Radius;
+            double yTop = rectangle.Y.Max - coverDimensions.Top - Props.Radius;
+            double xLeft = rectangle.X.Min + coverDimensions.Left + Props.Radius;
+            double xRight = rectangle.X.Max - coverDimensions.Right - Props.Radius;
 
             if (hooksType == 0)
             {
-                stirrupPoints.Add(new Point3d(xLeft + hookLength - properties.Radius, yTop, - properties.Radius));
-                stirrupPoints.Add(new Point3d(xLeft, yTop, - properties.Radius));
-                stirrupPoints.Add(new Point3d(xLeft, yBottom, - properties.Radius));
-                stirrupPoints.Add(new Point3d(xRight, yBottom, - properties.Radius));
-                stirrupPoints.Add(new Point3d(xRight, yTop, properties.Radius));
-                stirrupPoints.Add(new Point3d(xLeft, yTop, properties.Radius));
-                stirrupPoints.Add(new Point3d(xLeft, yTop - hookLength + properties.Radius, properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft + hookLength - Props.Radius, yTop, - Props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop, - Props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yBottom, - Props.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yBottom, - Props.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yTop, Props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop, Props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop - hookLength + Props.Radius, Props.Radius));
             }
             else if (hooksType == 1)
             {
@@ -141,15 +161,15 @@ namespace T_RexEngine
                     ((Math.Sqrt(2) - 1) * (bendingRollerRadius + Props.Radius) - Props.Radius + hookLength +
                      (bendingRollerRadius + Props.Radius)) / Math.Sqrt(2);
 
-                stirrupPoints.Add(new Point3d(xLeft + hookEndPointOffset, yTop + polylinePointOffsetForHook - hookEndPointOffset, -properties.Radius));
-                stirrupPoints.Add(new Point3d(xLeft, yTop + polylinePointOffsetForHook, -properties.Radius));
-                stirrupPoints.Add(new Point3d(xLeft, yBottom, -properties.Radius));
-                stirrupPoints.Add(new Point3d(xRight, yBottom, -properties.Radius));
-                stirrupPoints.Add(new Point3d(xRight, yTop, properties.Radius));
-                stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook, yTop, properties.Radius));
+                stirrupPoints.Add(new Point3d(xLeft + hookEndPointOffset, yTop + polylinePointOffsetForHook - hookEndPointOffset, -Props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop + polylinePointOffsetForHook, -Props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yBottom, -Props.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yBottom, -Props.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yTop, Props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook, yTop, Props.Radius));
                 stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook + hookEndPointOffset,
                                                   yTop - hookEndPointOffset,
-                                                  properties.Radius));
+                                                  Props.Radius));
             }
             else
             {
