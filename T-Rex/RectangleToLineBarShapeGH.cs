@@ -7,11 +7,11 @@ using T_RexEngine;
 
 namespace T_Rex
 {
-    public class LineBarShapeGH : GH_Component
+    public class RectangleToLineBarShapeGH : GH_Component
     {
-        public LineBarShapeGH()
-          : base("Line Bar Shape", "Line Bar Shape",
-              "Create Line Bar Shape",
+        public RectangleToLineBarShapeGH()
+          : base("Rectangle To Line Bar Shape", "Rectangle To Line Bar Shape",
+              "Convert rectangle to Line Bar Shape",
               "T-Rex", "Rebar Shape")
         {
         }
@@ -43,7 +43,7 @@ namespace T_Rex
             DA.GetData(3, ref coverDimensions);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.LineBarShape(rectangle, position, coverDimensions);
+            rebarShape.RectangleToLineBarShape(rectangle, position, coverDimensions);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);
@@ -57,7 +57,7 @@ namespace T_Rex
         }
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.secondary; }
+            get { return GH_Exposure.tertiary; }
         }
         public override Guid ComponentGuid
         {

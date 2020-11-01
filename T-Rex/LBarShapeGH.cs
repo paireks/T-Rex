@@ -7,11 +7,11 @@ using T_RexEngine;
 
 namespace T_Rex
 {
-    public class SpacerShapeGH : GH_Component
+    public class LBarShapeGH : GH_Component
     {
-        public SpacerShapeGH()
-          : base("Spacer Shape", "Spacer Shape",
-              "Create Spacer Shape",
+        public LBarShapeGH()
+          : base("L-Bar Shape", "L-Bar Shape",
+              "Create L-Bar Shape",
               "T-Rex", "Rebar Shape")
         {
         }
@@ -20,7 +20,6 @@ namespace T_Rex
             pManager.AddPlaneParameter("Plane", "Plane", "Plane where the shape will be inserted",
                 GH_ParamAccess.item);
             pManager.AddNumberParameter("Height", "Height", "Height of a spacer", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Length", "Length", "Length of a spacer", GH_ParamAccess.item);
             pManager.AddNumberParameter("Width", "Width", "Width of a spacer", GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
             pManager.AddNumberParameter("Bending Roller Diameter", "Bending Roller Diameter",
@@ -35,20 +34,18 @@ namespace T_Rex
         {
             Plane insertPlane = Plane.Unset;
             double height = 0.0;
-            double length = 0.0;
             double width = 0.0;
             RebarProperties properties = null;
             double bendingRollerDiameter = 0.0;
 
             DA.GetData(0, ref insertPlane);
             DA.GetData(1, ref height);
-            DA.GetData(2, ref length);
-            DA.GetData(3, ref width);
-            DA.GetData(4, ref properties);
-            DA.GetData(5, ref bendingRollerDiameter);
+            DA.GetData(2, ref width);
+            DA.GetData(3, ref properties);
+            DA.GetData(4, ref bendingRollerDiameter);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.SpacerShape(insertPlane, height, length, width, bendingRollerDiameter);
+            rebarShape.LBarShape(insertPlane, height, width, bendingRollerDiameter);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);
@@ -66,7 +63,7 @@ namespace T_Rex
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("16e6c58a-ceec-492b-8ddc-b2c79ab2f22c"); }
+            get { return new Guid("8060fc23-0368-4b6f-a727-a3fc57e8b95f"); }
         }
     }
 }

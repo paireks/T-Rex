@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rhino;
 using Rhino.Geometry;
 
@@ -37,7 +34,7 @@ namespace T_RexEngine
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
 
-        public void LineBarShape(Rectangle3d rectangle, int position, CoverDimensions coverDimensions)
+        public void RectangleToLineBarShape(Rectangle3d rectangle, int position, CoverDimensions coverDimensions)
         {
             Point3d startPoint;
             Point3d endPoint;
@@ -78,7 +75,7 @@ namespace T_RexEngine
             RebarPlane = rectangle.Plane;
         }
 
-        public void UBarShape(Rectangle3d rectangle, double bendingRollerDiameter,
+        public void RectangleToUBarShape(Rectangle3d rectangle, double bendingRollerDiameter,
             bool isBottom, CoverDimensions coverDimensions, double hookLength)
         {
             double yBottomLevel;
@@ -111,28 +108,49 @@ namespace T_RexEngine
             RebarPlane = rectangle.Plane;
         }
 
-        public void SpacerShape(Point3d insertPoint, double height, double length, double width, double bendingRollerDiameter)
+        public void SpacerShape(Plane insertPlane, double height, double length, double width, double bendingRollerDiameter)
         {
             List<Point3d> spacerPoints = new List<Point3d>
             {
-                new Point3d(insertPoint.X - length / 2.0, insertPoint.Y - width / 2.0 + Props.Radius, insertPoint.Z + Props.Radius),
-                new Point3d(insertPoint.X, insertPoint.Y - width / 2.0 + Props.Radius, insertPoint.Z + Props.Radius),
-                new Point3d(insertPoint.X, insertPoint.Y - width / 2.0 + Props.Radius, insertPoint.Z + height - Props.Radius),
-                new Point3d(insertPoint.X, insertPoint.Y + width / 2.0 - Props.Radius , insertPoint.Z + height - Props.Radius),
-                new Point3d(insertPoint.X, insertPoint.Y + width / 2.0 - Props.Radius, insertPoint.Z + Props.Radius),
-                new Point3d(insertPoint.X + length / 2.0, insertPoint.Y + width / 2.0 - Props.Radius, insertPoint.Z + Props.Radius)
+                new Point3d(- length / 2.0, - width / 2.0 + Props.Radius, Props.Radius),
+                new Point3d(0.0,- width / 2.0 + Props.Radius,Props.Radius),
+                new Point3d(0.0,- width / 2.0 + Props.Radius,height - Props.Radius),
+                new Point3d(0.0,width / 2.0 - Props.Radius ,height - Props.Radius),
+                new Point3d(0.0,width / 2.0 - Props.Radius,Props.Radius),
+                new Point3d(length / 2.0,width / 2.0 - Props.Radius,Props.Radius)
             };
 
 
             PolylineCurve polyline = new PolylineCurve(spacerPoints);
+            Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, insertPlane);
             Curve rebarPolyline = CreateFilletPolylineWithBendingRoller(polyline, bendingRollerDiameter);
+            rebarPolyline.Transform(planeToPlane);
             
             RebarCurve = rebarPolyline;
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
-            RebarPlane = new Plane(insertPoint, Vector3d.XAxis, Vector3d.YAxis);
+            RebarPlane = insertPlane;
+        }
+        
+        public void LBarShape(Plane insertPlane, double height, double width, double bendingRollerDiameter)
+        {
+            List<Point3d> lShapePoints = new List<Point3d>
+            {
+                new Point3d(0.0,Props.Radius, 0.0),
+                new Point3d(width - Props.Radius, Props.Radius, 0.0),
+                new Point3d(width - Props.Radius, height + Props.Radius, 0.0)
+            };
+            
+            PolylineCurve polyline = new PolylineCurve(lShapePoints);
+            Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, insertPlane);
+            Curve rebarPolyline = CreateFilletPolylineWithBendingRoller(polyline, bendingRollerDiameter);
+            rebarPolyline.Transform(planeToPlane);
+            
+            RebarCurve = rebarPolyline;
+            RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
+            RebarPlane = insertPlane;
         }
 
-        public void StirrupShape(Rectangle3d rectangle, double bendingRollerDiameter,
+        public void RectangleToStirrupShape(Rectangle3d rectangle, double bendingRollerDiameter,
              int hooksType, CoverDimensions coverDimensions, double hookLength)
         {
             List<Point3d> stirrupPoints = new List<Point3d>();

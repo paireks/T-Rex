@@ -61,17 +61,18 @@
     <Compile Include="CoverDimensionsGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
-    <Compile Include="LineBarShapeGH.cs" />
+    <Compile Include="RectangleToLineBarShapeGH.cs" />
+    <Compile Include="LBarShapeGH.cs" />
     <Compile Include="MaterialGH.cs" />
     <Compile Include="PolylineToRebarShapeGH.cs" />
     <Compile Include="RebarGroupInfoGH.cs" />
     <Compile Include="RebarPropertiesGH.cs" />
     <Compile Include="SpacerShapeGH.cs" />
     <Compile Include="VectorCountSpacingGH.cs" />
-    <Compile Include="StirrupBarShapeGH.cs" />
+    <Compile Include="RectangleToStirrupBarShapeGH.cs" />
     <Compile Include="T_RexInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UBarShapeGH.cs" />
+    <Compile Include="RectangleToUBarShapeGH.cs" />
     <Compile Include="VectorLengthSpacingGH.cs" />
   </ItemGroup>
   <ItemGroup>
