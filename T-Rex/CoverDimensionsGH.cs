@@ -17,10 +17,10 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("Left", "Left", "Left concrete cover dimension", GH_ParamAccess.item, 40);
-            pManager.AddNumberParameter("Right", "Right", "Right concrete cover dimension", GH_ParamAccess.item, 40);
-            pManager.AddNumberParameter("Top", "Top", "Top concrete cover dimension", GH_ParamAccess.item, 40);
-            pManager.AddNumberParameter("Bottom", "Bottom", "Bottom concrete cover dimension", GH_ParamAccess.item, 40);
+            pManager.AddNumberParameter("Left", "Left", "Left concrete cover dimension", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Right", "Right", "Right concrete cover dimension", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Top", "Top", "Top concrete cover dimension", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Bottom", "Bottom", "Bottom concrete cover dimension", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {

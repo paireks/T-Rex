@@ -22,6 +22,8 @@ namespace T_Rex
         {
             pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Rebar Shape to create Rebar Group",
                 GH_ParamAccess.item);
+            pManager.AddPlaneParameter("Shape's Origin Plane", "Shape's Origin Plane",
+                "This plane will be treated as origin, while the target planes will be the planes on the curve.", GH_ParamAccess.item);
             pManager.AddCurveParameter("Curve", "Curve", "Curve to divide and create Rebar Group along this curve",
                 GH_ParamAccess.item);
             pManager.AddIntegerParameter("Count", "Count", "Set how many bars should be in the group",
@@ -47,19 +49,21 @@ namespace T_Rex
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             RebarShape rebarShape = null;
+            Plane plane = Plane.Unset;
             int count = 0;
             Curve curve = null;
             double angle = 0.0;
 
             DA.GetData(0, ref rebarShape);
-            DA.GetData(1, ref curve);
-            DA.GetData(2, ref count);
-            if (!DA.GetData(3, ref angle)) return;
+            DA.GetData(1, ref plane);
+            DA.GetData(2, ref curve);
+            DA.GetData(3, ref count);
+            if (!DA.GetData(4, ref angle)) return;
             if (_useDegrees)
                 angle = RhinoMath.ToRadians(angle);
 
             RebarGroup rebarGroup = new RebarGroup(rebarShape);
-            rebarGroup.CurveSpacing(count, curve, angle);
+            rebarGroup.CurveSpacing(plane, count, curve, angle);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

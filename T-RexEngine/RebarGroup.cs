@@ -10,7 +10,7 @@ namespace T_RexEngine
         {
             RebarShape = rebarShape;
         }
-        public void CurveSpacing(int count, Curve spaceCurve, double angle)
+        public void CurveSpacing(Plane rebarPlane, int count, Curve spaceCurve, double angle)
         {
             if (count <= 1)
             {
@@ -25,7 +25,7 @@ namespace T_RexEngine
             foreach (var plane in perpendicularPlanes)
             {
                 plane.Rotate(angle, plane.ZAxis);
-                Transform planeToPlane = Transform.PlaneToPlane(RebarShape.RebarPlane, plane);
+                Transform planeToPlane = Transform.PlaneToPlane(rebarPlane, plane);
                 Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
                 rebarShapeMesh.Transform(planeToPlane);
                 RebarGroupMesh.Add(rebarShapeMesh);
