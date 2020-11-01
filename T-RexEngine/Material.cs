@@ -24,7 +24,6 @@ namespace T_RexEngine
                                  "Density: {3}{0}",
                 Environment.NewLine, Name, Grade, Density);
         }
-
         public string Name { get; set; }
         public string Grade { get; set; }
         public double Density { get; set; }
