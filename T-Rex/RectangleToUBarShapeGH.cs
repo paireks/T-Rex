@@ -22,9 +22,8 @@ namespace T_Rex
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
             pManager.AddNumberParameter("Bending Roller Diameter", "Bending Roller Diameter",
                 "Bending roller diameter", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("IsBottom", "IsBottom",
-                "If true = U-bar will be placed at the bottom of the rectangle, false = at the top",
-                GH_ParamAccess.item, true);
+            pManager.AddIntegerParameter("Position", "Position", "0 = top, 1 = right, 2 = bottom, 3 = left",
+                GH_ParamAccess.item);
             pManager.AddGenericParameter("Cover Dimensions", "Cover Dimensions", "Dimensions of a concrete cover",
                 GH_ParamAccess.item);
             pManager.AddNumberParameter("Hook Length", "Hook Length", "Length of a hook", GH_ParamAccess.item);
@@ -39,19 +38,19 @@ namespace T_Rex
             Rectangle3d rectangle = Rectangle3d.Unset;
             RebarProperties properties = null;
             double bendingRollerDiameter = 0.0;
-            bool isBottom = true;
+            int position = 0;
             CoverDimensions coverDimensions = null;
             double hookLength = 0.0;
 
             DA.GetData(0, ref rectangle);
             DA.GetData(1, ref properties);
             DA.GetData(2, ref bendingRollerDiameter);
-            DA.GetData(3, ref isBottom);
+            DA.GetData(3, ref position);
             DA.GetData(4, ref coverDimensions);
             DA.GetData(5, ref hookLength);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.RectangleToUBarShape(rectangle, bendingRollerDiameter, isBottom, coverDimensions, hookLength);
+            rebarShape.RectangleToUBarShape(rectangle, bendingRollerDiameter, position, coverDimensions, hookLength);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

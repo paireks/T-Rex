@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rhino;
 using Rhino.Geometry;
 
 namespace T_RexEngine
@@ -40,28 +39,47 @@ namespace T_RexEngine
             return new List<Point3d>{startPoint, endPoint};
         }
 
-        public static List<Point3d> CreateForUBarFromRectangle(Rectangle3d rectangle, double bendingRollerDiameter,
-            bool isBottom, CoverDimensions coverDimensions, double hookLength, RebarProperties props)
+        public static List<Point3d> CreateForUBarFromRectangle(Rectangle3d rectangle, 
+            int position, CoverDimensions coverDimensions, double hookLength, RebarProperties props)
         {
-            double yBottomLevel;
-            double yTopLevel;
 
-            if (isBottom)
+            Point3d topLeft;
+            Point3d bottomLeft;
+            Point3d bottomRight;
+            Point3d topRight;
+
+            if (position == 0)
             {
-                yBottomLevel = rectangle.Y.Min + coverDimensions.Bottom + props.Radius;
-                yTopLevel = rectangle.Y.Min + coverDimensions.Bottom + hookLength;
+                topLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + props.Radius, rectangle.Y.Max - coverDimensions.Top - hookLength, 0);
+                bottomLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + props.Radius, rectangle.Y.Max - coverDimensions.Top - props.Radius, 0);
+                bottomRight = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, rectangle.Y.Max - coverDimensions.Top - props.Radius, 0);
+                topRight = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, rectangle.Y.Max - coverDimensions.Top - hookLength, 0);
+            }
+            else if (position == 1)
+            {
+                topLeft = new Point3d(rectangle.X.Max - coverDimensions.Right - hookLength, rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
+                bottomLeft = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, rectangle.Y.Min + coverDimensions.Bottom - props.Radius, 0);
+                bottomRight = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius,rectangle.Y.Max - coverDimensions.Top - props.Radius,0);
+                topRight = new Point3d(rectangle.X.Max - coverDimensions.Right - hookLength, rectangle.Y.Max - coverDimensions.Top - props.Radius,0);
+            }
+            else if (position == 2)
+            {
+                topLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + props.Radius, rectangle.Y.Min + coverDimensions.Bottom + hookLength, 0);
+                bottomLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + props.Radius, rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
+                bottomRight = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
+                topRight = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, rectangle.Y.Min + coverDimensions.Bottom + hookLength, 0);
+            }
+            else if (position == 3)
+            {
+                topLeft = new Point3d(rectangle.X.Max + coverDimensions.Left + hookLength, rectangle.Y.Max - coverDimensions.Top - props.Radius, 0);
+                bottomLeft = new Point3d(rectangle.X.Max + coverDimensions.Left + props.Radius, rectangle.Y.Max - coverDimensions.Top - props.Radius, 0);
+                bottomRight = new Point3d(rectangle.X.Max + coverDimensions.Left + props.Radius, rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
+                topRight = new Point3d(rectangle.X.Max + coverDimensions.Left + hookLength,rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
             }
             else
             {
-                yBottomLevel = rectangle.Y.Max - coverDimensions.Top - props.Radius;
-                yTopLevel = rectangle.Y.Max - coverDimensions.Top - hookLength;
+                throw new ArgumentException("Position should be between 0 and 3");
             }
-
-            Point3d topLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + props.Radius, yTopLevel, 0);
-            Point3d bottomLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + props.Radius, yBottomLevel, 0);
-            Point3d bottomRight = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, yBottomLevel, 0);
-            Point3d topRight = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, yTopLevel, 0);
-            
             return new List<Point3d> {topLeft, bottomLeft, bottomRight, topRight};
         }
 

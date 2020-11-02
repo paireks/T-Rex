@@ -52,10 +52,10 @@ namespace T_RexEngine
         }
 
         public void RectangleToUBarShape(Rectangle3d rectangle, double bendingRollerDiameter,
-            bool isBottom, CoverDimensions coverDimensions, double hookLength)
+            int position, CoverDimensions coverDimensions, double hookLength)
         {
             List<Point3d> shapePoints =
-                RebarPoints.CreateForUBarFromRectangle(rectangle, bendingRollerDiameter, isBottom, coverDimensions, hookLength, Props);
+                RebarPoints.CreateForUBarFromRectangle(rectangle, position, coverDimensions, hookLength, Props);
             PolylineCurve polyline = new PolylineCurve(shapePoints);
             Curve filletedPolyline = CreateFilletPolylineWithBendingRoller(polyline, bendingRollerDiameter);
             
