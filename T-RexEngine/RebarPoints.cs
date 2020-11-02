@@ -80,5 +80,65 @@ namespace T_RexEngine
 
             return spacerPoints;
         }
+        
+        public static List<Point3d> CreateForLBarShape(double height, double width, RebarProperties props)
+        {
+            List<Point3d> lBarPoints = new List<Point3d>
+            {
+                new Point3d(0.0,props.Radius, 0.0),
+                new Point3d(width - props.Radius, props.Radius, 0.0),
+                new Point3d(width - props.Radius, height + props.Radius, 0.0)
+            };
+
+            return lBarPoints;
+        }
+        
+        public static List<Point3d> CreateStirrupFromRectangleShape(Rectangle3d rectangle,
+            int hooksType, double bendingRollerDiameter, CoverDimensions coverDimensions, double hookLength,
+            RebarProperties props)
+        {
+            List<Point3d> stirrupPoints = new List<Point3d>();
+
+            double bendingRollerRadius = bendingRollerDiameter / 2.0;
+
+            double yBottom = rectangle.Y.Min + coverDimensions.Bottom + props.Radius;
+            double yTop = rectangle.Y.Max - coverDimensions.Top - props.Radius;
+            double xLeft = rectangle.X.Min + coverDimensions.Left + props.Radius;
+            double xRight = rectangle.X.Max - coverDimensions.Right - props.Radius;
+
+            if (hooksType == 0)
+            {
+                stirrupPoints.Add(new Point3d(xLeft + hookLength - props.Radius, yTop, - props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop, - props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yBottom, - props.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yBottom, - props.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yTop, props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop, props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop - hookLength + props.Radius, props.Radius));
+            }
+            else if (hooksType == 1)
+            {
+                double polylinePointOffsetForHook = (bendingRollerRadius + props.Radius) * Math.Sqrt(2);
+                double hookEndPointOffset =
+                    ((Math.Sqrt(2) - 1) * (bendingRollerRadius + props.Radius) - props.Radius + hookLength +
+                     (bendingRollerRadius + props.Radius)) / Math.Sqrt(2);
+
+                stirrupPoints.Add(new Point3d(xLeft + hookEndPointOffset, yTop + polylinePointOffsetForHook - hookEndPointOffset, -props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yTop + polylinePointOffsetForHook, -props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft, yBottom, -props.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yBottom, -props.Radius));
+                stirrupPoints.Add(new Point3d(xRight, yTop, props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook, yTop, props.Radius));
+                stirrupPoints.Add(new Point3d(xLeft - polylinePointOffsetForHook + hookEndPointOffset,
+                                                  yTop - hookEndPointOffset,
+                                                  props.Radius));
+            }
+            else
+            {
+                throw new ArgumentException("Hooks Type should be between 0 and 1");
+            }
+
+            return stirrupPoints;
+        }       
     }
 }
