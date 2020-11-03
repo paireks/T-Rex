@@ -110,7 +110,6 @@ namespace T_RexEngine
 
             return lBarPoints;
         }
-        
         public static List<Point3d> CreateStirrupFromRectangleShape(Rectangle3d rectangle,
             int hooksType, double bendingRollerDiameter, CoverDimensions coverDimensions, double hookLength,
             RebarProperties props)

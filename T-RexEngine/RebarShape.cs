@@ -97,6 +97,13 @@ namespace T_RexEngine
             RebarCurve = CreateRebarCurveInAnotherPlane(filletedPolyline, Plane.WorldXY, rectangle.Plane);
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
+        public void StirrupShape(Plane plane, double height, double width, double bendingRollerDiameter, int hooksType, double hookLength)
+        {
+            Rectangle3d rectangle = new Rectangle3d(plane, width, height);
+            CoverDimensions coverDimensions = new CoverDimensions(0.0, 0.0, 0.0, 0.0);
+            
+            RectangleToStirrupShape(rectangle, bendingRollerDiameter, hooksType, coverDimensions, hookLength);
+        }
 
         public override string ToString()
         {
