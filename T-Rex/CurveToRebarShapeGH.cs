@@ -45,7 +45,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.CurveToRebarShape;
             }
         }
         public override Guid ComponentGuid

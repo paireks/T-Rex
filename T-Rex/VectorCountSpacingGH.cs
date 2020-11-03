@@ -52,7 +52,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.VectorCountSpacing;
             }
         }
         public override Guid ComponentGuid

@@ -99,13 +99,19 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\RectangleToBarLineShape.png" />
+    <None Include="Resources\VectorLengthSpacing.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\RectangleToStirrupBarShape.png" />
+    <None Include="Resources\VectorCountSpacing.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\RectangleToUBarShape.png" />
+    <None Include="Resources\CurveToRebarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PolylineToRebarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpacerShape.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LBarShape.png" />
@@ -114,7 +120,13 @@
     <None Include="Resources\StirrupBarShape.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SpacerShape.png" />
+    <None Include="Resources\RectangleToStirrupBarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RectangleToUBarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RectangleToBarLineShape.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
