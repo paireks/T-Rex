@@ -64,7 +64,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.RectangleToStirrupBarShape;
             }
         }
         public override Guid ComponentGuid

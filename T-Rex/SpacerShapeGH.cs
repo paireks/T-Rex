@@ -61,7 +61,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.SpacerShape;
             }
         }
         public override Guid ComponentGuid

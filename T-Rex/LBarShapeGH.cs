@@ -58,7 +58,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.LBarShape;
             }
         }
         public override Guid ComponentGuid

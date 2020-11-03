@@ -52,7 +52,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.RectangleToBarLineShape;
             }
         }
         public override GH_Exposure Exposure
