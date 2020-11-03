@@ -20,6 +20,7 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddIntegerParameter("Id", "Id", "Id as an integer for Rebar Group", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Rebar Shape to create Rebar Group",
                 GH_ParamAccess.item);
             pManager.AddPlaneParameter("Shape's Origin Plane", "Shape's Origin Plane",
@@ -48,21 +49,23 @@ namespace T_Rex
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            int id = 0;
             RebarShape rebarShape = null;
             Plane plane = Plane.Unset;
             int count = 0;
             Curve curve = null;
             double angle = 0.0;
-
-            DA.GetData(0, ref rebarShape);
-            DA.GetData(1, ref plane);
-            DA.GetData(2, ref curve);
-            DA.GetData(3, ref count);
-            if (!DA.GetData(4, ref angle)) return;
+            
+            DA.GetData(0, ref id);
+            DA.GetData(1, ref rebarShape);
+            DA.GetData(2, ref plane);
+            DA.GetData(3, ref curve);
+            DA.GetData(4, ref count);
+            if (!DA.GetData(5, ref angle)) return;
             if (_useDegrees)
                 angle = RhinoMath.ToRadians(angle);
 
-            RebarGroup rebarGroup = new RebarGroup(rebarShape);
+            RebarGroup rebarGroup = new RebarGroup(id, rebarShape);
             rebarGroup.CurveSpacing(plane, count, curve, angle);
 
             DA.SetData(0, rebarGroup);

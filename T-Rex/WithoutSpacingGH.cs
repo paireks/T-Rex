@@ -11,28 +11,31 @@ namespace T_Rex
     {
         public WithoutSpacingGH()
           : base("Without Spacing", "Without Spacing",
-              "Creates Custom Rebar Group without any spacing. Add 1 or more Rebar Shapes to create a custom group.",
+              "Creates the Custom Rebar Group without any spacing. Add 1 or more Rebar Shapes to create a custom group.",
               "T-Rex", "Rebar Group")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Rebar Shapes", "Rebar Shapes", "Rebar Shapes to create Rebar Group",
+            pManager.AddIntegerParameter("Id", "Id", "Id as an integer for Rebar Group", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Rebar Shapes", "Rebar Shapes", "Rebar Shapes to create the Rebar Group",
                 GH_ParamAccess.list);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Custom Rebar Group", "Custom Rebar Group", "Custom group of reinforcement bars",
+            pManager.AddGenericParameter("Custom Rebar Group", "Custom Rebar Group", "Custom group of the reinforcement bars",
                 GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Mesh group representation", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            int id = 0;
             List<RebarShape> rebarShapes = new List<RebarShape>();
 
-            DA.GetDataList(0, rebarShapes);
+            DA.GetData(0, ref id);
+            DA.GetDataList(1, rebarShapes);
 
-            CustomRebarGroup rebarGroup = new CustomRebarGroup(rebarShapes);
+            CustomRebarGroup rebarGroup = new CustomRebarGroup(id, rebarShapes);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

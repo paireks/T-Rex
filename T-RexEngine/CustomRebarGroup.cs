@@ -7,9 +7,11 @@ namespace T_RexEngine
 {
     public class CustomRebarGroup
     {
-        public CustomRebarGroup(List<RebarShape> rebarShapes)
+        private int _id;
+        public CustomRebarGroup(int id, List<RebarShape> rebarShapes)
         {
             RebarShapes = rebarShapes;
+            Id = id;
             
             RebarGroupMesh = new List<Mesh>();
             Volume = 0.0;
@@ -37,12 +39,25 @@ namespace T_RexEngine
                 Weight += currentRebarVolume * rebarShape.Props.Material.Density;
             }
         }
-        
         public override string ToString()
         {
             return "Custom Rebar Group";
         }
-
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Id can't be < 0");
+                }
+                else
+                {
+                    _id = value;
+                }
+            }
+        }
         public List<RebarShape> RebarShapes { get; }
         public int Count => RebarShapes.Count;
         public List<Mesh> RebarGroupMesh { get; private set; }

@@ -22,6 +22,7 @@ namespace T_Rex
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddIntegerParameter("Id", "Id", "Id of the group", GH_ParamAccess.item);
             pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of the rebar", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Amount", "Amount", "How many bars in a group", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material of a group of rebars", GH_ParamAccess.item);
@@ -34,11 +35,12 @@ namespace T_Rex
 
             DA.GetData(0, ref customRebarGroup);
 
-            DA.SetData(0, customRebarGroup.RebarShapes[0].Props.Diameter);
-            DA.SetData(1, customRebarGroup.Count);
-            DA.SetData(2, customRebarGroup.RebarShapes[0].Props.Material);
-            DA.SetData(3, customRebarGroup.Volume);
-            DA.SetData(4, customRebarGroup.Weight);
+            DA.SetData(0, customRebarGroup.Id);
+            DA.SetData(1, customRebarGroup.RebarShapes[0].Props.Diameter);
+            DA.SetData(2, customRebarGroup.Count);
+            DA.SetData(3, customRebarGroup.RebarShapes[0].Props.Material);
+            DA.SetData(4, customRebarGroup.Volume);
+            DA.SetData(5, customRebarGroup.Weight);
         }
         protected override System.Drawing.Bitmap Icon
         {

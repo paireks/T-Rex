@@ -6,9 +6,12 @@ namespace T_RexEngine
 {
     public class RebarGroup
     {
-        public RebarGroup(RebarShape rebarShape)
+        private int _id;
+
+        public RebarGroup(int id, RebarShape rebarShape)
         {
             RebarShape = rebarShape;
+            Id = id;
         }
         public void CurveSpacing(Plane rebarPlane, int count, Curve spaceCurve, double angle)
         {
@@ -196,7 +199,21 @@ namespace T_RexEngine
         {
             return "Rebar Group";
         }
-
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Id can't be < 0");
+                }
+                else
+                {
+                    _id = value;
+                }
+            }
+        }
         public RebarShape RebarShape { get; }
         public int Count { get; private set; }
         public List<Mesh> RebarGroupMesh { get; private set; }

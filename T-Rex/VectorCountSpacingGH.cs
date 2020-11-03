@@ -17,6 +17,7 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddIntegerParameter("Id", "Id", "Id as an integer for Rebar Group", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Rebar Shape to create Rebar Group",
                 GH_ParamAccess.item);
             pManager.AddVectorParameter("Vector", "Vector", "Vector that defines direction and distance where all rebars will be created",
@@ -31,15 +32,17 @@ namespace T_Rex
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            int id = 0;
             RebarShape rebarShape = null;
             Vector3d vector = new Vector3d();
             int count = 0;
 
-            DA.GetData(0, ref rebarShape);
-            DA.GetData(1, ref vector);
-            DA.GetData(2, ref count);
+            DA.GetData(0, ref id);
+            DA.GetData(1, ref rebarShape);
+            DA.GetData(2, ref vector);
+            DA.GetData(3, ref count);
 
-            RebarGroup rebarGroup = new RebarGroup(rebarShape);
+            RebarGroup rebarGroup = new RebarGroup(id, rebarShape);
             rebarGroup.VectorCountSpacing(vector, count);
 
             DA.SetData(0, rebarGroup);
