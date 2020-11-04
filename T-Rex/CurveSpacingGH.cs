@@ -15,7 +15,7 @@ namespace T_Rex
         public CurveSpacingGH()
           : base("Curve Spacing", "Curve Spacing",
               "Creates Rebar Group with spacing along a curve",
-              "T-Rex", "Rebar Group")
+              "T-Rex", "Rebar Spacing")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
@@ -75,7 +75,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.CurveSpacingShape;
             }
         }
         public override Guid ComponentGuid

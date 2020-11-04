@@ -47,7 +47,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.Cover;
             }
         }
         public override Guid ComponentGuid

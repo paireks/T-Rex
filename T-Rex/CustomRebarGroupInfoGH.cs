@@ -12,7 +12,7 @@ namespace T_Rex
         public CustomRebarGroupInfoGH()
           : base("Custom Rebar Group Info", "Custom Rebar Group Info",
               "Creates information about given custom rebar group",
-              "T-Rex", "Rebar Group")
+              "T-Rex", "Tools")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
@@ -46,7 +46,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.CustomRebarInfo;
             }
         }
         public override GH_Exposure Exposure

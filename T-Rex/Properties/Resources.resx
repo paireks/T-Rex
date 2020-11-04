@@ -118,14 +118,32 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Cover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CurveSpacingShape" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CurveSpacingShape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CurveToRebarShape" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CurveToRebarShape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CustomRebarInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CustomRebarInfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LBarShape" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LBarShape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Material" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Material.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PolylineToRebarShape" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PolylineToRebarShape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RebarInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RebarInfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RebarProp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RebarProp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RectangleToBarLineShape" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RectangleToBarLineShape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -147,5 +165,8 @@
   </data>
   <data name="VectorLengthSpacing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VectorLengthSpacing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WithoutSpacing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WithoutSpacing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

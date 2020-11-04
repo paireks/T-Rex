@@ -12,7 +12,7 @@ namespace T_Rex
         public WithoutSpacingGH()
           : base("Without Spacing", "Without Spacing",
               "Creates the Custom Rebar Group without any spacing. Add 1 or more Rebar Shapes to create a custom group.",
-              "T-Rex", "Rebar Group")
+              "T-Rex", "Rebar Spacing")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
@@ -44,7 +44,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.WithoutSpacing;
             }
         }
         public override Guid ComponentGuid

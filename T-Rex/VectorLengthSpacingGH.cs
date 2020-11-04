@@ -12,7 +12,7 @@ namespace T_Rex
         public VectorLengthSpacingGH()
           : base("Vector Length Spacing", "Vector Length Spacing",
               "Creates Rebar Group with vector and length that determines spacing. Start begin where the rebar shape is.",
-              "T-Rex", "Rebar Group")
+              "T-Rex", "Rebar Spacing")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)

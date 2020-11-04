@@ -40,7 +40,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.RebarProp;
             }
         }
         public override Guid ComponentGuid

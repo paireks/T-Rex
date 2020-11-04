@@ -63,9 +63,39 @@ namespace T_Rex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Cover {
+            get {
+                object obj = ResourceManager.GetObject("Cover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CurveSpacingShape {
+            get {
+                object obj = ResourceManager.GetObject("CurveSpacingShape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CurveToRebarShape {
             get {
                 object obj = ResourceManager.GetObject("CurveToRebarShape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CustomRebarInfo {
+            get {
+                object obj = ResourceManager.GetObject("CustomRebarInfo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +113,39 @@ namespace T_Rex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Material {
+            get {
+                object obj = ResourceManager.GetObject("Material", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PolylineToRebarShape {
             get {
                 object obj = ResourceManager.GetObject("PolylineToRebarShape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RebarInfo {
+            get {
+                object obj = ResourceManager.GetObject("RebarInfo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RebarProp {
+            get {
+                object obj = ResourceManager.GetObject("RebarProp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +216,16 @@ namespace T_Rex.Properties {
         internal static System.Drawing.Bitmap VectorLengthSpacing {
             get {
                 object obj = ResourceManager.GetObject("VectorLengthSpacing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WithoutSpacing {
+            get {
+                object obj = ResourceManager.GetObject("WithoutSpacing", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

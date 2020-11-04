@@ -99,9 +99,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\VectorLengthSpacing.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\VectorCountSpacing.png" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +124,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\RectangleToBarLineShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VectorLengthSpacing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RebarInfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CustomRebarInfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WithoutSpacing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CurveSpacingShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RebarProp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Material.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
