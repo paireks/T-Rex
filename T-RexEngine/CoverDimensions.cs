@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace T_RexEngine
 {
@@ -14,6 +10,16 @@ namespace T_RexEngine
             Right = right;
             Top = top;
             Bottom = bottom;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("Cover Dimensions{0}" +
+                                 "Left: {1}{0}" +
+                                 "Right: {2}{0}" +
+                                 "Top: {3}{0}" +
+                                 "Bottom: {4}",
+                Environment.NewLine, Left, Right, Top, Bottom);
         }
 
         public double Left { get; set; }

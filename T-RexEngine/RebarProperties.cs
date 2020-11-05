@@ -18,7 +18,10 @@ namespace T_RexEngine
 
         public override string ToString()
         {
-            return $"Diameter: {Diameter}\r\nMaterial: {Material.Name}";
+            return String.Format("Rebar Properties{0}" +
+                                 "Diameter: {1}{0}" +
+                                 "Material: {2}",
+                Environment.NewLine, Diameter, Material.Name);
         }
 
         public double Radius { get; set; }

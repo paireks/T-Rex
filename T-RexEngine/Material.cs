@@ -21,7 +21,7 @@ namespace T_RexEngine
             return String.Format("Material{0}" +
                                  "Name: {1}{0}" +
                                  "Grade: {2}{0}" +
-                                 "Density: {3}{0}",
+                                 "Density: {3}",
                 Environment.NewLine, Name, Grade, Density);
         }
         public string Name { get; set; }
