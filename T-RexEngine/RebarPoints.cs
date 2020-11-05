@@ -105,7 +105,7 @@ namespace T_RexEngine
             {
                 new Point3d(0.0,props.Radius, 0.0),
                 new Point3d(width - props.Radius, props.Radius, 0.0),
-                new Point3d(width - props.Radius, height + props.Radius, 0.0)
+                new Point3d(width - props.Radius, height, 0.0)
             };
 
             return lBarPoints;
