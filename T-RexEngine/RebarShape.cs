@@ -14,7 +14,7 @@ namespace T_RexEngine
         }
         private Mesh CreateRebarMesh(Curve rebarCurve, double radius)
         {
-            return Mesh.CreateFromCurvePipe(rebarCurve, radius, 10, 70, MeshPipeCapStyle.Flat, false);
+            return Mesh.CreateFromCurvePipe(rebarCurve, radius, 12, 70, MeshPipeCapStyle.Flat, false);
         }
         private Curve CreateFilletPolylineWithBendingRoller(Curve rebarCurve, double bendingRollerDiameter)
         {

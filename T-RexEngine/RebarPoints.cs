@@ -58,7 +58,7 @@ namespace T_RexEngine
             else if (position == 1)
             {
                 topLeft = new Point3d(rectangle.X.Max - coverDimensions.Right - hookLength, rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
-                bottomLeft = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, rectangle.Y.Min + coverDimensions.Bottom - props.Radius, 0);
+                bottomLeft = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius, rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
                 bottomRight = new Point3d(rectangle.X.Max - coverDimensions.Right - props.Radius,rectangle.Y.Max - coverDimensions.Top - props.Radius,0);
                 topRight = new Point3d(rectangle.X.Max - coverDimensions.Right - hookLength, rectangle.Y.Max - coverDimensions.Top - props.Radius,0);
             }
@@ -71,10 +71,10 @@ namespace T_RexEngine
             }
             else if (position == 3)
             {
-                topLeft = new Point3d(rectangle.X.Max + coverDimensions.Left + hookLength, rectangle.Y.Max - coverDimensions.Top - props.Radius, 0);
-                bottomLeft = new Point3d(rectangle.X.Max + coverDimensions.Left + props.Radius, rectangle.Y.Max - coverDimensions.Top - props.Radius, 0);
-                bottomRight = new Point3d(rectangle.X.Max + coverDimensions.Left + props.Radius, rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
-                topRight = new Point3d(rectangle.X.Max + coverDimensions.Left + hookLength,rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
+                topLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + hookLength, rectangle.Y.Max - coverDimensions.Top - props.Radius, 0);
+                bottomLeft = new Point3d(rectangle.X.Min + coverDimensions.Left + props.Radius, rectangle.Y.Max - coverDimensions.Top - props.Radius, 0);
+                bottomRight = new Point3d(rectangle.X.Min + coverDimensions.Left + props.Radius, rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
+                topRight = new Point3d(rectangle.X.Min + coverDimensions.Left + hookLength,rectangle.Y.Min + coverDimensions.Bottom + props.Radius, 0);
             }
             else
             {
