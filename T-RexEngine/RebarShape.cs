@@ -29,7 +29,24 @@ namespace T_RexEngine
         }
         public void PolylineToRebarShape(Curve rebarCurve, double bendingRollerDiameter)
         {
-            RebarCurve = CreateFilletPolylineWithBendingRoller(rebarCurve, bendingRollerDiameter);
+            if (!rebarCurve.TryGetPolyline(out Polyline rebarPolyline))
+            {
+                throw new ArgumentException("Input curve is not a polyline");
+            }
+            if (rebarPolyline.Count < 3)
+            {
+                throw new ArgumentException("Polyline has to contain at least 3 points");
+            }
+            
+            try
+            {
+                RebarCurve = CreateFilletPolylineWithBendingRoller(rebarCurve, bendingRollerDiameter);
+            }
+            catch
+            {
+                throw new ArgumentException("Could not round the corners - check if the input polyline is not a straight line");
+            }
+            
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
         private Curve CreateRebarCurveInAnotherPlane(Curve curve, Plane originPlane, Plane destinationPlane)
@@ -127,6 +144,6 @@ namespace T_RexEngine
                 }
             }
         }
-        public RebarProperties Props { get; set; }
+        public RebarProperties Props { get; }
     }
 }

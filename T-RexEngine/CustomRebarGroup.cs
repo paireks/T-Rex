@@ -60,8 +60,8 @@ namespace T_RexEngine
         }
         public List<RebarShape> RebarShapes { get; }
         public int Count => RebarShapes.Count;
-        public List<Mesh> RebarGroupMesh { get; private set; }
-        public double Volume { get; set; }
-        public double Weight { get; set; }
+        public List<Mesh> RebarGroupMesh { get; }
+        public double Volume { get; }
+        public double Weight { get; }
     }
 }
