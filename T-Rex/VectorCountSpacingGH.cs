@@ -43,7 +43,7 @@ namespace T_Rex
             DA.GetData(3, ref count);
 
             RebarGroup rebarGroup = new RebarGroup(id, rebarShape);
-            rebarGroup.VectorCountSpacing(vector, count);
+            rebarGroup.UseVectorCountSpacing(vector, count);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

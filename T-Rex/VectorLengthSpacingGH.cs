@@ -54,7 +54,7 @@ namespace T_Rex
             DA.GetData(5, ref tolerance);
 
             RebarGroup rebarGroup = new RebarGroup(id, rebarShape);
-            rebarGroup.VectorLengthSpacing(vector, spacingDistance, spacingType, tolerance);
+            rebarGroup.UseVectorLengthSpacing(vector, spacingDistance, spacingType, tolerance);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

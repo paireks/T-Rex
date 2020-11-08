@@ -13,7 +13,7 @@ namespace T_RexEngine
             RebarShape = rebarShape;
             Id = id;
         }
-        public void CurveSpacing(Plane rebarPlane, int count, Curve spaceCurve, double angle)
+        public void UseCurveSpacing(Plane rebarPlane, int count, Curve spaceCurve, double angle)
         {
             if (count <= 1)
             {
@@ -34,7 +34,7 @@ namespace T_RexEngine
                 RebarGroupMesh.Add(rebarShapeMesh);
             }
         }
-        public void VectorCountSpacing(Vector3d startEndVector, int count)
+        public void UseVectorCountSpacing(Vector3d startEndVector, int count)
         {
             if (count <= 1)
             {
@@ -59,7 +59,7 @@ namespace T_RexEngine
                 RebarGroupMesh.Add(duplicateMesh);
             }
         }
-        public void VectorLengthSpacing(Vector3d startEndVector, double spacingLength, int spacingType, double tolerance)
+        public void UseVectorLengthSpacing(Vector3d startEndVector, double spacingLength, int spacingType, double tolerance)
         {
             if (startEndVector.Length < spacingLength)
             {
@@ -170,7 +170,7 @@ namespace T_RexEngine
 
                     Count = Convert.ToInt32(Math.Floor( lengthFromStartToEnd / spacingLength ));
 
-                    if (restOfDistance > tolerance)
+                    if (restOfDistance > tolerance && restOfDistance + tolerance < spacingLength)
                     {
                         Count += 1;
                     }
@@ -197,7 +197,7 @@ namespace T_RexEngine
         }
         public override string ToString()
         {
-            return "Rebar Group";
+            return "Rebar Group Id: " + Id;
         }
         public int Id
         {

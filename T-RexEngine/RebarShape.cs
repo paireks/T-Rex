@@ -127,7 +127,7 @@ namespace T_RexEngine
             return "Rebar Shape";
         }
 
-        public Mesh RebarMesh { get; set; }
+        public Mesh RebarMesh { get; private set; }
 
         public Curve RebarCurve
         {

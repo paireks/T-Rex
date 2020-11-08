@@ -41,7 +41,7 @@ namespace T_RexEngine
         }
         public override string ToString()
         {
-            return "Custom Rebar Group";
+            return "Custom Rebar Group Id: " + Id;
         }
         public int Id
         {
