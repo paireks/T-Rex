@@ -43,7 +43,7 @@ namespace T_Rex
         {
             base.BeforeSolveInstance();
             _useDegrees = false;
-            if (Params.Input[3] is Param_Number angleParameter)
+            if (Params.Input[5] is Param_Number angleParameter)
                 _useDegrees = angleParameter.UseDegrees;
         }
 

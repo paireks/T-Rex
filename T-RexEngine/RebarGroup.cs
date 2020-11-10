@@ -15,12 +15,26 @@ namespace T_RexEngine
         }
         public void UseCurveSpacing(Plane rebarPlane, int count, Curve spaceCurve, double angle)
         {
+            if (spaceCurve.GetLength() <= 0)
+            {
+                throw new ArgumentException("Length of the Curve can't be 0");
+            }
             if (count <= 1)
             {
                 throw new ArgumentException("Count parameter should be larger than 1");
             }
             Count = count;
-            double[] divideParameters = spaceCurve.DivideByCount(Count - 1, true);
+
+            double[] divideParameters;
+            
+            if (spaceCurve.IsClosed)
+            {
+                divideParameters = spaceCurve.DivideByCount(Count, true);
+            }
+            else
+            {
+                divideParameters = spaceCurve.DivideByCount(Count - 1, true);
+            }
             Plane[] perpendicularPlanes = spaceCurve.GetPerpendicularFrames(divideParameters);
 
             RebarGroupMesh = new List<Mesh>();
@@ -69,6 +83,22 @@ namespace T_RexEngine
             double lengthFromStartToEnd = startEndVector.Length;
             double restOfDistance = lengthFromStartToEnd % spacingLength;
             double halfRestOfDistance = restOfDistance / 2.0;
+            
+            RebarGroupMesh = new List<Mesh>();
+            Count = 0;
+            
+            Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
+            if (spacingType == 1)
+            {
+                rebarShapeMesh.Transform(new Transform(Transform.Translation(startEndVector)));
+            }
+            RebarGroupMesh.Add(rebarShapeMesh);
+            Count += 1;
+
+            if (spacingType == 1)
+            {
+                startEndVector.Reverse();
+            }
 
             startEndVector.Unitize();
             Vector3d constantDistanceVector = startEndVector * spacingLength;
@@ -78,13 +108,6 @@ namespace T_RexEngine
             Transform moveRestValue = Transform.Translation(restDistanceVector);
             Transform moveHalfOfRestValue = Transform.Translation(halfOfRestDistanceVector);
 
-            RebarGroupMesh = new List<Mesh>();
-            Count = 0;
-
-            Mesh rebarShapeMesh = RebarShape.RebarMesh.DuplicateMesh();
-            RebarGroupMesh.Add(rebarShapeMesh);
-            Count += 1;
-            
             Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
             Mesh duplicateMesh;
             double distanceToCover = lengthFromStartToEnd;
@@ -92,44 +115,23 @@ namespace T_RexEngine
             switch (spacingType)
             {
                 case 0:
-                {
-                    while (distanceToCover > restOfDistance + tolerance)
-                    {
-                        duplicateMeshForTranslation.Transform(moveConstantValue);
-                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
-                        RebarGroupMesh.Add(duplicateMesh);
-                        distanceToCover -= spacingLength;
-                        Count += 1;
-                    }
-
-                    if (restOfDistance > tolerance)
-                    {
-                        duplicateMeshForTranslation.Transform(moveRestValue);
-                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
-                        RebarGroupMesh.Add(duplicateMesh);
-                        distanceToCover -= restOfDistance;
-                        Count += 1;
-                    }
-
-                    break;
-                }
                 case 1:
                 {
-                    if (restOfDistance > tolerance)
-                    {
-                        duplicateMeshForTranslation.Transform(moveRestValue);
-                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
-                        RebarGroupMesh.Add(duplicateMesh);
-                        distanceToCover -= restOfDistance;
-                        Count += 1;
-                    }
-
                     while (distanceToCover > restOfDistance + tolerance)
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         RebarGroupMesh.Add(duplicateMesh);
                         distanceToCover -= spacingLength;
+                        Count += 1;
+                    }
+
+                    if (restOfDistance > tolerance)
+                    {
+                        duplicateMeshForTranslation.Transform(moveRestValue);
+                        duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
+                        RebarGroupMesh.Add(duplicateMesh);
+                        distanceToCover -= restOfDistance;
                         Count += 1;
                     }
 
@@ -208,10 +210,8 @@ namespace T_RexEngine
                 {
                     throw new ArgumentException("Id can't be < 0");
                 }
-                else
-                {
-                    _id = value;
-                }
+
+                _id = value;
             }
         }
         public RebarShape RebarShape { get; }

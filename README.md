@@ -9,13 +9,24 @@ T-Rex can help you to create 3D models of reinforced concrete structures with Gr
 
 ## How it works?
 
-Basically T-Rex will help you to model different rebars, which are represented by meshes, which allows real-time generation even for thousands of bars.
-
-
+Basically T-Rex can help you to model different rebars, which are represented by meshes, which allows real-time generation of model even for thousands of bars.
 
 ## Features (1.0.0)
 
-- 
+![2020-11-08_22h34_54](IMG\2020-11-08_22h34_54.png)
+
+- Rebar Shapes from curves: Curve To Rebar, Polyline To Rebar
+- Rebar Shapes from rectangle: Rectangle To Line Bar Shape, Rectangle To U-Bar Shape, Rectangle To Stirrup Shape
+- Rebar Shapes library: L-Bar Shape, Stirrup Shape, Spacer Shape
+- Rebar Spacings: Curve Spacing, Vector Count Spacing, Vector Length Spacing, Without Spacing
+- Tools: Rebar Group Info, Custom Rebar Group Info
+- Properties: Cover Dimensions, Material, Rebar Properties
+
+## Authors
+
+Wojciech Radaczyński - development, testing, graphics
+
+Krzysztof Marcinczak - testing and reviews
 
 ## License (MIT License)
 
@@ -26,6 +37,14 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## About the code
+
+Code is not designed to be used outside Grasshopper environment.
+
+xUnit library was used to unit-test the project.
+
+Brontosaurus plug-in was used to create automatic tests inside Grasshopper.
 
 ## Contact
 
