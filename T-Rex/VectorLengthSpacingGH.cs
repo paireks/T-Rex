@@ -29,7 +29,9 @@ namespace T_Rex
                                                          "2: Constant spacing with first and last different, " +
                                                          "3: Smaller (or the same) spacing length than given, but constant for all bars from start to end", GH_ParamAccess.item);
             pManager.AddNumberParameter("Tolerance", "Tolerance",
-                "Tolerance to remove duplicate meshes at the end or start of vectors", GH_ParamAccess.item);
+                "Tolerance should be a small number, but can't be 0 or negative." +
+                " For meters, centimeters and millimeters the value 0.0001 should be sufficient for most of the cases." +
+                " If you want to understand it better - analyze the source code.", GH_ParamAccess.item, 0.0001);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {

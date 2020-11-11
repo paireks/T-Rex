@@ -75,6 +75,11 @@ namespace T_RexEngine
         }
         public void UseVectorLengthSpacing(Vector3d startEndVector, double spacingLength, int spacingType, double tolerance)
         {
+            if (tolerance <= 0)
+            {
+                throw new ArgumentException("Tolerance should be a small number, but can't be 0 or negative. For meters, centimeters and millimeters the value 0.0001 should be sufficient for most of the cases. If you want to understand it better - analyze the source code.");
+            }
+            
             if (startEndVector.Length < spacingLength)
             {
                 throw new ArgumentException("Spacing Length should be smaller than Vector length");
