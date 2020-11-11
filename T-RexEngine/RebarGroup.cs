@@ -139,6 +139,11 @@ namespace T_RexEngine
                 }
                 case 2:
                 {
+                    if (restOfDistance + tolerance > spacingLength)
+                    {
+                        goto case 0;
+                    }
+
                     if (restOfDistance > tolerance)
                     {
                         duplicateMeshForTranslation.Transform(moveHalfOfRestValue);
