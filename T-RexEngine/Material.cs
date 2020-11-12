@@ -9,6 +9,7 @@ namespace T_RexEngine
 {
     public class Material
     {
+        private double _density;
         public Material(string name, string grade, double density)
         {
             Name = name;
@@ -24,8 +25,24 @@ namespace T_RexEngine
                                  "Density: {3}",
                 Environment.NewLine, Name, Grade, Density);
         }
-        public string Name { get; set; }
-        public string Grade { get; set; }
-        public double Density { get; set; }
+        public string Name { get; }
+        public string Grade { get; }
+
+        public double Density
+        {
+            get
+            {
+                return _density;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Density can't be < 0");
+                }
+
+                _density = value;
+            }
+        }
     }
 }
