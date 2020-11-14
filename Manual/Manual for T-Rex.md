@@ -63,9 +63,107 @@ Volume of rebar with diameter: 8 and length: 100 should be around 5026.5482. As 
 
 ![ComponentVolume](Img\ComponentVolume.png)
 
+### Units
+
+Grasshopper is unit-less, you can read more about it there: https://www.grasshopper3d.com/forum/topics/units-m-ft
+
+So is the T-Rex. It means that you will have to choose your unit system by yourself. If you choose to use meters then make sure that every dimension is in meters.
+
 ## Properties
 
+### About
+
+Properties components will help you to put the informations about different properties, that will be used later to create different objects.
+
+### Components
+
+#### Cover Dimensions
+
+This component will create an offset for Rebar Shapes components that require Rectangle as an input.
+
+![CoverDimensions](Img\CoverDimensions.png)
+
+To see how it works we have to look on a Rebar Shape result. If you plug 0 for all of the inputs, you will get this:
+
+![CoverDimensions0](Img\CoverDimensions0.png)
+
+So if you want to offset this stirrup / bar in the boundary rectangle, you will have to change a values:
+
+![CoverDimension1](Img\CoverDimension1.png)
+
+It works similar for all of the Rebar Shape components that require Rectangle input.
+
+#### Material
+
+Material will help you to add some informations about material of the objects.
+
+![Material](Img\Material.png)
+
+The important thing is density, as it will affect the result of calculating the weight of the objects.
+
+**Check the Units chapter to find more informations.**
+
+Basically, if you want to have a density 7850 kg/m^3 by plugging slider with the value 7850, then you have to make sure that all of the other dimensions are in meters. Then you will get the result of weight in kilograms.
+
+If your whole model is in millimeters, and you still want to get the weight in kilograms, then you will have to plug the density in kg/mm^3.
+
+#### Rebar Properties
+
+This component will take Diameter and Material as an input.
+
+![RebarProperties](Img\RebarProperties.png)
+
+Then you can plug those properties to create Rebar Shapes objects.
+
 ## Rebar Shape
+
+### About
+
+Rebar Shape components will help you to create different shapes of the rebars. Those objects can be later used to create objects called Rebar Group.
+
+Every component from that section will output Rebar Shape and Mesh. Mesh is a discrete model of the rebar (you can read more about it in the Introduction chapter). Rebar Shape will be useful to create Rebar Group.
+
+#### Bending Roller Diameter
+
+Not all of the components, but most of them, require Bending Roller Diameter as input. This value is required to make fillets of the polyline correctly. Look at the image below to see how it works:
+
+![BendingRollerDiameter](Img\BendingRollerDiameter.png)
+
+60 is just an example: the proper value is for you to decide, it is often described in different standards / documents, and it can depend on things like for example diameter of the rebar or other values.
+
+### Components
+
+#### Curve To Rebar Shape
+
+This component converts curve to a Rebar Shape. You can basically draw any curve you'd like and convert it to the rebar.
+
+![CurveToRebarShape](Img\CurveToRebarShape.png)
+
+<img src="Img\CurveToRebarExample.png" alt="CurveToRebarExample" style="zoom:50%;" />
+
+#### Polyline To Rebar Shape
+
+This component converts polyline to Rebar Shape. It requires one more output then Curve To Rebar Shape: Bending Roller Diameter. So at first this polyline will be filleted, and then it will be translated to Rebar Shape.
+
+![PolylineToRebarShape](Img\PolylineToRebarShape.png)
+
+There are few requirements: polyline can't be straight and there need to be at least 3 points of polyline - those requirements are to make sure that it is possible to create fillets. If you want to draw a straight line, and turn it to Rebar Shape - use Curve To Rebar Shape component.
+
+#### L-Bar Shape
+
+![L-BarShape](Img\L-BarShape.png)
+
+#### Spacer Shape
+
+![SpacerShape](Img\SpacerShape.png)
+
+<img src="Img\SpacerShape3d.png" alt="SpacerShape3d" style="zoom:67%;" />
+
+#### Stirrup Shape
+
+Stirrup Shape requires additional info about the type of the hooks. Right now there are 2 types:
+
+
 
 ## Rebar Spacing
 

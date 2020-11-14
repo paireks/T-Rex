@@ -11,7 +11,7 @@ namespace T_Rex
     {
         public CoverDimensionsGH()
           : base("Cover Dimensions", "Cover Dimensions",
-              "Concrete cover dimensions, useful for Rebar Shapes that require rectangle as input.",
+              "Concrete cover dimensions, useful for Rebar Shapes that require rectangle as an input.",
               "T-Rex", "Properties")
         {
         }
