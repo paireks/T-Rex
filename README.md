@@ -1,7 +1,9 @@
 # T-Rex
 Parametric Reinforcement Plug-in for Grasshopper.
 
-![TRexLogo100x100](IMG\TRexLogo100x100.png)
+<p align="center">
+  <img width="100" height="100" src="https://github.com/paireks/T-Rex/blob/Version1_0_0/IMG/TRexLogo100x100.png">
+</p>
 
 ## Purpose
 
@@ -13,7 +15,9 @@ Basically T-Rex can help you to model different rebars, which are represented by
 
 ## Features (1.0.0)
 
-![2020-11-08_22h34_54](IMG\2020-11-08_22h34_54.png)
+<p align="center">
+  <img src="https://github.com/paireks/T-Rex/blob/Version1_0_0/IMG/2020-11-08_22h34_54.png">
+</p>
 
 - Rebar Shapes from curves: Curve To Rebar, Polyline To Rebar
 - Rebar Shapes from rectangle: Rectangle To Line Bar Shape, Rectangle To U-Bar Shape, Rectangle To Stirrup Shape
