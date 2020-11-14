@@ -43,7 +43,7 @@ namespace T_Rex
             DA.GetData(3, ref coverDimensions);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.RectangleToLineBarShape(rectangle, position, coverDimensions);
+            rebarShape.BuildRectangleToLineBarShape(rectangle, position, coverDimensions);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

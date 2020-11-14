@@ -51,7 +51,7 @@ namespace T_Rex
             DA.GetData(5, ref coverDimensions);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.RectangleToStirrupShape(rectangle, bendingRollerDiameter,  hooksType, coverDimensions, hookLength);
+            rebarShape.BuildRectangleToStirrupShape(rectangle, bendingRollerDiameter,  hooksType, coverDimensions, hookLength);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

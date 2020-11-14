@@ -161,9 +161,23 @@ There are few requirements: polyline can't be straight and there need to be at l
 
 #### Stirrup Shape
 
+![StirrupShape](Img\StirrupShape.png)
+
 Stirrup Shape requires additional info about the type of the hooks. Right now there are 2 types:
 
+- Type = 0:
 
+  ![StirrupShapeHook0](Img\StirrupShapeHook0.png)
+
+- Type = 1:
+
+  ![StirrupShapeHook1](Img\StirrupShapeHook1.png)
+
+#### Rectangle To Line Bar Shape
+
+#### Rectangle To Stirrup Shape
+
+#### Rectangle To U-Bar Shape
 
 ## Rebar Spacing
 

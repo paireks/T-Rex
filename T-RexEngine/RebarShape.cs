@@ -19,8 +19,15 @@ namespace T_RexEngine
         private Curve CreateFilletPolylineWithBendingRoller(Curve rebarCurve, double bendingRollerDiameter)
         {
             RhinoDoc activeDoc = RhinoDoc.ActiveDoc;
+            
+            Curve filletedCurve = Curve.CreateFilletCornersCurve(rebarCurve, bendingRollerDiameter / 2.0 + Props.Radius, activeDoc.ModelAbsoluteTolerance, activeDoc.ModelAngleToleranceRadians);
 
-            return Curve.CreateFilletCornersCurve(rebarCurve, bendingRollerDiameter / 2.0 + Props.Radius, activeDoc.ModelAbsoluteTolerance, activeDoc.ModelAngleToleranceRadians);
+            if (filletedCurve == null)
+            {
+                throw new Exception("Cannot create fillets for this parameters. Try to change Bending Roller Diameter or shape.");
+            }
+
+            return filletedCurve;
         }
         public void CurveToRebarShape(Curve rebarCurve)
         {
@@ -29,6 +36,11 @@ namespace T_RexEngine
         }
         public void PolylineToRebarShape(Curve rebarCurve, double bendingRollerDiameter)
         {
+            if (bendingRollerDiameter <= 0)
+            {
+                throw new ArgumentException("Bending Roller Diameter should be > 0");
+            }
+            
             if (!rebarCurve.TryGetPolyline(out Polyline rebarPolyline))
             {
                 throw new ArgumentException("Input curve is not a polyline");
@@ -38,15 +50,7 @@ namespace T_RexEngine
                 throw new ArgumentException("Polyline has to contain at least 3 points");
             }
             
-            try
-            {
-                RebarCurve = CreateFilletPolylineWithBendingRoller(rebarCurve, bendingRollerDiameter);
-            }
-            catch
-            {
-                throw new ArgumentException("Could not round the corners - check if the input polyline is not a straight line");
-            }
-            
+            RebarCurve = CreateFilletPolylineWithBendingRoller(rebarCurve, bendingRollerDiameter);
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
         private Curve CreateRebarCurveInAnotherPlane(Curve curve, Plane originPlane, Plane destinationPlane)
@@ -58,7 +62,7 @@ namespace T_RexEngine
             return rebarCurve;
         }
 
-        public void RectangleToLineBarShape(Rectangle3d rectangle, int position, CoverDimensions coverDimensions)
+        public void BuildRectangleToLineBarShape(Rectangle3d rectangle, int position, CoverDimensions coverDimensions)
         {
             List<Point3d> shapePoints =
                 RebarPoints.CreateForLineFromRectangle(rectangle, position, coverDimensions, Props);
@@ -68,7 +72,7 @@ namespace T_RexEngine
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
 
-        public void RectangleToUBarShape(Rectangle3d rectangle, double bendingRollerDiameter,
+        public void BuildRectangleToUBarShape(Rectangle3d rectangle, double bendingRollerDiameter,
             int position, CoverDimensions coverDimensions, double hookLength)
         {
             List<Point3d> shapePoints =
@@ -80,7 +84,7 @@ namespace T_RexEngine
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
 
-        public void SpacerShape(Plane insertPlane, double height, double length, double width, double bendingRollerDiameter)
+        public void BuildSpacerShape(Plane insertPlane, double height, double length, double width, double bendingRollerDiameter)
         {
             List<Point3d> shapePoints =
                 RebarPoints.CreateForSpacerShape(height, length, width, Props);
@@ -91,7 +95,7 @@ namespace T_RexEngine
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
         
-        public void LBarShape(Plane insertPlane, double height, double width, double bendingRollerDiameter)
+        public void BuildLBarShape(Plane insertPlane, double height, double width, double bendingRollerDiameter)
         {
             List<Point3d> shapePoints = RebarPoints.CreateForLBarShape(height, width, Props);
             
@@ -102,7 +106,7 @@ namespace T_RexEngine
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
 
-        public void RectangleToStirrupShape(Rectangle3d rectangle, double bendingRollerDiameter,
+        public void BuildRectangleToStirrupShape(Rectangle3d rectangle, double bendingRollerDiameter,
              int hooksType, CoverDimensions coverDimensions, double hookLength)
         {
             List<Point3d> shapePoints = RebarPoints.CreateStirrupFromRectangleShape(rectangle,
@@ -114,12 +118,12 @@ namespace T_RexEngine
             RebarCurve = CreateRebarCurveInAnotherPlane(filletedPolyline, Plane.WorldXY, rectangle.Plane);
             RebarMesh = CreateRebarMesh(RebarCurve, Props.Radius);
         }
-        public void StirrupShape(Plane plane, double height, double width, double bendingRollerDiameter, int hooksType, double hookLength)
+        public void BuildStirrupShape(Plane plane, double height, double width, double bendingRollerDiameter, int hooksType, double hookLength)
         {
             Rectangle3d rectangle = new Rectangle3d(plane, width, height);
             CoverDimensions coverDimensions = new CoverDimensions(0.0, 0.0, 0.0, 0.0);
             
-            RectangleToStirrupShape(rectangle, bendingRollerDiameter, hooksType, coverDimensions, hookLength);
+            BuildRectangleToStirrupShape(rectangle, bendingRollerDiameter, hooksType, coverDimensions, hookLength);
         }
 
         public override string ToString()

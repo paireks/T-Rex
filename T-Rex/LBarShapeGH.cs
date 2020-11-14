@@ -45,7 +45,7 @@ namespace T_Rex
             DA.GetData(4, ref bendingRollerDiameter);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.LBarShape(insertPlane, height, width, bendingRollerDiameter);
+            rebarShape.BuildLBarShape(insertPlane, height, width, bendingRollerDiameter);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

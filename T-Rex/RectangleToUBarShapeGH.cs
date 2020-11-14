@@ -50,7 +50,7 @@ namespace T_Rex
             DA.GetData(5, ref hookLength);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.RectangleToUBarShape(rectangle, bendingRollerDiameter, position, coverDimensions, hookLength);
+            rebarShape.BuildRectangleToUBarShape(rectangle, bendingRollerDiameter, position, coverDimensions, hookLength);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

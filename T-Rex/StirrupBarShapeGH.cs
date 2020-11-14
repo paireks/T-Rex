@@ -53,7 +53,7 @@ namespace T_Rex
             DA.GetData(6, ref bendingRollerDiameter);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.StirrupShape(insertPlane, height, width, bendingRollerDiameter, hooksType, hookLength);
+            rebarShape.BuildStirrupShape(insertPlane, height, width, bendingRollerDiameter, hooksType, hookLength);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);
