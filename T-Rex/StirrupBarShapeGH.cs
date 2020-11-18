@@ -26,8 +26,7 @@ namespace T_Rex
                 GH_ParamAccess.item, 0);
             pManager.AddNumberParameter("Hook Length", "Hook Length", "Length of a hook", GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Bending Roller Diameter", "Bending Roller Diameter",
-                "Bending roller diameter", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bending Roller", "Bending Roller", "Bending roller", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -42,7 +41,7 @@ namespace T_Rex
             int hooksType = 0;
             double hookLength = 0.0;
             RebarProperties properties = null;
-            double bendingRollerDiameter = 0.0;
+            BendingRoller bendingRoller = null;
 
             DA.GetData(0, ref insertPlane);
             DA.GetData(1, ref height);
@@ -50,10 +49,10 @@ namespace T_Rex
             DA.GetData(3, ref hooksType);
             DA.GetData(4, ref hookLength);
             DA.GetData(5, ref properties);
-            DA.GetData(6, ref bendingRollerDiameter);
+            DA.GetData(6, ref bendingRoller);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.BuildStirrupShape(insertPlane, height, width, bendingRollerDiameter, hooksType, hookLength);
+            rebarShape.BuildStirrupShape(insertPlane, height, width, bendingRoller, hooksType, hookLength);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

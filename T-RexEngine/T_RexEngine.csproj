@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BendingRoller.cs" />
     <Compile Include="CoverDimensions.cs" />
     <Compile Include="CustomRebarGroup.cs" />
     <Compile Include="Material.cs" />

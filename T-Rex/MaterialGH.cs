@@ -17,8 +17,8 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("Name", "Name", "Name of the material", GH_ParamAccess.item, "Reinforcement steel");
-            pManager.AddTextParameter("Grade", "Grade", "Grade of the material", GH_ParamAccess.item, "B500SP");
+            pManager.AddTextParameter("Name", "Name", "Name of the material", GH_ParamAccess.item, "Name");
+            pManager.AddTextParameter("Grade", "Grade", "Grade of the material", GH_ParamAccess.item, "Grade");
             pManager.AddNumberParameter("Density", "Density", "Density of the material, unit-less." +
                                         " This density will be multiplied by the volume of rebars to calculate the weight.", GH_ParamAccess.item);
         }

@@ -63,6 +63,16 @@ namespace T_Rex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BendingRoller {
+            get {
+                object obj = ResourceManager.GetObject("BendingRoller", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cover {
             get {
                 object obj = ResourceManager.GetObject("Cover", resourceCulture);

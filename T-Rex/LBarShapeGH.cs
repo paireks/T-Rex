@@ -22,8 +22,8 @@ namespace T_Rex
             pManager.AddNumberParameter("Height", "Height", "Height of a spacer", GH_ParamAccess.item);
             pManager.AddNumberParameter("Width", "Width", "Width of a spacer", GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Bending Roller Diameter", "Bending Roller Diameter",
-                "Bending roller diameter", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bending Roller", "Bending Roller",
+                "Bending roller", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -36,16 +36,16 @@ namespace T_Rex
             double height = 0.0;
             double width = 0.0;
             RebarProperties properties = null;
-            double bendingRollerDiameter = 0.0;
+            BendingRoller bendingRoller = null;
 
             DA.GetData(0, ref insertPlane);
             DA.GetData(1, ref height);
             DA.GetData(2, ref width);
             DA.GetData(3, ref properties);
-            DA.GetData(4, ref bendingRollerDiameter);
+            DA.GetData(4, ref bendingRoller);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.BuildLBarShape(insertPlane, height, width, bendingRollerDiameter);
+            rebarShape.BuildLBarShape(insertPlane, height, width, bendingRoller);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

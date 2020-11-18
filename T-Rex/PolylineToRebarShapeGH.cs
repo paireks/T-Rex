@@ -20,8 +20,8 @@ namespace T_Rex
             pManager.AddCurveParameter("Polyline", "Polyline", "Polyline needed to create a reinforcement bar shape",
                 GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Bending Roller Diameter", "Bending Roller Diameter",
-                "Bending roller diameter as integer", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bending Roller", "Bending Roller",
+                "Bending roller", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -32,14 +32,14 @@ namespace T_Rex
         {
             Curve rebarCurve = null;
             RebarProperties props = null;
-            double bendingRollerDiameter = 0;
+            BendingRoller bendingRoller = null;
 
             DA.GetData(0, ref rebarCurve);
             DA.GetData(1, ref props);
-            DA.GetData(2, ref bendingRollerDiameter);
+            DA.GetData(2, ref bendingRoller);
 
             RebarShape rebarShape = new RebarShape(props);
-            rebarShape.PolylineToRebarShape(rebarCurve, bendingRollerDiameter);
+            rebarShape.PolylineToRebarShape(rebarCurve, bendingRoller);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

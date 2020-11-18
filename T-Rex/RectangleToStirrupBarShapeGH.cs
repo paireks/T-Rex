@@ -17,14 +17,11 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddRectangleParameter("Rectangle", "Rectangle", "Boundary rectangle when rebar will be placed",
+            pManager.AddRectangleParameter("Rectangle", "Rectangle", "Boundary rectangle where rebar will be placed",
                 GH_ParamAccess.item);
             pManager.AddGenericParameter("Properties", "Properties", "Reinforcement properties", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Bending Roller Diameter", "Bending Roller Diameter",
-                "Bending roller diameter", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Hooks Type", "Hooks Type",
-                "0 = 90-angle, 1 = 135-angle",
-                GH_ParamAccess.item, 0);
+            pManager.AddGenericParameter("Bending Roller", "Bending Roller", "Bending roller", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Hooks Type", "Hooks Type", "0 = 90-angle, 1 = 135-angle", GH_ParamAccess.item, 0);
             pManager.AddNumberParameter("Hook Length", "Hook Length", "Length of a hook", GH_ParamAccess.item);
             pManager.AddGenericParameter("Cover Dimensions", "Cover Dimensions", "Dimensions of a concrete cover",
                 GH_ParamAccess.item);
@@ -38,20 +35,20 @@ namespace T_Rex
         {
             Rectangle3d rectangle = Rectangle3d.Unset;
             RebarProperties properties = null;
-            double bendingRollerDiameter = 0.0;
+            BendingRoller bendingRoller = null;
             int hooksType = 0;
             CoverDimensions coverDimensions = null;
             double hookLength = 0.0;
 
             DA.GetData(0, ref rectangle);
             DA.GetData(1, ref properties);
-            DA.GetData(2, ref bendingRollerDiameter);
+            DA.GetData(2, ref bendingRoller);
             DA.GetData(3, ref hooksType);
             DA.GetData(4, ref hookLength);
             DA.GetData(5, ref coverDimensions);
 
             RebarShape rebarShape = new RebarShape(properties);
-            rebarShape.BuildRectangleToStirrupShape(rectangle, bendingRollerDiameter,  hooksType, coverDimensions, hookLength);
+            rebarShape.BuildRectangleToStirrupShape(rectangle, bendingRoller, hooksType, coverDimensions, hookLength);
 
             DA.SetData(0, rebarShape);
             DA.SetData(1, rebarShape.RebarMesh);

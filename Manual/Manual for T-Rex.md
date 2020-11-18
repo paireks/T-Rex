@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Introduction
+## Introduction - Read before use!
 
 ### Info
 
@@ -67,7 +67,22 @@ Volume of rebar with diameter: 8 and length: 100 should be around 5026.5482. As 
 
 Grasshopper is unit-less, you can read more about it there: https://www.grasshopper3d.com/forum/topics/units-m-ft
 
-So is the T-Rex. It means that you will have to choose your unit system by yourself. If you choose to use meters then make sure that every dimension is in meters.
+So is the T-Rex. It means that you will have to choose your unit system by yourself. If you choose to use meters then make sure that every dimension is in meters and the Rhino document related to Grasshopper script is set to meters.
+
+### Tolerances
+
+Tolerances are being used for two things in T-Rex:
+
+- Vector Length Spacing component - you set it by yourself in the component
+- When the polyline is being filleted (in Rebar Shapes that require Bending Roller Diameter as input) - then it takes the tolerances from Rhino document settings
+
+To understand Vector Length Spacing component's tolerances - you will have to look how it actually works in the source code. Read the Vector Length Spacing chapter also. Basically some calculations in the code require some small number to obtain / compare / check few things and give you a Rebar Group as a result.
+
+To understand better Rhino's tolerances - read this article: https://wiki.mcneel.com/rhino/faqtolerances
+
+**Important note:** Grasshopper also takes tolerances settings from Rhino document's settings. You can read about it there: https://www.grasshopper3d.com/forum/topics/gh-tolerance?commentId=2985220%3AComment%3A908767
+
+**That means that it is really important to use your Grasshopper script with the proper Rhino document that has all of the settings of Units and Tolerances set properly.**
 
 ## Properties
 
@@ -105,7 +120,7 @@ The important thing is density, as it will affect the result of calculating the 
 
 Basically, if you want to have a density 7850 kg/m^3 by plugging slider with the value 7850, then you have to make sure that all of the other dimensions are in meters. Then you will get the result of weight in kilograms.
 
-If your whole model is in millimeters, and you still want to get the weight in kilograms, then you will have to plug the density in kg/mm^3.
+If your whole model is in millimeters, and you still want to get the weight in kilograms, then you have to plug in the density in kg/mm^3.
 
 #### Rebar Properties
 
@@ -129,7 +144,11 @@ Not all of the components, but most of them, require Bending Roller Diameter as 
 
 ![BendingRollerDiameter](Img\BendingRollerDiameter.png)
 
-60 is just an example: the proper value is for you to decide, it is often described in different standards / documents, and it can depend on things like for example diameter of the rebar or other values.
+60 is just an example: the proper value is for you to decide, it is often described in different standards / documents, and it can depend on things like for example diameter of the rebar or other factors.
+
+**Important note:** If the value of Bending Roller Diameter will be too large, then in some cases Rebar Shape can be created wrong. Check the dimensions of the Rebar Shape's geometry to make sure if it's correct.
+
+**Important note 2:** The shape created after adding fillets to the polyline depends on the Rhino's document settings. So if you create one shape in the one Rhino document, and then you will open the same Grasshopper script in another document that will have different settings - then the output can be different. Check the source code if you want to find more informations about this. Check the Tolerance chapter too.
 
 ### Components
 
@@ -175,11 +194,64 @@ Stirrup Shape requires additional info about the type of the hooks. Right now th
 
 #### Rectangle To Line Bar Shape
 
+![RectangleToLine](Img\RectangleToLine.png)
+
+You can also change the position from 0 to 3, for example let's try with type 1:
+
+![RectangleToLinePosition1](Img\RectangleToLinePosition1.png)
+
 #### Rectangle To Stirrup Shape
+
+![RectangleToStirrup](Img\RectangleToStirrup.png)
+
+Check Stirrup Shape to see how different hooks for stirrups work.
 
 #### Rectangle To U-Bar Shape
 
+![RectangleToUBar](Img\RectangleToUBar.png)
+
+Position input works similar to the Rectangle To Line Bar Shape, for example if you set type 1:
+
+![RectangleToUBarPosition1](Img\RectangleToUBarPosition1.png)
+
 ## Rebar Spacing
+
+### About
+
+These components are useful to create objects called Rebar Group. They will take your Rebar Shape and generate group of rebars with proper spacing.
+
+There is one exception: Without Spacing component which creates Custom Rebar Group. More on that later.
+
+#### Id
+
+The Rebar Spacing components require Id which is an integer number. That Id is only for you, to help you organize those groups.
+
+### Components
+
+#### Curve Spacing
+
+This component is useful to create spacing that has a complex geometry. It allows the user to draw a curve and use it as an input of the spacing geometry. That curve will be divided into planes that are perpendicular to the curve, so the rebars will be oriented in those new division planes.
+
+![CurveSpacing](Img\CurveSpacing.png)
+
+![CurveSpacingCircle](Img\CurveSpacingCircle.png)
+
+The issue is that sometimes those new division planes are rotated in the different way that we want. That's why there is Rotation Angle input - so you can rotate it as you want.
+
+If you right click this input you can click Degrees, so there is no need to play with radians.
+
+Shape's Origin Plane should be the plane where Rebar Shape is. Basically if you use Curve Spacing then it doesn't matter where the Rebar Shape is, because it will be copied from the Shape's Origin Plane to all of the division planes that were created along the curve.
+
+![DivisionPlanes](Img\DivisionPlanes.png)
+
+#### Vector Count Spacing
+
+#### Vector Length Spacing
+
+#### Without Spacing
 
 ## Tools
 
+#### Rebar Group Info
+
+#### Custom Rebar Group Info

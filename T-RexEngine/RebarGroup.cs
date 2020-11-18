@@ -209,7 +209,10 @@ namespace T_RexEngine
         }
         public override string ToString()
         {
-            return "Rebar Group Id: " + Id;
+            return String.Format("Rebar Group{0}" +
+                                 "Id: {1}{0}" +
+                                 "Count: {2}",
+                Environment.NewLine, Id, Count);
         }
         public int Id
         {

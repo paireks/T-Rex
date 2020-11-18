@@ -111,12 +111,12 @@ namespace T_RexEngine
             return lBarPoints;
         }
         public static List<Point3d> CreateStirrupFromRectangleShape(Rectangle3d rectangle,
-            int hooksType, double bendingRollerDiameter, CoverDimensions coverDimensions, double hookLength,
+            int hooksType, BendingRoller bendingRoller, CoverDimensions coverDimensions, double hookLength,
             RebarProperties props)
         {
             List<Point3d> stirrupPoints = new List<Point3d>();
 
-            double bendingRollerRadius = bendingRollerDiameter / 2.0;
+            double bendingRollerRadius = bendingRoller.Diameter / 2.0;
 
             double yBottom = rectangle.Y.Min + coverDimensions.Bottom + props.Radius;
             double yTop = rectangle.Y.Max - coverDimensions.Top - props.Radius;

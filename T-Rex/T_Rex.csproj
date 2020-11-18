@@ -58,6 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BendingRollerGH.cs" />
     <Compile Include="CoverDimensionsGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
@@ -148,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Material.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BendingRoller.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
