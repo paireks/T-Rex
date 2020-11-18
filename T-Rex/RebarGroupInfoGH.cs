@@ -36,9 +36,9 @@ namespace T_Rex
             DA.GetData(0, ref rebarGroup);
 
             DA.SetData(0, rebarGroup.Id);
-            DA.SetData(1, rebarGroup.RebarShape.Props.Diameter);
+            DA.SetData(1, rebarGroup.Diameter);
             DA.SetData(2, rebarGroup.Count);
-            DA.SetData(3, rebarGroup.RebarShape.Props.Material);
+            DA.SetData(3, rebarGroup.Material);
             DA.SetData(4, rebarGroup.Volume);
             DA.SetData(5, rebarGroup.Weight);
         }

@@ -17,9 +17,14 @@ namespace T_Rex
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddNumberParameter("Diameter", "Diameter", "Diameter of bending roller", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Tolerance", "Tolerance", "Tolerance for filleting", GH_ParamAccess.item, 0.0001);
+            pManager.AddNumberParameter("Tolerance", "Tolerance", "Tolerance for filleting. "
+                                                                  + "It should be a small number, but can't be 0 or negative."
+                                                                  + " For meters, centimeters and millimeters the value 0.0001 should be sufficient for most of the cases." +
+                                                                  " If you want to understand it better - analyze the source code.", GH_ParamAccess.item, 0.0001);
             pManager.AddNumberParameter("Angle Tolerance", "Angle Tolerance",
-                "Angle tolerance for filleting in radians", GH_ParamAccess.item,0.0175);
+                "Angle tolerance for filleting in radians. It should be a small number, but can't be 0 or negative."
+                + " For meters, centimeters and millimeters the value 0.0175 (1 degree) should be sufficient for most of the cases." + 
+                " If you want to understand it better - analyze the source code.", GH_ParamAccess.item,0.0175);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {

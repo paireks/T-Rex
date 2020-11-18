@@ -62,7 +62,6 @@
     <Compile Include="CoverDimensionsGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
-    <Compile Include="CustomRebarGroupInfoGH.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,7 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectangleToUBarShapeGH.cs" />
     <Compile Include="VectorLengthSpacingGH.cs" />
-    <Compile Include="WithoutSpacingGH.cs" />
+    <Compile Include="CustomSpacingGH.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\T-RexEngine\T_RexEngine.csproj">

@@ -1,6 +1,6 @@
-Wednesday, November 11st 2020
+Wednesday, November 18th 2020
 Total result: 100% tests passed.
-Tests passed: 175
+Tests passed: 177
 Tests failed: 0
 | Name | Result |
 | :---: | :---: |
@@ -171,12 +171,14 @@ Tests failed: 0
 | RebarGroupMeters_VectorLengthSpacingType3_AllInfo | <span style="color: green">OK</span> |
 | RebarGroupMeters_CurveSpacing_AllInfo | <span style="color: green">OK</span> |
 | RebarGroupMeters_CurveSpacingClosed_AllInfo | <span style="color: green">OK</span> |
-| CustomRebarGroupInfoMilimeters_1Shape_Mesh | <span style="color: green">OK</span> |
-| CustomRebarGroupInfoMilimeters_Id_Mesh | <span style="color: green">OK</span> |
-| CustomRebarGroupInfoMilimeters_2RebarCurves_Mesh | <span style="color: green">OK</span> |
-| CustomRebarGroupInfoMilimeters_3RebarCurves_Mesh | <span style="color: green">OK</span> |
-| CustomRebarGroupInfoMilimeters_10Nurbs_Mesh | <span style="color: green">OK</span> |
-| CustomRebarGroupInfoMilimeters_ManyNurbs_Mesh | <span style="color: green">OK</span> |
-| CustomRebarGroupInfoMeters_1Shape_Mesh | <span style="color: green">OK</span> |
-| CustomRebarGroupInfoMeters_ManyNurbs_Mesh | <span style="color: green">OK</span> |
+| CustomRebarGroupInfoMilimeters_1Shape_AllInfo | <span style="color: green">OK</span> |
+| CustomRebarGroupInfoMilimeters_Id_AllInfo | <span style="color: green">OK</span> |
+| CustomRebarGroupInfoMilimeters_2RebarCurves_AllInfo | <span style="color: green">OK</span> |
+| CustomRebarGroupInfoMilimeters_3RebarCurves_AllInfo | <span style="color: green">OK</span> |
+| CustomRebarGroupInfoMilimeters_10Nurbs_AllInfo | <span style="color: green">OK</span> |
+| CustomRebarGroupInfoMilimeters_ManyNurbs_AllInfo | <span style="color: green">OK</span> |
+| CustomRebarGroupInfoMeters_1Shape_AllInfo | <span style="color: green">OK</span> |
+| CustomRebarGroupInfoMeters_ManyNurbs_AllInfo | <span style="color: green">OK</span> |
+| RebarPropertiesMilimeters_Normal_Init | <span style="color: green">OK</span> |
+| RebarPropertiesMilimeters_Custom_Init | <span style="color: green">OK</span> |
 

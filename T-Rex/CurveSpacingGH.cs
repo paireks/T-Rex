@@ -65,8 +65,7 @@ namespace T_Rex
             if (_useDegrees)
                 angle = RhinoMath.ToRadians(angle);
 
-            RebarGroup rebarGroup = new RebarGroup(id, rebarShape);
-            rebarGroup.UseCurveSpacing(plane, count, curve, angle);
+            RebarGroup rebarGroup = new RebarGroup(id, new RebarSpacing(rebarShape, plane, count, curve, angle));
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

@@ -7,11 +7,12 @@ using T_RexEngine;
 
 namespace T_Rex
 {
-    public class WithoutSpacingGH : GH_Component
+    public class CustomSpacingGH : GH_Component
     {
-        public WithoutSpacingGH()
-          : base("Without Spacing", "Without Spacing",
-              "Creates the Custom Rebar Group without any spacing. Add 1 or more Rebar Shapes to create a custom group.",
+        public CustomSpacingGH()
+          : base("Custom Spacing", "Custom Spacing",
+              "Creates the Rebar Group without any additional spacing - you have to set the spaces by creating Rebar Shapes that have already have spaces between them." +
+              " Add 1 or more Rebar Shapes to create that Rebar Group.",
               "T-Rex", "Rebar Spacing")
         {
         }
@@ -23,7 +24,7 @@ namespace T_Rex
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Custom Rebar Group", "Custom Rebar Group", "Custom group of the reinforcement bars",
+            pManager.AddGenericParameter("Rebar Group", "Rebar Group", "Group of the reinforcement bars",
                 GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Mesh group representation", GH_ParamAccess.list);
         }
@@ -35,7 +36,7 @@ namespace T_Rex
             DA.GetData(0, ref id);
             DA.GetDataList(1, rebarShapes);
 
-            CustomRebarGroup rebarGroup = new CustomRebarGroup(id, rebarShapes);
+            RebarGroup rebarGroup = new RebarGroup(id, rebarShapes);
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);
