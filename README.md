@@ -13,6 +13,8 @@ T-Rex can help you to create 3D models of reinforced concrete structures with Gr
 
 Basically T-Rex can help you to model different rebars, which are represented by meshes, which allows real-time generation of model even for thousands of bars.
 
+Check Manual inside the downloaded folder.
+
 ## Features (1.0.0)
 
 <p align="center">
@@ -22,15 +24,15 @@ Basically T-Rex can help you to model different rebars, which are represented by
 - Rebar Shapes from curves: Curve To Rebar, Polyline To Rebar
 - Rebar Shapes from rectangle: Rectangle To Line Bar Shape, Rectangle To U-Bar Shape, Rectangle To Stirrup Shape
 - Rebar Shapes library: L-Bar Shape, Stirrup Shape, Spacer Shape
-- Rebar Spacings: Curve Spacing, Vector Count Spacing, Vector Length Spacing, Without Spacing
-- Tools: Rebar Group Info, Custom Rebar Group Info
-- Properties: Cover Dimensions, Material, Rebar Properties
+- Rebar Spacings: Curve Spacing, Custom Spacing, Vector Count Spacing, Vector Length Spacing
+- Tools: Rebar Group Info
+- Properties: Bending Roller, Cover Dimensions, Material, Rebar Properties
 
 ## Authors
 
-Wojciech Radaczyński - development, testing, graphics
+Wojciech Radaczyński ([code-structures.com](https://code-structures.com)) - development, testing, graphics
 
-Krzysztof Marcinczak - testing and reviews
+Krzysztof Marcinczak - testing, review
 
 ## License (MIT License)
 

@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Introduction - Read before use!
+## Introduction
 
 ### Info
 
@@ -14,7 +14,7 @@ T-Rex is an open-source plug-in for Grasshopper.
 
 **Purpose: **T-Rex can help you to create parametric models of reinforced concrete structures with Grasshopper.
 
-**Requirements:** Rhino 6
+**Requirements:** Rhino 6 or Rhino 7
 
 **Contact:** If you have any specific questions, email me: w.radaczynski@gmail.com
 
@@ -57,7 +57,7 @@ Meshes even for 10000 rebars works pretty fast. Making the same with the pipes m
 
 **Important note:** Discrete models are problematic when you will try to measure things on your own. For example, if you decide to measure the volume by taking a mesh, then you'll get wrong results:
 
-<img src="Img\MeshNurbsVolume.png" alt="MeshNurbsVolume" style="zoom:67%;" />
+<img src="Img\MeshVsNurbsVolume.png" alt="MeshNurbsVolume" style="zoom:67%;" />
 
 Volume of rebar with diameter: 8 and length: 100 should be around 5026.5482. As you can see Pipe component will give you a precise model and the result is close enough, but the discrete mesh result is far from the truth. That's why you shouldn't measure the mesh results. You should use proper components that calculate it by themselves:
 
@@ -71,18 +71,17 @@ So is the T-Rex. It means that you will have to choose your unit system by yours
 
 ### Tolerances
 
-Tolerances are being used for two things in T-Rex:
+There are two places where you have to set proper tolerances values:
 
-- Vector Length Spacing component - you set it by yourself in the component
-- When the polyline is being filleted (in Rebar Shapes that require Bending Roller Diameter as input) - then it takes the tolerances from Rhino document settings
+- Rhino document
 
-To understand Vector Length Spacing component's tolerances - you will have to look how it actually works in the source code. Read the Vector Length Spacing chapter also. Basically some calculations in the code require some small number to obtain / compare / check few things and give you a Rebar Group as a result.
+  To understand better Rhino's tolerances - read this article: https://wiki.mcneel.com/rhino/faqtolerances
 
-To understand better Rhino's tolerances - read this article: https://wiki.mcneel.com/rhino/faqtolerances
+  **Important note:** Grasshopper also takes tolerances settings from Rhino document's settings. You can read about it there: https://www.grasshopper3d.com/forum/topics/gh-tolerance?commentId=2985220%3AComment%3A908767
 
-**Important note:** Grasshopper also takes tolerances settings from Rhino document's settings. You can read about it there: https://www.grasshopper3d.com/forum/topics/gh-tolerance?commentId=2985220%3AComment%3A908767
+- Inside the T-Rex components
 
-**That means that it is really important to use your Grasshopper script with the proper Rhino document that has all of the settings of Units and Tolerances set properly.**
+  There are a few components that require Tolerance value as input. Most of the time default values will be sufficient. To understand it more: you will have to see the source code.
 
 ## Properties
 
@@ -91,6 +90,18 @@ To understand better Rhino's tolerances - read this article: https://wiki.mcneel
 Properties components will help you to put the informations about different properties, that will be used later to create different objects.
 
 ### Components
+
+#### Bending Roller
+
+Not all of the Rebar Shape components, but many of them, require Bending Roller as input. This values are required to make fillets of the polyline correctly. Look at the image below to see how it works:
+
+![BendingRoller](Img\BendingRoller.png)
+
+60 is just an example: the proper value is for you to decide, it is often described in different standards / documents, and it can depend on things like for example diameter of the rebar or other factors.
+
+To understand Tolerance and Angle Tolerance check Tolerances chapter. For most of the cases default value will be sufficient. Basically those values will be used to create proper fillets of given polyline.
+
+**Important note:** If the value of Bending Roller Diameter will be too large, then in some cases Rebar Shape can be created wrong. Check the dimensions of the Rebar Shape's geometry to make sure if it's correct.
 
 #### Cover Dimensions
 
@@ -138,18 +149,6 @@ Rebar Shape components will help you to create different shapes of the rebars. T
 
 Every component from that section will output Rebar Shape and Mesh. Mesh is a discrete model of the rebar (you can read more about it in the Introduction chapter). Rebar Shape will be useful to create Rebar Group.
 
-#### Bending Roller Diameter
-
-Not all of the components, but most of them, require Bending Roller Diameter as input. This value is required to make fillets of the polyline correctly. Look at the image below to see how it works:
-
-![BendingRollerDiameter](Img\BendingRollerDiameter.png)
-
-60 is just an example: the proper value is for you to decide, it is often described in different standards / documents, and it can depend on things like for example diameter of the rebar or other factors.
-
-**Important note:** If the value of Bending Roller Diameter will be too large, then in some cases Rebar Shape can be created wrong. Check the dimensions of the Rebar Shape's geometry to make sure if it's correct.
-
-**Important note 2:** The shape created after adding fillets to the polyline depends on the Rhino's document settings. So if you create one shape in the one Rhino document, and then you will open the same Grasshopper script in another document that will have different settings - then the output can be different. Check the source code if you want to find more informations about this. Check the Tolerance chapter too.
-
 ### Components
 
 #### Curve To Rebar Shape
@@ -162,11 +161,11 @@ This component converts curve to a Rebar Shape. You can basically draw any curve
 
 #### Polyline To Rebar Shape
 
-This component converts polyline to Rebar Shape. It requires one more output then Curve To Rebar Shape: Bending Roller Diameter. So at first this polyline will be filleted, and then it will be translated to Rebar Shape.
+This component converts polyline to Rebar Shape. It requires one more output then Curve To Rebar Shape: Bending Roller. So at first this polyline will be filleted, and then it will be translated to Rebar Shape.
 
 ![PolylineToRebarShape](Img\PolylineToRebarShape.png)
 
-There are few requirements: polyline can't be straight and there need to be at least 3 points of polyline - those requirements are to make sure that it is possible to create fillets. If you want to draw a straight line, and turn it to Rebar Shape - use Curve To Rebar Shape component.
+There are few requirements: polyline can't be straight and there need to be at least 3 points of polyline - those requirements are to make sure that it is possible to create fillets. If you want to draw a straight line, and turn it to Rebar Shape - use Curve To Rebar Shape component instead.
 
 #### L-Bar Shape
 
@@ -218,9 +217,9 @@ Position input works similar to the Rectangle To Line Bar Shape, for example if 
 
 ### About
 
-These components are useful to create objects called Rebar Group. They will take your Rebar Shape and generate group of rebars with proper spacing.
+These components are useful to create objects called Rebar Groups. They will take your Rebar Shape and generate group of rebars with proper spacing.
 
-There is one exception: Without Spacing component which creates Custom Rebar Group. More on that later.
+There is one exception: Custom Spacing component that doesn't create any spacing, you have to plug Rebar Shapes that have already spaces between them there.
 
 #### Id
 
@@ -244,14 +243,12 @@ Shape's Origin Plane should be the plane where Rebar Shape is. Basically if you 
 
 ![DivisionPlanes](Img\DivisionPlanes.png)
 
+#### Custom Spacing
+
 #### Vector Count Spacing
 
 #### Vector Length Spacing
 
-#### Without Spacing
-
 ## Tools
 
 #### Rebar Group Info
-
-#### Custom Rebar Group Info
