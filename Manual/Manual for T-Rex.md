@@ -245,10 +245,66 @@ Shape's Origin Plane should be the plane where Rebar Shape is. Basically if you 
 
 #### Custom Spacing
 
+This component will help you to create Rebar Group with custom spacing, which means you will have to create spacing between Rebar Shapes by yourself, and then connect all of those Rebar Shapes to the component.
+
+![CustomSpacing](Img\CustomSpacing.png)
+
+Basically it takes all of the Rebar Shapes you connect and add it to the one Rebar Group.
+
+For the example above - Vector Count Spacing or Vector Length Spacing components will be better. Custom Spacing will be helpful where you want for example to create one group for rebars with different lengths.
+
+![TriangleSpacing](Img\TriangleSpacing.png)
+
+It can be also only one Rebar Shape without any spacing.
+
+![Custom1Shape](Img\Custom1Shape.png)
+
 #### Vector Count Spacing
 
+This component takes Rebar Shape and treat it as the first rebar of the group (start of the spacing). Vector defines where the end of the spacing will appear. Count defines how many rebars will be in this group. Spacing between all of those bars will be the same from start to the end of the input Vector.
+
+![VectorCountSpacing](Img\VectorCountSpacing.png)
+
 #### Vector Length Spacing
+
+This component is similar to Vector Count Spacing, the difference is: you don't define Count (how many rebars you need in the group) but you have to define Spacing Length instead. There are different types of spacing so let's go through all of them:
+
+- Type: 0 - Constant spacing with different last one
+
+  ![VLS0](Img\VLS0.png)
+
+- Type: 1 - Constant spacing with different first one
+
+  ![VLS1](Img\VLS1.png)
+
+- Type: 2 - Constant spacing with first and last different
+
+  ![VLS2](Img\VLS2.png)
+
+- Type: 3 - Smaller (or the same) spacing length, but constant for all bars from start to end
+
+  ![VLS3](Img\VLS3.png)
+
+Tolerance default value should be sufficient for most of the cases, to understand it more you'll need to check the source code.
+
+**Important note:** For some combination of Vector and Spacing Length you'll get the result in which rebars are in collision with each others, for example:
+
+![Collision](Img\Collision.png)
+
+Most of the time it will be visible, but sometimes the distance between collided bars is so small, that you cannot barely see the difference if one rebar is inside an another or is it just one bar. That's why you should always make sure that the Rebar Group is created correctly.
 
 ## Tools
 
 #### Rebar Group Info
+
+This component show all of the informations about created Rebar Group.
+
+<img src="Img\RebarGroupInfo.png" alt="RebarGroupInfo" style="zoom:67%;" />
+
+All of those information are unit-less - check Unit chapter to read more about it.
+
+**Important note:** Grasshopper often shows values in the scientific notation. The calculated value can be more precise in reality. To see the value in a format you want, you can use Grasshopper component called Format. You can read more about it here: https://www.grasshopper3d.com/forum/topics/formatting-numbers-in-grasshopper
+
+<img src="Img\Format.png" alt="Format" style="zoom:67%;" />
+
+ 
