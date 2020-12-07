@@ -43,6 +43,11 @@ namespace T_RexEngine
             int position, CoverDimensions coverDimensions, double hookLength, RebarProperties props)
         {
 
+            if (hookLength <= 0)
+            {
+                throw new ArgumentException("Hook Length should be > 0");
+            }
+
             Point3d topLeft;
             Point3d bottomLeft;
             Point3d bottomRight;
@@ -86,6 +91,11 @@ namespace T_RexEngine
         public static List<Point3d> CreateForSpacerShape(double height, double length, double width,
             RebarProperties props)
         {
+            if (height <= 0 || length <= 0 || width <= 0)
+            {
+                throw new ArgumentException("Input dimensions should be > 0");
+            }
+            
             List<Point3d> spacerPoints = new List<Point3d>
             {
                 new Point3d(- length / 2.0, - width / 2.0 + props.Radius, props.Radius),
@@ -101,6 +111,11 @@ namespace T_RexEngine
         
         public static List<Point3d> CreateForLBarShape(double height, double width, RebarProperties props)
         {
+            if (height <= 0 || width <= 0)
+            {
+                throw new ArgumentException("Input dimensions should be > 0");
+            }
+            
             List<Point3d> lBarPoints = new List<Point3d>
             {
                 new Point3d(0.0,props.Radius, 0.0),
@@ -114,6 +129,11 @@ namespace T_RexEngine
             int hooksType, BendingRoller bendingRoller, CoverDimensions coverDimensions, double hookLength,
             RebarProperties props)
         {
+            if (hookLength <= 0)
+            {
+                throw new ArgumentException("Hook Length should be > 0");
+            }
+            
             List<Point3d> stirrupPoints = new List<Point3d>();
 
             double bendingRollerRadius = bendingRoller.Diameter / 2.0;
