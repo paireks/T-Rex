@@ -58,11 +58,30 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurveToRebarGH.cs" />
+    <Compile Include="BendingRollerGH.cs" />
+    <Compile Include="CoverDimensionsGH.cs" />
+    <Compile Include="CurveSpacingGH.cs" />
+    <Compile Include="CurveToRebarShapeGH.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RectangleToLineBarShapeGH.cs" />
+    <Compile Include="LBarShapeGH.cs" />
+    <Compile Include="MaterialGH.cs" />
+    <Compile Include="PolylineToRebarShapeGH.cs" />
+    <Compile Include="RebarGroupInfoGH.cs" />
     <Compile Include="RebarPropertiesGH.cs" />
-    <Compile Include="SpacingGH.cs" />
+    <Compile Include="SpacerShapeGH.cs" />
+    <Compile Include="StirrupBarShapeGH.cs" />
+    <Compile Include="VectorCountSpacingGH.cs" />
+    <Compile Include="RectangleToStirrupBarShapeGH.cs" />
     <Compile Include="T_RexInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RectangleToUBarShapeGH.cs" />
+    <Compile Include="VectorLengthSpacingGH.cs" />
+    <Compile Include="CustomSpacingGH.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\T-RexEngine\T_RexEngine.csproj">
@@ -72,6 +91,66 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VectorCountSpacing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CurveToRebarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PolylineToRebarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpacerShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LBarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StirrupBarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RectangleToStirrupBarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RectangleToUBarShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RectangleToBarLineShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VectorLengthSpacing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RebarInfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CustomRebarInfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WithoutSpacing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CurveSpacingShape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RebarProp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Material.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BendingRoller.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

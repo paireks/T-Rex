@@ -49,5 +49,12 @@ namespace T_Rex
             return "w.radaczynski@gmail.com";
         }
     }
+    public override string Version
+    {
+        get
+        {
+            return "0.1.0.0";
+        }
+    }
 }
 }
