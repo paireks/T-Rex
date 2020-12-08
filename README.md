@@ -7,13 +7,13 @@ Parametric Reinforcement Plug-in for Grasshopper.
 
 ## Purpose
 
-T-Rex can help you to create 3D models of reinforced concrete structures with Grasshopper (Rhino 6).
+T-Rex can help you to create 3D models of reinforced concrete structures with Grasshopper (Rhino 6 or 7).
 
 ## How it works?
 
 Basically T-Rex can help you to model different rebars, which are represented by meshes, which allows real-time generation of model even for thousands of bars.
 
-Check Manual inside the downloaded folder.
+Check Manual here: https://code-structures.com/T_Rex_Manual/Manual%20for%20T-Rex.html
 
 ## Features (0.1.0) BETA
 
