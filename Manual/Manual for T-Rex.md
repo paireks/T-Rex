@@ -1,4 +1,4 @@
-# Manual for T-Rex 1.0.0
+# Manual for T-Rex 0.1.0
 
 [TOC]
 
@@ -15,6 +15,8 @@ T-Rex is an open-source plug-in for Grasshopper.
 **Purpose: **T-Rex can help you to create parametric models of reinforced concrete structures with Grasshopper.
 
 **Requirements:** Rhino 6 or Rhino 7
+
+**Status:** BETA, Work in progress
 
 **Contact:** If you have any specific questions, email me: w.radaczynski@gmail.com
 

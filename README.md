@@ -15,7 +15,7 @@ Basically T-Rex can help you to model different rebars, which are represented by
 
 Check Manual inside the downloaded folder.
 
-## Features (1.0.0)
+## Features (0.1.0) BETA
 
 <p align="center">
   <img src="https://github.com/paireks/T-Rex/blob/Version1_0_0/IMG/2020-11-08_22h34_54.png">
@@ -27,12 +27,6 @@ Check Manual inside the downloaded folder.
 - Rebar Spacings: Curve Spacing, Custom Spacing, Vector Count Spacing, Vector Length Spacing
 - Tools: Rebar Group Info
 - Properties: Bending Roller, Cover Dimensions, Material, Rebar Properties
-
-## Authors
-
-Wojciech Radaczyński ([code-structures.com](https://code-structures.com)) - development, testing, graphics
-
-Krzysztof Marcinczak - testing, review
 
 ## License (MIT License)
 
