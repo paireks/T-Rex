@@ -67,6 +67,7 @@
     <Compile Include="RebarProperties.cs" />
     <Compile Include="RebarShape.cs" />
     <Compile Include="RebarSpacing.cs" />
+    <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

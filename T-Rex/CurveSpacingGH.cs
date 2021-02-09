@@ -37,6 +37,7 @@ namespace T_Rex
             pManager.AddGenericParameter("Rebar Group", "Rebar Group", "Group of reinforcement bars",
                 GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Mesh that represents reinforcement", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Curve", "Curve", "Curves that represents reinforcement", GH_ParamAccess.list);
         }
 
         protected override void BeforeSolveInstance()
@@ -69,6 +70,7 @@ namespace T_Rex
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);
+            DA.SetDataList(2, rebarGroup.RebarGroupCurves);
         }
         protected override System.Drawing.Bitmap Icon
         {

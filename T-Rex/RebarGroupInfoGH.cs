@@ -49,10 +49,6 @@ namespace T_Rex
                 return Properties.Resources.RebarInfo;
             }
         }
-        public override GH_Exposure Exposure
-        {
-            get { return GH_Exposure.secondary; }
-        }
         public override Guid ComponentGuid
         {
             get { return new Guid("548419ce-fdbb-4de1-8891-386275ee24de"); }

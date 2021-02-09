@@ -16,6 +16,7 @@ namespace T_RexEngine
             Volume = rebarSpacing.Volume;
             Weight = rebarSpacing.Weight;
             RebarGroupMesh = rebarSpacing.RebarGroupMesh;
+            RebarGroupCurves = rebarSpacing.RebarGroupCurves;
             Diameter = rebarSpacing.OriginRebarShape.Props.Diameter;
             Material = rebarSpacing.OriginRebarShape.Props.Material;
         }
@@ -24,6 +25,7 @@ namespace T_RexEngine
             Id = id;
             Count = rebarShapes.Count;
             RebarGroupMesh = new List<Mesh>();
+            RebarGroupCurves = new List<Curve>();
             Volume = 0.0;
             Weight = 0.0;
             Diameter = rebarShapes[0].Props.Diameter;
@@ -41,6 +43,7 @@ namespace T_RexEngine
                 }
                 
                 RebarGroupMesh.Add(rebarShape.RebarMesh);
+                RebarGroupCurves.Add(rebarShape.RebarCurve);
 
                 double currentRebarVolume = rebarShape.RebarCurve.GetLength() * Math.PI * Math.Pow(rebarShape.Props.Radius, 2.0);
                 
@@ -71,6 +74,7 @@ namespace T_RexEngine
         public double Diameter { get; }
         public Material Material { get; }
         public List<Mesh> RebarGroupMesh { get; }
+        public List<Curve> RebarGroupCurves { get; }
         public int Count { get; }
         public double Volume { get; }
         public double Weight { get; }
