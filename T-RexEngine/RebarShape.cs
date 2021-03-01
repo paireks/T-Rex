@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rhino;
 using Rhino.Geometry;
 
 namespace T_RexEngine
