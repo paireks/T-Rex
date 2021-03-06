@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="BendingRollerGH.cs" />
     <Compile Include="CoverDimensionsGH.cs" />
+    <Compile Include="CreateIfcGH.cs" />
     <Compile Include="CreateNewMeshFromRebarGroupGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />

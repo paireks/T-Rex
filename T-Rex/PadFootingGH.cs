@@ -1,4 +1,7 @@
-﻿namespace T_Rex
+﻿using T_RexEngine;
+using T_RexEngine.ElementLibrary;
+
+namespace T_Rex
 {
 using System;
 
@@ -17,7 +20,7 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddPlaneParameter("Plane", "Plane", "Insert plane", GH_ParamAccess.item, Plane.WorldXY);
+            pManager.AddPointParameter("Point", "Point", "Insert point", GH_ParamAccess.item, Point3d.Origin);
             pManager.AddNumberParameter("Height", "Height", "Height of the footing", GH_ParamAccess.item);
             pManager.AddNumberParameter("Width", "Width", "Width of the footing", GH_ParamAccess.item);
             pManager.AddNumberParameter("Length", "Length", "Length of the footing", GH_ParamAccess.item);
@@ -25,24 +28,27 @@ namespace T_Rex
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Concrete Element", "Concrete Element", "Concrete element", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Element", "Element", "Concrete element", GH_ParamAccess.item);
             pManager.AddBrepParameter("Brep", "Brep", "Brep that represents concrete element", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Plane plane = Plane.Unset;
+            Point3d point = Point3d.Unset;
             double height = double.NaN;
             double width = double.NaN;
             double length = double.NaN;
+            Material material = null;
 
-            DA.GetData(0, ref plane);
+            DA.GetData(0, ref point);
             DA.GetData(1, ref height);
             DA.GetData(2, ref width);
             DA.GetData(3, ref length);
+            DA.GetData(4, ref material);
 
-            Box padFooting = new Box(plane, new Interval(-length/2.0, length/2.0), new Interval(-width/2.0, width/2.0), new Interval(0, height));
+            PadFooting padFooting = new PadFooting(point, height, width, length, material);
 
-            DA.SetData(1, padFooting.ToBrep());
+            DA.SetData(0, padFooting);
+            DA.SetData(1, padFooting.Brep);
         }
         protected override System.Drawing.Bitmap Icon
         {
