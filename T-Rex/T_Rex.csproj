@@ -64,7 +64,7 @@
     <Compile Include="CreateNewMeshFromRebarGroupGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
-    <Compile Include="PadFootingGH.cs" />
+    <Compile Include="PadFootingsGH.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

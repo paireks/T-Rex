@@ -31,13 +31,13 @@ namespace T_Rex
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Element> elements = new List<Element>();
+            List<ElementGroup> elementGroups = new List<ElementGroup>();
             string path = string.Empty;
 
-            DA.GetDataList(0, elements);
+            DA.GetDataList(0, elementGroups);
             DA.GetData(1, ref path);
             
-            Ifc Ifc = new Ifc(elements, path);
+            Ifc Ifc = new Ifc(elementGroups, path);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -15,7 +15,7 @@ namespace T_RexEngine
 {
     public class Ifc
     {
-        public Ifc(List<Element> elements, string path)
+        public Ifc(List<ElementGroup> elementGroups, string path)
         {
             using (IfcStore model = CreateAndInitModel("My Model", ProjectUnits.SIUnitsUK))
             {
@@ -23,13 +23,16 @@ namespace T_RexEngine
                 {
                     IfcBuilding building = CreateBuilding(model, "Default Building");
 
-                    foreach (var element in elements)
+                    foreach (var elementGroup in elementGroups)
                     {
-                        IfcBuildingElement currentElement = element.ToIfc(model);
-                        using (var transaction = model.BeginTransaction("Add element"))
+                        List<IfcBuildingElement> currentElementGroup = elementGroup.ToIfc(model);
+                        foreach (var buildingElement in currentElementGroup)
                         {
-                            building.AddElement(currentElement);
-                            transaction.Commit();
+                            using (var transaction = model.BeginTransaction("Add element"))
+                            {
+                                building.AddElement(buildingElement);
+                                transaction.Commit();
+                            }
                         }
                     }
 
