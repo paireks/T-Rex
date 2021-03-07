@@ -17,23 +17,22 @@ namespace T_RexEngine.ElementLibrary
 {
     public class PadFootings: ElementGroup
     {
-        public PadFootings(List<Point3d> insertPoints, double height, double width, double length, Material material)
+        public PadFootings(List<Plane> insertPlanes, double height, double width, double length, Material material)
         {
             Height = height;
             Width = width;
             Length = length;
-            InsertPoints = insertPoints;
+            InsertPlanes = insertPlanes;
             
             Brep = new List<Brep>();
 
-            foreach (var point in InsertPoints)
+            foreach (var plane in InsertPlanes)
             {
-                Plane insertPlane = new Plane(point, Vector3d.XAxis, Vector3d.YAxis);
                 Interval lengthInterval = new Interval(-Length/2.0, Length/2.0);
                 Interval widthInterval = new Interval(-Width/2.0, Width/2.0);
                 Interval heightInterval = new Interval(0, Height);
                 
-                Box box = new Box(insertPlane, lengthInterval, widthInterval, heightInterval);
+                Box box = new Box(plane, lengthInterval, widthInterval, heightInterval);
                 Brep.Add(box.ToBrep());
             }
             
@@ -86,10 +85,9 @@ namespace T_RexEngine.ElementLibrary
                 ifcRelAssociatesMaterial.RelatingMaterial = material;
                 
                 // Create footings
-                
                 var footings = new List<IfcBuildingElement>();
                 
-                foreach (var insertPoint in InsertPoints)
+                foreach (var insertPlane in InsertPlanes)
                 {
                     var footing = model.Instances.New<IfcFooting>();
                     footing.Name = "Pad Footing";
@@ -105,13 +103,13 @@ namespace T_RexEngine.ElementLibrary
 
 
                     var location = model.Instances.New<IfcCartesianPoint>();
-                    location.SetXYZ(insertPoint.X, insertPoint.Y, insertPoint.Z);
+                    location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
                     ax3D.Location = location;
                 
                     ax3D.RefDirection = model.Instances.New<IfcDirection>();
-                    ax3D.RefDirection.SetXYZ(1, 0, 0);
+                    ax3D.RefDirection.SetXYZ(insertPlane.XAxis.X, insertPlane.XAxis.Y, insertPlane.XAxis.Z);
                     ax3D.Axis = model.Instances.New<IfcDirection>();
-                    ax3D.Axis.SetXYZ(0, 0, 1);
+                    ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
                     localPlacement.RelativePlacement = ax3D;
                     footing.ObjectPlacement = localPlacement;
                 
@@ -128,7 +126,6 @@ namespace T_RexEngine.ElementLibrary
         private double Height { get; }
         private double Width { get; }
         private double Length { get; }
-        
-        private List<Point3d> InsertPoints { get; }
+        private List<Plane> InsertPlanes { get; }
     }
 }

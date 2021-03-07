@@ -21,7 +21,7 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddPointParameter("Points", "Points", "Insert points", GH_ParamAccess.list, Point3d.Origin);
+            pManager.AddPlaneParameter("Planes", "Planes", "Insert planes", GH_ParamAccess.list, Plane.WorldXY);
             pManager.AddNumberParameter("Height", "Height", "Height of the footing", GH_ParamAccess.item);
             pManager.AddNumberParameter("Width", "Width", "Width of the footing", GH_ParamAccess.item);
             pManager.AddNumberParameter("Length", "Length", "Length of the footing", GH_ParamAccess.item);
@@ -34,19 +34,19 @@ namespace T_Rex
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Point3d> points = new List<Point3d>();
+            List<Plane> planes = new List<Plane>();
             double height = double.NaN;
             double width = double.NaN;
             double length = double.NaN;
             Material material = null;
 
-            DA.GetDataList(0, points);
+            DA.GetDataList(0, planes);
             DA.GetData(1, ref height);
             DA.GetData(2, ref width);
             DA.GetData(3, ref length);
             DA.GetData(4, ref material);
 
-            PadFootings padFootings = new PadFootings(points, height, width, length, material);
+            PadFootings padFootings = new PadFootings(planes, height, width, length, material);
 
             DA.SetData(0, padFootings);
             DA.SetDataList(1, padFootings.Brep);
