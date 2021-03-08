@@ -130,6 +130,7 @@
     <Compile Include="ElementLibrary\PadFootings.cs" />
     <Compile Include="Enums\ElementType.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="MeshElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RebarGroup.cs" />
     <Compile Include="RebarPoints.cs" />

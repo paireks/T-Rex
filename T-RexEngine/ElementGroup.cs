@@ -11,7 +11,7 @@ namespace T_RexEngine
     {
         public List<Brep> Brep { get; set; }
         
-        public List<Mesh> Mesh { get; set; }
+        public Mesh Mesh { get; set; }
         public Material Material { get; set; }
         public ElementType ElementType { get; set; }
         public abstract List<IfcBuildingElement> ToIfc(IfcStore model);
