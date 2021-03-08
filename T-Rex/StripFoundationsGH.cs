@@ -7,20 +7,19 @@ using Rhino.Geometry;
 
 namespace T_Rex
 {
-    public class PadFootingsGH : GH_Component
+    public class StripFoundationsGH : GH_Component
     {
-        public PadFootingsGH()
-          : base("Pad Footings", "Pad Footings",
-              "Create Pad Footings",
+        public StripFoundationsGH()
+          : base("Strip Foundations", "Strip Foundations",
+              "Create Strip Foundations",
               "T-Rex", "Concrete")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddPlaneParameter("Planes", "Planes", "Insert planes", GH_ParamAccess.list, Plane.WorldXY);
+            pManager.AddLineParameter("Lines", "Lines", "Insert lines", GH_ParamAccess.list);
             pManager.AddNumberParameter("Height", "Height", "Height of the footing", GH_ParamAccess.item);
             pManager.AddNumberParameter("Width", "Width", "Width of the footing", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Length", "Length", "Length of the footing", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Concrete element material", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -30,22 +29,20 @@ namespace T_Rex
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            List<Plane> planes = new List<Plane>();
+            List<Line> lines = new List<Line>();
             double height = double.NaN;
             double width = double.NaN;
-            double length = double.NaN;
             Material material = null;
 
-            DA.GetDataList(0, planes);
+            DA.GetDataList(0, lines);
             DA.GetData(1, ref height);
             DA.GetData(2, ref width);
-            DA.GetData(3, ref length);
-            DA.GetData(4, ref material);
+            DA.GetData(3, ref material);
 
-            PadFootings padFootings = new PadFootings(planes, height, width, length, material);
+            StripFoundations stripFoundations = new StripFoundations(lines, height, width, material);
 
-            DA.SetData(0, padFootings);
-            DA.SetDataList(1, padFootings.Brep);
+            DA.SetData(0, stripFoundations);
+            DA.SetDataList(1, stripFoundations.Brep);
         }
         protected override System.Drawing.Bitmap Icon
         {
@@ -56,7 +53,7 @@ namespace T_Rex
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("99428fca-2817-4bb9-a97d-5de802d77b38"); }
+            get { return new Guid("be9bb4a3-9e9d-4550-8766-2f05a46dfd0e"); }
         }
     }
 }

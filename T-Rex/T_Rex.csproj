@@ -78,6 +78,7 @@
     <Compile Include="RebarPropertiesGH.cs" />
     <Compile Include="SpacerShapeGH.cs" />
     <Compile Include="StirrupBarShapeGH.cs" />
+    <Compile Include="StripFoundationsGH.cs" />
     <Compile Include="VectorCountSpacingGH.cs" />
     <Compile Include="RectangleToStirrupBarShapeGH.cs" />
     <Compile Include="T_RexInfo.cs" />

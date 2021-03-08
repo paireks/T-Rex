@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using T_RexEngine;
-
-namespace T_Rex
-{
 using System;
-
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
@@ -51,5 +47,4 @@ namespace T_Rex
             get { return new Guid("829950d4-9a32-415d-bd94-6d122eece5f1"); }
         }
     }
-}
 }

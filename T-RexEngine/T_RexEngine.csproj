@@ -124,6 +124,7 @@
   <ItemGroup>
     <Compile Include="BendingRoller.cs" />
     <Compile Include="CoverDimensions.cs" />
+    <Compile Include="ElementLibrary\StripFoundations.cs" />
     <Compile Include="Ifc.cs" />
     <Compile Include="ElementGroup.cs" />
     <Compile Include="ElementLibrary\PadFootings.cs" />
