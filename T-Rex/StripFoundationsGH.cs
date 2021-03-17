@@ -42,7 +42,7 @@ namespace T_Rex
             StripFoundations stripFoundations = new StripFoundations(lines, height, width, material);
 
             DA.SetData(0, stripFoundations);
-            DA.SetDataList(1, stripFoundations.Brep);
+            DA.SetDataList(1, stripFoundations.Breps);
         }
         protected override System.Drawing.Bitmap Icon
         {

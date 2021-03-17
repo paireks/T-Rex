@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Rhino.Geometry;
+using Rhino.Geometry.Collections;
 using T_RexEngine.Enums;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricConstraintResource;
@@ -12,70 +13,69 @@ using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.ProfileResource;
 using Xbim.Ifc4.RepresentationResource;
 using Xbim.Ifc4.StructuralElementsDomain;
+using Xbim.Ifc4.TopologyResource;
 
 namespace T_RexEngine.ElementLibrary
 {
-    public class PadFootings: ElementGroup
+    public class Rebars: ElementGroup
     {
-        public PadFootings(List<Plane> insertPlanes, double height, double width, double length, Material material)
+        public Rebars(RebarGroup rebarGroup, int numberOfSegments, int accuracy)
         {
-            Height = height;
-            Width = width;
-            Length = length;
-            InsertPlanes = insertPlanes;
-            
-            Breps = new List<Brep>();
-
-            foreach (var plane in InsertPlanes)
-            {
-                Interval lengthInterval = new Interval(-Length/2.0, Length/2.0);
-                Interval widthInterval = new Interval(-Width/2.0, Width/2.0);
-                Interval heightInterval = new Interval(0, Height);
-                
-                Box box = new Box(plane, lengthInterval, widthInterval, heightInterval);
-                Breps.Add(box.ToBrep());
-            }
-            
-            Material = material;
-            ElementType = ElementType.PadFooting;
+            Mesh = rebarGroup.OriginRebarShape.RebarMesh;
+            RebarGroup = rebarGroup;
+            Material = rebarGroup.Material;
         }
 
         public override List<IfcBuildingElement> ToIfc(IfcStore model)
         {
-            using (var transaction = model.BeginTransaction("Create Pad Footing"))
+            using (var transaction = model.BeginTransaction("Create Mesh Element"))
             {
-                //Create rectangle profile
-                var rectangleProfile = model.Instances.New<IfcRectangleProfileDef>();
-                rectangleProfile.ProfileType = IfcProfileTypeEnum.AREA;
-                rectangleProfile.XDim = Length;
-                rectangleProfile.YDim = Width;
-                
-                //Insert profile
-                var profileInsertPoint = model.Instances.New<IfcCartesianPoint>();
-                profileInsertPoint.SetXY(0, 0);
-                rectangleProfile.Position = model.Instances.New<IfcAxis2Placement2D>();
-                rectangleProfile.Position.Location = profileInsertPoint;
+                MeshFaceList faces = Mesh.Faces;
+                MeshVertexList vertices = Mesh.Vertices;
+                List<IfcCartesianPoint> ifcVertices = new List<IfcCartesianPoint>();
 
-                //Model as a swept area solid
-                var body = model.Instances.New<IfcExtrudedAreaSolid>();
-                body.Depth = Height;
-                body.SweptArea = rectangleProfile;
-                body.ExtrudedDirection = model.Instances.New<IfcDirection>();
-                body.ExtrudedDirection.SetXYZ(0, 0, 1);
-
-                // Parameters to insert the geometry in the model
-                var origin = model.Instances.New<IfcCartesianPoint>();
-                origin.SetXYZ(0, 0, 0);
-                body.Position = model.Instances.New<IfcAxis2Placement3D>();
-                body.Position.Location = origin;
+                foreach (var point in vertices)
+                {
+                    IfcCartesianPoint currentVertex = model.Instances.New<IfcCartesianPoint>();
+                    currentVertex.SetXYZ(point.X, point.Y, point.Z);
+                    ifcVertices.Add(currentVertex);
+                }
                 
+                var faceSet = model.Instances.New<IfcConnectedFaceSet>();
+
+                foreach (var meshFace in faces)
+                {
+                    List<IfcCartesianPoint> points = new List<IfcCartesianPoint>();
+
+                    points.Add(ifcVertices[meshFace.A]);
+                    points.Add(ifcVertices[meshFace.B]);
+                    points.Add(ifcVertices[meshFace.C]);
+
+                    if (meshFace.C != meshFace.D)
+                    {
+                        points.Add(ifcVertices[meshFace.D]);
+                    }
+                    
+                    var polyLoop = model.Instances.New<IfcPolyLoop>();
+                    polyLoop.Polygon.AddRange(points);
+                    var bound = model.Instances.New<IfcFaceOuterBound>();
+                    bound.Bound = polyLoop;
+                    var face = model.Instances.New<IfcFace>();
+                    face.Bounds.Add(bound);
+                
+                    faceSet.CfsFaces.Add(face);
+                }
+                
+                var faceBasedSurfaceModel = model.Instances.New<IfcFaceBasedSurfaceModel>();
+                faceBasedSurfaceModel.FbsmFaces.Add(faceSet);
+
                 // Create shape that holds geometry
                 var shape = model.Instances.New<IfcShapeRepresentation>();
                 var modelContext = model.Instances.OfType<IfcGeometricRepresentationContext>().FirstOrDefault();
                 shape.ContextOfItems = modelContext;
-                shape.RepresentationType = "SweptSolid";
-                shape.RepresentationIdentifier = "Body";
-                shape.Items.Add(body);
+                shape.RepresentationType = "Mesh";
+                shape.RepresentationIdentifier = "Mesh";
+                shape.Items.Add(faceBasedSurfaceModel);
                 
                 // Create material
                 var material = model.Instances.New<IfcMaterial>();
@@ -86,8 +86,8 @@ namespace T_RexEngine.ElementLibrary
                 
                 // Create footings
                 var footings = new List<IfcBuildingElement>();
-                
-                foreach (var insertPlane in InsertPlanes)
+
+                foreach (var insertPlane in RebarGroup.RebarInsertPlanes)
                 {
                     var footing = model.Instances.New<IfcFooting>();
                     footing.Name = "Pad Footing";
@@ -120,13 +120,13 @@ namespace T_RexEngine.ElementLibrary
                 }
 
                 transaction.Commit();
+                
                 return footings;
+                
             }
         }
-        public List<Brep> Breps{ get; }
-        private double Height { get; }
-        private double Width { get; }
-        private double Length { get; }
-        private List<Plane> InsertPlanes { get; }
+        private Mesh Mesh { get; }
+        
+        private RebarGroup RebarGroup { get;}
     }
 }

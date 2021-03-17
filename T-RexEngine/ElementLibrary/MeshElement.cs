@@ -15,7 +15,7 @@ using Xbim.Ifc4.RepresentationResource;
 using Xbim.Ifc4.StructuralElementsDomain;
 using Xbim.Ifc4.TopologyResource;
 
-namespace T_RexEngine
+namespace T_RexEngine.ElementLibrary
 {
     public class MeshElement: ElementGroup
     {
@@ -118,5 +118,6 @@ namespace T_RexEngine
                 return footings;
             }
         }
+        public Mesh Mesh { get; }
     }
 }

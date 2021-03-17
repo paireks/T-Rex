@@ -24,7 +24,7 @@ namespace T_RexEngine.ElementLibrary
             Width = width;
             InsertLines = insertLines;
             
-            Brep = new List<Brep>();
+            Breps = new List<Brep>();
             Planes = new List<Plane>();
 
             foreach (var line in InsertLines)
@@ -39,7 +39,7 @@ namespace T_RexEngine.ElementLibrary
                 Interval heightInterval = new Interval(0, Height);
                 
                 Box box = new Box(insertPlane, lengthInterval, widthInterval, heightInterval);
-                Brep.Add(box.ToBrep());
+                Breps.Add(box.ToBrep());
             }
             
             Material = material;
@@ -58,7 +58,7 @@ namespace T_RexEngine.ElementLibrary
                 
                 //Insert profile
                 var profileInsertPoint = model.Instances.New<IfcCartesianPoint>();
-                profileInsertPoint.SetXY(0, 0);
+                profileInsertPoint.SetXY(0, -Height/2);
                 rectangleProfile.Position = model.Instances.New<IfcAxis2Placement2D>();
                 rectangleProfile.Position.Location = profileInsertPoint;
 
@@ -128,6 +128,7 @@ namespace T_RexEngine.ElementLibrary
                 return footings;
             }
         }
+        public List<Brep> Breps { get; }
         private double Height { get; }
         private double Width { get; }
         private List<Line> InsertLines { get; }

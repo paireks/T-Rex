@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using T_RexEngine;
+using T_RexEngine.ElementLibrary;
 
 namespace T_Rex
 {
-    public class CreateNewMeshFromRebarGroupGH : GH_Component
+    public class RebarGroupToElementsGH : GH_Component
     {
-        public CreateNewMeshFromRebarGroupGH()
-          : base("Create New Mesh From Rebar Group", "Create New Mesh From Rebar Group",
-              "Creates new meshes from Rebar Group with custom settings",
-              "T-Rex", "Tools")
+        public RebarGroupToElementsGH()
+          : base("Rebar Group To Elements", "Rebar Group To Elements",
+              "Converts Rebar Group to Elements that can be used to export IFC",
+              "T-Rex", "Rebar Spacing")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
@@ -24,6 +25,7 @@ namespace T_Rex
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddGenericParameter("Elements", "Elements", "Rebar elements", GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Created new custom mesh", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -35,10 +37,11 @@ namespace T_Rex
             DA.GetData(0, ref rebarGroup);
             DA.GetData(1, ref segments);
             DA.GetData(2, ref accuracy);
+            
+            Rebars rebars = new Rebars(rebarGroup, segments, accuracy);
 
-            List<Mesh> newMeshes = Tools.CreateNewCustomMesh(rebarGroup, segments, accuracy);
-
-            DA.SetDataList(0, newMeshes);
+            DA.SetData(0, rebars);
+            //DA.SetDataList(1, newMeshes);
         }
         protected override System.Drawing.Bitmap Icon
         {

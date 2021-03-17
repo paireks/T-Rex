@@ -12,7 +12,7 @@ namespace T_Rex
         public RebarGroupInfoGH()
           : base("Rebar Group Info", "Rebar Group Info",
               "Creates information about given rebar group",
-              "T-Rex", "Tools")
+              "T-Rex", "Rebar Spacing")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
@@ -48,6 +48,10 @@ namespace T_Rex
             {
                 return Properties.Resources.RebarInfo;
             }
+        }
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.secondary; }
         }
         public override Guid ComponentGuid
         {

@@ -12,11 +12,13 @@ namespace T_RexEngine
         public RebarGroup(int id, RebarSpacing rebarSpacing)
         {
             Id = id;
+            OriginRebarShape = rebarSpacing.OriginRebarShape;
             Count = rebarSpacing.Count;
             Volume = rebarSpacing.Volume;
             Weight = rebarSpacing.Weight;
             RebarGroupMesh = rebarSpacing.RebarGroupMesh;
             RebarGroupCurves = rebarSpacing.RebarGroupCurves;
+            RebarInsertPlanes = rebarSpacing.RebarInsertPlanes;
             Diameter = rebarSpacing.OriginRebarShape.Props.Diameter;
             Material = rebarSpacing.OriginRebarShape.Props.Material;
         }
@@ -71,10 +73,12 @@ namespace T_RexEngine
                 _id = value;
             }
         }
+        public RebarShape OriginRebarShape { get; }
         public double Diameter { get; }
         public Material Material { get; }
         public List<Mesh> RebarGroupMesh { get; }
         public List<Curve> RebarGroupCurves { get; }
+        public List<Plane> RebarInsertPlanes { get; }
         public int Count { get; }
         public double Volume { get; }
         public double Weight { get; }

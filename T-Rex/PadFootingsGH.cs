@@ -45,7 +45,7 @@ namespace T_Rex
             PadFootings padFootings = new PadFootings(planes, height, width, length, material);
 
             DA.SetData(0, padFootings);
-            DA.SetDataList(1, padFootings.Brep);
+            DA.SetDataList(1, padFootings.Breps);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -50,6 +50,7 @@ namespace T_RexEngine
 
             RebarGroupMesh = new List<Mesh>();
             RebarGroupCurves = new List<Curve>();
+            RebarInsertPlanes = new List<Plane>();
 
             foreach (var plane in perpendicularPlanes)
             {
@@ -61,6 +62,7 @@ namespace T_RexEngine
                 rebarShapeCurve.Transform(planeToPlane);
                 RebarGroupMesh.Add(rebarShapeMesh);
                 RebarGroupCurves.Add(rebarShapeCurve);
+                RebarInsertPlanes.Add(plane);
             }
         }
 
@@ -280,6 +282,7 @@ namespace T_RexEngine
         public int Count { get; private set; }
         public List<Mesh> RebarGroupMesh { get; private set; }
         public List<Curve> RebarGroupCurves { get; private set; }
+        public List<Plane> RebarInsertPlanes { get; private set; }
         public RebarShape OriginRebarShape { get; }
         public double Volume => Count * OriginRebarShape.RebarCurve.GetLength() * Math.PI * Math.Pow(OriginRebarShape.Props.Radius, 2.0);
         public double Weight => Volume * OriginRebarShape.Props.Material.Density;

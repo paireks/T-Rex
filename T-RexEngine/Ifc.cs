@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using T_RexEngine.Enums;
 using Xbim.Common;
 using Xbim.Common.Step21;
 using Xbim.Ifc;
@@ -8,6 +9,7 @@ using Xbim.Ifc4.GeometricConstraintResource;
 using Xbim.Ifc4.GeometryResource;
 using Xbim.Ifc4.Interfaces;
 using Xbim.Ifc4.Kernel;
+using Xbim.Ifc4.MeasureResource;
 using Xbim.Ifc4.ProductExtension;
 using Xbim.IO;
 
@@ -17,7 +19,7 @@ namespace T_RexEngine
     {
         public Ifc(List<ElementGroup> elementGroups, string path)
         {
-            using (IfcStore model = CreateAndInitModel("My Model", ProjectUnits.SIUnitsUK))
+            using (IfcStore model = CreateAndInitModel("My Model"))
             {
                 if (model != null)
                 {
@@ -48,7 +50,7 @@ namespace T_RexEngine
             }
         }
 
-        private static IfcStore CreateAndInitModel(string projectName, ProjectUnits units)
+        private static IfcStore CreateAndInitModel(string projectName)
         {
             var credentials = new XbimEditorCredentials
             {
@@ -66,7 +68,7 @@ namespace T_RexEngine
             using (ITransaction transaction = model.BeginTransaction("Initialise Model"))
             {
                 IfcProject project = model.Instances.New<IfcProject>();
-                project.Initialize(units);
+                project.Initialize(ProjectUnits.SIUnitsUK);
                 project.Name = projectName;
                 transaction.Commit();
             }
@@ -76,7 +78,7 @@ namespace T_RexEngine
 
         private static IfcBuilding CreateBuilding(IfcStore model, string buildingName)
         {
-            using (ITransaction transaction = model.BeginTransaction("Create Buidling"))
+            using (ITransaction transaction = model.BeginTransaction("Create Building"))
             {
                 IfcBuilding building = model.Instances.New<IfcBuilding>();
                 building.Name = buildingName;
