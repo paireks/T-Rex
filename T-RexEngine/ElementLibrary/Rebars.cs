@@ -12,8 +12,10 @@ using Xbim.Ifc4.MaterialResource;
 using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.ProfileResource;
 using Xbim.Ifc4.RepresentationResource;
+using Xbim.Ifc4.SharedComponentElements;
 using Xbim.Ifc4.StructuralElementsDomain;
 using Xbim.Ifc4.TopologyResource;
+using Xbim.IO.Memory;
 
 namespace T_RexEngine.ElementLibrary
 {
@@ -24,9 +26,15 @@ namespace T_RexEngine.ElementLibrary
             Mesh = rebarGroup.OriginRebarShape.RebarMesh;
             RebarGroup = rebarGroup;
             Material = rebarGroup.Material;
+            ElementType = ElementType.Rebar;
         }
 
-        public override List<IfcBuildingElement> ToIfc(IfcStore model)
+        public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
+        {
+            throw new System.NotImplementedException("Rebars should be converted to IfcReinforcingElement");
+        }
+
+        public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
         {
             using (var transaction = model.BeginTransaction("Create Mesh Element"))
             {
@@ -84,18 +92,18 @@ namespace T_RexEngine.ElementLibrary
                 var ifcRelAssociatesMaterial = model.Instances.New<IfcRelAssociatesMaterial>();
                 ifcRelAssociatesMaterial.RelatingMaterial = material;
                 
-                // Create footings
-                var footings = new List<IfcBuildingElement>();
+                // Create rebars
+                var rebars = new List<IfcReinforcingElement>();
 
                 foreach (var insertPlane in RebarGroup.RebarInsertPlanes)
                 {
-                    var footing = model.Instances.New<IfcFooting>();
-                    footing.Name = "Pad Footing";
+                    var rebar = model.Instances.New<IfcReinforcingBar>();
+                    rebar.Name = "Rebar";
 
                     // Add geometry to footing
                     var representation = model.Instances.New<IfcProductDefinitionShape>();
                     representation.Representations.Add(shape);
-                    footing.Representation = representation;
+                    rebar.Representation = representation;
                 
                     // Place footing in model
                     var localPlacement = model.Instances.New<IfcLocalPlacement>();
@@ -111,18 +119,19 @@ namespace T_RexEngine.ElementLibrary
                     ax3D.Axis = model.Instances.New<IfcDirection>();
                     ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
                     localPlacement.RelativePlacement = ax3D;
-                    footing.ObjectPlacement = localPlacement;
+                    rebar.ObjectPlacement = localPlacement;
                 
 
-                    ifcRelAssociatesMaterial.RelatedObjects.Add(footing);
+                    ifcRelAssociatesMaterial.RelatedObjects.Add(rebar);
                     
-                    footings.Add(footing);
+                    rebars.Add(rebar);
                 }
+
+                
 
                 transaction.Commit();
                 
-                return footings;
-                
+                return rebars;
             }
         }
         private Mesh Mesh { get; }

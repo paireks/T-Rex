@@ -40,7 +40,12 @@ namespace T_RexEngine.ElementLibrary
             ElementType = ElementType.PadFooting;
         }
 
-        public override List<IfcBuildingElement> ToIfc(IfcStore model)
+        public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
+        {
+            throw new System.NotImplementedException("Pad footing should be converted to IfcBuildingElement");
+        }
+
+        public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
         {
             using (var transaction = model.BeginTransaction("Create Pad Footing"))
             {

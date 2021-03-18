@@ -83,21 +83,27 @@ namespace T_RexEngine
 
             RebarGroupMesh = new List<Mesh> {rebarShapeMesh};
             RebarGroupCurves = new List<Curve> {OriginRebarShape.RebarCurve};
+            RebarInsertPlanes = new List<Plane> {Plane.WorldXY};
 
             Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
             Curve duplicateCurveForTranslation = rebarShapeCurve.DuplicateCurve();
+            Plane duplicatePlaneForTranslation = Plane.WorldXY;
             Mesh duplicateMesh;
             Curve duplicateCurve;
+            Plane duplicatePlane;
             for (int i = 0; i < Count - 1; i++)
             {
                 duplicateMeshForTranslation.Transform(moveConstantValue);
                 duplicateCurveForTranslation.Transform(moveConstantValue);
+                duplicatePlaneForTranslation.Transform(moveConstantValue);
                 
                 duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                 duplicateCurve = duplicateCurveForTranslation.DuplicateCurve();
+                duplicatePlane = duplicatePlaneForTranslation.Clone();
                 
                 RebarGroupMesh.Add(duplicateMesh);
                 RebarGroupCurves.Add(duplicateCurve);
+                RebarInsertPlanes.Add(duplicatePlane);
             }
         }
 
@@ -119,17 +125,21 @@ namespace T_RexEngine
             
             RebarGroupMesh = new List<Mesh>();
             RebarGroupCurves = new List<Curve>();
+            RebarInsertPlanes = new List<Plane>();
             Count = 0;
             
             Mesh rebarShapeMesh = OriginRebarShape.RebarMesh.DuplicateMesh();
             Curve rebarShapeCurve = OriginRebarShape.RebarCurve.DuplicateCurve();
+            Plane rebarShapePlane = Plane.WorldXY;
             if (spacingType == 1)
             {
                 rebarShapeMesh.Transform(new Transform(Transform.Translation(startEndVector)));
                 rebarShapeCurve.Transform(new Transform(Transform.Translation(startEndVector)));
+                rebarShapePlane.Transform(new Transform(Transform.Translation(startEndVector)));
             }
             RebarGroupMesh.Add(rebarShapeMesh);
             RebarGroupCurves.Add(rebarShapeCurve);
+            RebarInsertPlanes.Add(rebarShapePlane);
             Count += 1;
 
             if (spacingType == 1)
@@ -147,9 +157,11 @@ namespace T_RexEngine
 
             Mesh duplicateMeshForTranslation = rebarShapeMesh.DuplicateMesh();
             Curve duplicateCurveForTranslation = rebarShapeCurve.DuplicateCurve();
+            Plane duplicatePlaneForTranslation = rebarShapePlane.Clone();
             
             Mesh duplicateMesh;
             Curve duplicateCurve;
+            Plane duplicatePlane;
             
             double distanceToCover = lengthFromStartToEnd;
 
@@ -162,12 +174,15 @@ namespace T_RexEngine
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateCurveForTranslation.Transform(moveConstantValue);
+                        duplicatePlaneForTranslation.Transform(moveConstantValue);
                         
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         duplicateCurve = duplicateCurveForTranslation.DuplicateCurve();
+                        duplicatePlane = duplicatePlaneForTranslation.Clone();
                         
                         RebarGroupMesh.Add(duplicateMesh);
                         RebarGroupCurves.Add(duplicateCurve);
+                        RebarInsertPlanes.Add(duplicatePlane);
                         
                         distanceToCover -= spacingLength;
                         Count += 1;
@@ -177,12 +192,15 @@ namespace T_RexEngine
                     {
                         duplicateMeshForTranslation.Transform(moveRestValue);
                         duplicateCurveForTranslation.Transform(moveRestValue);
+                        duplicatePlaneForTranslation.Transform(moveRestValue);
                         
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         duplicateCurve = duplicateCurveForTranslation.DuplicateCurve();
+                        duplicatePlane = duplicatePlaneForTranslation.Clone();
                         
                         RebarGroupMesh.Add(duplicateMesh);
                         RebarGroupCurves.Add(duplicateCurve);
+                        RebarInsertPlanes.Add(duplicatePlane);
                         
                         distanceToCover -= restOfDistance;
                         Count += 1;
@@ -201,12 +219,15 @@ namespace T_RexEngine
                     {
                         duplicateMeshForTranslation.Transform(moveHalfOfRestValue);
                         duplicateCurveForTranslation.Transform(moveHalfOfRestValue);
+                        duplicatePlaneForTranslation.Transform(moveHalfOfRestValue);
                         
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         duplicateCurve = duplicateCurveForTranslation.DuplicateCurve();
+                        duplicatePlane = duplicatePlaneForTranslation.Clone();
                         
                         RebarGroupMesh.Add(duplicateMesh);
                         RebarGroupCurves.Add(duplicateCurve);
+                        RebarInsertPlanes.Add(duplicatePlane);
                         
                         distanceToCover -= halfRestOfDistance;
                         Count += 1;
@@ -216,12 +237,15 @@ namespace T_RexEngine
                     {
                         duplicateMeshForTranslation.Transform(moveConstantValue);
                         duplicateCurveForTranslation.Transform(moveConstantValue);
+                        duplicatePlaneForTranslation.Transform(moveConstantValue);
                         
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         duplicateCurve = duplicateCurveForTranslation.DuplicateCurve();
+                        duplicatePlane = duplicatePlaneForTranslation.Clone();
                         
                         RebarGroupMesh.Add(duplicateMesh);
                         RebarGroupCurves.Add(duplicateCurve);
+                        RebarInsertPlanes.Add(duplicatePlane);
                         
                         distanceToCover -= spacingLength;
                         Count += 1;
@@ -231,12 +255,15 @@ namespace T_RexEngine
                     {
                         duplicateMeshForTranslation.Transform(moveHalfOfRestValue);
                         duplicateCurveForTranslation.Transform(moveHalfOfRestValue);
+                        duplicatePlaneForTranslation.Transform(moveHalfOfRestValue);
                         
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         duplicateCurve = duplicateCurveForTranslation.DuplicateCurve();
+                        duplicatePlane = duplicatePlaneForTranslation.Clone();
                         
                         RebarGroupMesh.Add(duplicateMesh);
                         RebarGroupCurves.Add(duplicateCurve);
+                        RebarInsertPlanes.Add(duplicatePlane);
                         
                         distanceToCover -= halfRestOfDistance;
                         Count += 1;
@@ -262,12 +289,15 @@ namespace T_RexEngine
                     {
                         duplicateMeshForTranslation.Transform(moveSmallerConstantValue);
                         duplicateCurveForTranslation.Transform(moveSmallerConstantValue);
+                        duplicatePlaneForTranslation.Transform(moveSmallerConstantValue);
                         
                         duplicateMesh = duplicateMeshForTranslation.DuplicateMesh();
                         duplicateCurve = duplicateCurveForTranslation.DuplicateCurve();
+                        duplicatePlane = duplicatePlaneForTranslation.Clone();
                         
                         RebarGroupMesh.Add(duplicateMesh);
                         RebarGroupCurves.Add(duplicateCurve);
+                        RebarInsertPlanes.Add(duplicatePlane);
                     }
 
                     Count += 1;

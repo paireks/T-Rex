@@ -46,7 +46,12 @@ namespace T_RexEngine.ElementLibrary
             ElementType = ElementType.StripFoundation;
         }
 
-        public override List<IfcBuildingElement> ToIfc(IfcStore model)
+        public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
+        {
+            throw new NotImplementedException("Strip foundation should be converted to IfcBuildingElement");
+        }
+
+        public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
         {
             using (var transaction = model.BeginTransaction("Create Pad Footing"))
             {

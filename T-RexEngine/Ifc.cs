@@ -11,6 +11,7 @@ using Xbim.Ifc4.Interfaces;
 using Xbim.Ifc4.Kernel;
 using Xbim.Ifc4.MeasureResource;
 using Xbim.Ifc4.ProductExtension;
+using Xbim.Ifc4.StructuralElementsDomain;
 using Xbim.IO;
 
 namespace T_RexEngine
@@ -27,15 +28,47 @@ namespace T_RexEngine
 
                     foreach (var elementGroup in elementGroups)
                     {
-                        List<IfcBuildingElement> currentElementGroup = elementGroup.ToIfc(model);
-                        foreach (var buildingElement in currentElementGroup)
+                        if (elementGroup.ElementType == ElementType.PadFooting)
                         {
-                            using (var transaction = model.BeginTransaction("Add element"))
+                            List<IfcBuildingElement> currentElementGroup = elementGroup.ToBuildingElementIfc(model);
+                            foreach (var buildingElement in currentElementGroup)
                             {
-                                building.AddElement(buildingElement);
-                                transaction.Commit();
+                                using (var transaction = model.BeginTransaction("Add element"))
+                                {
+                                    building.AddElement(buildingElement);
+                                    transaction.Commit();
+                                }
                             }
                         }
+                        else if (elementGroup.ElementType == ElementType.StripFoundation)
+                        {
+                            List<IfcBuildingElement> currentElementGroup = elementGroup.ToBuildingElementIfc(model);
+                            foreach (var buildingElement in currentElementGroup)
+                            {
+                                using (var transaction = model.BeginTransaction("Add element"))
+                                {
+                                    building.AddElement(buildingElement);
+                                    transaction.Commit();
+                                }
+                            }
+                        }
+                        else if (elementGroup.ElementType == ElementType.Rebar)
+                        {
+                            List<IfcReinforcingElement> currentElementGroup = elementGroup.ToReinforcingElementIfc(model);
+                            foreach (var buildingElement in currentElementGroup)
+                            {
+                                using (var transaction = model.BeginTransaction("Add element"))
+                                {
+                                    building.AddElement(buildingElement);
+                                    transaction.Commit();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Unknown element type");
+                        }
+
                     }
 
                     try

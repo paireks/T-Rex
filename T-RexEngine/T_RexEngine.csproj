@@ -127,12 +127,10 @@
     <Compile Include="ElementLibrary\MeshElement.cs" />
     <Compile Include="ElementLibrary\Rebars.cs" />
     <Compile Include="ElementLibrary\StripFoundations.cs" />
-    <Compile Include="Enums\UnitPrefix.cs" />
     <Compile Include="Ifc.cs" />
     <Compile Include="ElementGroup.cs" />
     <Compile Include="ElementLibrary\PadFootings.cs" />
     <Compile Include="Enums\ElementType.cs" />
-    <Compile Include="IfcUnits.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RebarGroup.cs" />
