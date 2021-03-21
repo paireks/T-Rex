@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
@@ -7,21 +8,17 @@ using Xbim.Ifc;
 using Xbim.Ifc4.GeometricConstraintResource;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
-using Xbim.Ifc4.Interfaces;
 using Xbim.Ifc4.MaterialResource;
 using Xbim.Ifc4.ProductExtension;
-using Xbim.Ifc4.ProfileResource;
 using Xbim.Ifc4.RepresentationResource;
-using Xbim.Ifc4.SharedComponentElements;
 using Xbim.Ifc4.StructuralElementsDomain;
 using Xbim.Ifc4.TopologyResource;
-using Xbim.IO.Memory;
 
 namespace T_RexEngine.ElementLibrary
 {
     public class Rebars: ElementGroup
     {
-        public Rebars(RebarGroup rebarGroup, int numberOfSegments, int accuracy)
+        public Rebars(RebarGroup rebarGroup)
         {
             Mesh = rebarGroup.OriginRebarShape.RebarMesh;
             RebarGroup = rebarGroup;
@@ -31,7 +28,7 @@ namespace T_RexEngine.ElementLibrary
 
         public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
         {
-            throw new System.NotImplementedException("Rebars should be converted to IfcReinforcingElement");
+            throw new ArgumentException("Rebars should be converted to IfcReinforcingElement");
         }
 
         public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
@@ -95,10 +92,17 @@ namespace T_RexEngine.ElementLibrary
                 // Create rebars
                 var rebars = new List<IfcReinforcingElement>();
 
+                // Rebar quantities
+                double nominalDiameter = RebarGroup.Diameter;
+                double barLength = (int)Math.Round(RebarGroup.OriginRebarShape.RebarCurve.GetLength());
+
                 foreach (var insertPlane in RebarGroup.RebarInsertPlanes)
                 {
                     var rebar = model.Instances.New<IfcReinforcingBar>();
                     rebar.Name = "Rebar";
+                    rebar.NominalDiameter = nominalDiameter;
+                    rebar.BarLength = barLength;
+                    rebar.SteelGrade = Material.Grade;
 
                     // Add geometry to footing
                     var representation = model.Instances.New<IfcProductDefinitionShape>();
@@ -108,8 +112,7 @@ namespace T_RexEngine.ElementLibrary
                     // Place footing in model
                     var localPlacement = model.Instances.New<IfcLocalPlacement>();
                     var ax3D = model.Instances.New<IfcAxis2Placement3D>();
-
-
+                    
                     var location = model.Instances.New<IfcCartesianPoint>();
                     location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
                     ax3D.Location = location;
@@ -127,15 +130,12 @@ namespace T_RexEngine.ElementLibrary
                     rebars.Add(rebar);
                 }
 
-                
-
                 transaction.Commit();
                 
                 return rebars;
             }
         }
         private Mesh Mesh { get; }
-        
         private RebarGroup RebarGroup { get;}
     }
 }

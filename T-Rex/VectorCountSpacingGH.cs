@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using T_RexEngine;
+using T_RexEngine.ElementLibrary;
 
 namespace T_Rex
 {

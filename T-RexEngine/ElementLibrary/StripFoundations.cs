@@ -48,7 +48,7 @@ namespace T_RexEngine.ElementLibrary
 
         public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
         {
-            throw new NotImplementedException("Strip foundation should be converted to IfcBuildingElement");
+            throw new Exception("Strip foundation should be converted to IfcBuildingElement");
         }
 
         public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
@@ -63,7 +63,7 @@ namespace T_RexEngine.ElementLibrary
                 
                 //Insert profile
                 var profileInsertPoint = model.Instances.New<IfcCartesianPoint>();
-                profileInsertPoint.SetXY(0, -Height/2);
+                profileInsertPoint.SetXY(0, Height/2);
                 rectangleProfile.Position = model.Instances.New<IfcAxis2Placement2D>();
                 rectangleProfile.Position.Location = profileInsertPoint;
 

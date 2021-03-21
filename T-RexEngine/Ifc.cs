@@ -28,47 +28,40 @@ namespace T_RexEngine
 
                     foreach (var elementGroup in elementGroups)
                     {
-                        if (elementGroup.ElementType == ElementType.PadFooting)
+                        switch (elementGroup.ElementType)
                         {
-                            List<IfcBuildingElement> currentElementGroup = elementGroup.ToBuildingElementIfc(model);
-                            foreach (var buildingElement in currentElementGroup)
+                            case ElementType.PadFooting:
+                            case ElementType.StripFoundation:
                             {
-                                using (var transaction = model.BeginTransaction("Add element"))
+                                List<IfcBuildingElement> currentElementGroup = elementGroup.ToBuildingElementIfc(model);
+                                foreach (var buildingElement in currentElementGroup)
                                 {
-                                    building.AddElement(buildingElement);
-                                    transaction.Commit();
+                                    using (var transaction = model.BeginTransaction("Add element"))
+                                    {
+                                        building.AddElement(buildingElement);
+                                        transaction.Commit();
+                                    }
                                 }
-                            }
-                        }
-                        else if (elementGroup.ElementType == ElementType.StripFoundation)
-                        {
-                            List<IfcBuildingElement> currentElementGroup = elementGroup.ToBuildingElementIfc(model);
-                            foreach (var buildingElement in currentElementGroup)
-                            {
-                                using (var transaction = model.BeginTransaction("Add element"))
-                                {
-                                    building.AddElement(buildingElement);
-                                    transaction.Commit();
-                                }
-                            }
-                        }
-                        else if (elementGroup.ElementType == ElementType.Rebar)
-                        {
-                            List<IfcReinforcingElement> currentElementGroup = elementGroup.ToReinforcingElementIfc(model);
-                            foreach (var buildingElement in currentElementGroup)
-                            {
-                                using (var transaction = model.BeginTransaction("Add element"))
-                                {
-                                    building.AddElement(buildingElement);
-                                    transaction.Commit();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Unknown element type");
-                        }
 
+                                break;
+                            }
+                            case ElementType.Rebar:
+                            {
+                                List<IfcReinforcingElement> currentElementGroup = elementGroup.ToReinforcingElementIfc(model);
+                                foreach (var buildingElement in currentElementGroup)
+                                {
+                                    using (var transaction = model.BeginTransaction("Add element"))
+                                    {
+                                        building.AddElement(buildingElement);
+                                        transaction.Commit();
+                                    }
+                                }
+
+                                break;
+                            }
+                            default:
+                                throw new ArgumentException("Unknown element type");
+                        }
                     }
 
                     try

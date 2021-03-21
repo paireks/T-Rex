@@ -20,28 +20,20 @@ namespace T_Rex
         {
             pManager.AddGenericParameter("Rebar Group", "Rebar Group", "Group of reinforcement bars",
                 GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Segments", "Segments", "Segments as integer", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Accuracy", "Accuracy", "Accuracy as integer", GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Elements", "Elements", "Rebar elements", GH_ParamAccess.item);
-            pManager.AddMeshParameter("Mesh", "Mesh", "Created new custom mesh", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             RebarGroup rebarGroup = null;
-            int segments = 0;
-            int accuracy = 0;
 
             DA.GetData(0, ref rebarGroup);
-            DA.GetData(1, ref segments);
-            DA.GetData(2, ref accuracy);
-            
-            Rebars rebars = new Rebars(rebarGroup, segments, accuracy);
+
+            Rebars rebars = new Rebars(rebarGroup);
 
             DA.SetData(0, rebars);
-            //DA.SetDataList(1, newMeshes);
         }
         protected override System.Drawing.Bitmap Icon
         {
