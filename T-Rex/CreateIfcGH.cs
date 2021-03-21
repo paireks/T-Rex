@@ -16,7 +16,7 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Elements", "Elements", "T-Rex elements to add to the IFC file",
+            pManager.AddGenericParameter("Groups", "Groups", "T-Rex groups to add to the IFC file",
                 GH_ParamAccess.list);
             pManager.AddTextParameter("Path", "Path", "Path where the IFC file will be saved, should end up with .ifc",
                 GH_ParamAccess.item);

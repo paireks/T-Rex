@@ -61,7 +61,6 @@
     <Compile Include="BendingRollerGH.cs" />
     <Compile Include="CoverDimensionsGH.cs" />
     <Compile Include="CreateIfcGH.cs" />
-    <Compile Include="RebarGroupToElementsGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
     <Compile Include="CustomElementsGH.cs" />

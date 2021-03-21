@@ -24,8 +24,8 @@ namespace T_Rex
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Elements", "Elements", "Concrete elements", GH_ParamAccess.list);
-            pManager.AddBrepParameter("Brep", "Brep", "Brep that represents concrete element", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Element Group", "Element Group", "Concrete elements", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Breps", "Breps", "Breps that represent concrete elements", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
