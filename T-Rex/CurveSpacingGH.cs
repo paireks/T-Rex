@@ -23,8 +23,6 @@ namespace T_Rex
             pManager.AddIntegerParameter("Id", "Id", "Id as an integer for Rebar Group", GH_ParamAccess.item);
             pManager.AddGenericParameter("Rebar Shape", "Rebar Shape", "Rebar Shape to create Rebar Group",
                 GH_ParamAccess.item);
-            pManager.AddPlaneParameter("Shape's Origin Plane", "Shape's Origin Plane",
-                "This plane will be treated as origin, while the target planes will be the planes on the curve.", GH_ParamAccess.item);
             pManager.AddCurveParameter("Curve", "Curve", "Curve to divide and create Rebar Group along this curve",
                 GH_ParamAccess.item);
             pManager.AddIntegerParameter("Count", "Count", "Set how many bars should be in the group",
@@ -44,7 +42,7 @@ namespace T_Rex
         {
             base.BeforeSolveInstance();
             _useDegrees = false;
-            if (Params.Input[5] is Param_Number angleParameter)
+            if (Params.Input[4] is Param_Number angleParameter)
                 _useDegrees = angleParameter.UseDegrees;
         }
 
@@ -52,21 +50,19 @@ namespace T_Rex
         {
             int id = 0;
             RebarShape rebarShape = null;
-            Plane plane = Plane.Unset;
             int count = 0;
             Curve curve = null;
             double angle = 0.0;
             
             DA.GetData(0, ref id);
             DA.GetData(1, ref rebarShape);
-            DA.GetData(2, ref plane);
-            DA.GetData(3, ref curve);
-            DA.GetData(4, ref count);
-            if (!DA.GetData(5, ref angle)) return;
+            DA.GetData(2, ref curve);
+            DA.GetData(3, ref count);
+            if (!DA.GetData(4, ref angle)) return;
             if (_useDegrees)
                 angle = RhinoMath.ToRadians(angle);
 
-            RebarGroup rebarGroup = new RebarGroup(id, new RebarSpacing(rebarShape, plane, count, curve, angle));
+            RebarGroup rebarGroup = new RebarGroup(id, new RebarSpacing(rebarShape, count, curve, angle));
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);

@@ -184,7 +184,6 @@ namespace T_RexEngine
                     localPlacement.RelativePlacement = ax3D;
                     rebar.ObjectPlacement = localPlacement;
 
-
                     ifcRelAssociatesMaterial.RelatedObjects.Add(rebar);
 
                     rebars.Add(rebar);

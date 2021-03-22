@@ -65,6 +65,7 @@
     <Compile Include="CurveToRebarShapeGH.cs" />
     <Compile Include="CustomElementsGH.cs" />
     <Compile Include="PadFootingsGH.cs" />
+    <Compile Include="ProfileGH.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

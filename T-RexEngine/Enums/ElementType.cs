@@ -4,6 +4,8 @@
     {
         PadFooting,
         StripFoundation,
+        Beams,
+        Columns,
         Rebar
     }
 }

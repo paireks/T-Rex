@@ -59,124 +59,82 @@ namespace T_RexEngine.ElementLibrary
             {
                 MeshFaceList faces = Mesh.Faces;
                 MeshVertexList vertices = Mesh.Vertices;
-                List<IfcCartesianPoint> ifcVertices = new List<IfcCartesianPoint>();
-
-                foreach (var point in vertices)
-                {
-                    IfcCartesianPoint currentVertex = model.Instances.New<IfcCartesianPoint>();
-                    currentVertex.SetXYZ(point.X, point.Y, point.Z);
-                    ifcVertices.Add(currentVertex);
-                }
                 
-                var faceSet = model.Instances.New<IfcConnectedFaceSet>();
-
-                foreach (var meshFace in faces)
-                {
-                    List<IfcCartesianPoint> points = new List<IfcCartesianPoint>();
-
-                    points.Add(ifcVertices[meshFace.A]);
-                    points.Add(ifcVertices[meshFace.B]);
-                    points.Add(ifcVertices[meshFace.C]);
-
-                    if (meshFace.C != meshFace.D)
-                    {
-                        points.Add(ifcVertices[meshFace.D]);
-                    }
-                    
-                    var polyLoop = model.Instances.New<IfcPolyLoop>();
-                    polyLoop.Polygon.AddRange(points);
-                    var bound = model.Instances.New<IfcFaceOuterBound>();
-                    bound.Bound = polyLoop;
-                    var face = model.Instances.New<IfcFace>();
-                    face.Bounds.Add(bound);
-                
-                    faceSet.CfsFaces.Add(face);
-                }
-                
-                var faceBasedSurfaceModel = model.Instances.New<IfcFaceBasedSurfaceModel>();
-                faceBasedSurfaceModel.FbsmFaces.Add(faceSet);
-
-                // Create shape that holds geometry
-                var shape = model.Instances.New<IfcShapeRepresentation>();
-                var modelContext = model.Instances.OfType<IfcGeometricRepresentationContext>().FirstOrDefault();
-                shape.ContextOfItems = modelContext;
-                shape.RepresentationType = "Mesh";
-                shape.RepresentationIdentifier = "Mesh";
+                List<IfcCartesianPoint> ifcVertices = IfcTools.VerticesToIfcCartesianPoints(model, vertices);
+                IfcFaceBasedSurfaceModel faceBasedSurfaceModel = IfcTools.CreateIfcFaceBasedSurfaceModel(model, faces, ifcVertices);
+                var shape = IfcTools.CreateIfcShapeRepresentation(model, "Mesh");
                 shape.Items.Add(faceBasedSurfaceModel);
+
+                var ifcRelAssociatesMaterial = IfcTools.CreateIfcRelAssociatesMaterial(model, Material.Name, Material.Grade);
                 
-                // Create material
-                var material = model.Instances.New<IfcMaterial>();
-                material.Category = Material.Name;
-                material.Name = Material.Grade;
-                var ifcRelAssociatesMaterial = model.Instances.New<IfcRelAssociatesMaterial>();
-                ifcRelAssociatesMaterial.RelatingMaterial = material;
-                
-                // Create building elements
                 var buildingElements = new List<IfcBuildingElement>();
 
                 foreach (var insertPlane in InsertPlanes)
                 {
-                    if (ElementType == ElementType.PadFooting)
+                    switch (ElementType)
                     {
-                        var footing = model.Instances.New<IfcFooting>();
-                        footing.Name = "Pad Footing";
+                        case ElementType.PadFooting:
+                        {
+                            var footing = model.Instances.New<IfcFooting>();
+                            footing.Name = "Pad Footing";
 
-                        // Add geometry to footing
-                        var representation = model.Instances.New<IfcProductDefinitionShape>();
-                        representation.Representations.Add(shape);
-                        footing.Representation = representation;
+                            // Add geometry to footing
+                            var representation = model.Instances.New<IfcProductDefinitionShape>();
+                            representation.Representations.Add(shape);
+                            footing.Representation = representation;
 
-                        // Place footing in model
-                        var localPlacement = model.Instances.New<IfcLocalPlacement>();
-                        var ax3D = model.Instances.New<IfcAxis2Placement3D>();
+                            // Place footing in model
+                            var localPlacement = model.Instances.New<IfcLocalPlacement>();
+                            var ax3D = model.Instances.New<IfcAxis2Placement3D>();
 
-                        var location = model.Instances.New<IfcCartesianPoint>();
-                        location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
-                        ax3D.Location = location;
+                            var location = model.Instances.New<IfcCartesianPoint>();
+                            location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
+                            ax3D.Location = location;
 
-                        ax3D.RefDirection = model.Instances.New<IfcDirection>();
-                        ax3D.RefDirection.SetXYZ(insertPlane.XAxis.X, insertPlane.XAxis.Y, insertPlane.XAxis.Z);
-                        ax3D.Axis = model.Instances.New<IfcDirection>();
-                        ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
-                        localPlacement.RelativePlacement = ax3D;
-                        footing.ObjectPlacement = localPlacement;
+                            ax3D.RefDirection = model.Instances.New<IfcDirection>();
+                            ax3D.RefDirection.SetXYZ(insertPlane.XAxis.X, insertPlane.XAxis.Y, insertPlane.XAxis.Z);
+                            ax3D.Axis = model.Instances.New<IfcDirection>();
+                            ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
+                            localPlacement.RelativePlacement = ax3D;
+                            footing.ObjectPlacement = localPlacement;
                         
-                        ifcRelAssociatesMaterial.RelatedObjects.Add(footing);
+                            ifcRelAssociatesMaterial.RelatedObjects.Add(footing);
                         
-                        buildingElements.Add(footing);
-                    }
-                    else if (ElementType == ElementType.StripFoundation)
-                    {
-                        var footing = model.Instances.New<IfcFooting>();
-                        footing.Name = "Pad Footing";
+                            buildingElements.Add(footing);
+                            break;
+                        }
+                        case ElementType.StripFoundation:
+                        {
+                            var footing = model.Instances.New<IfcFooting>();
+                            footing.Name = "Strip Foundation";
 
-                        // Add geometry to footing
-                        var representation = model.Instances.New<IfcProductDefinitionShape>();
-                        representation.Representations.Add(shape);
-                        footing.Representation = representation;
+                            // Add geometry to footing
+                            var representation = model.Instances.New<IfcProductDefinitionShape>();
+                            representation.Representations.Add(shape);
+                            footing.Representation = representation;
 
-                        // Place footing in model
-                        var localPlacement = model.Instances.New<IfcLocalPlacement>();
-                        var ax3D = model.Instances.New<IfcAxis2Placement3D>();
+                            // Place footing in model
+                            var localPlacement = model.Instances.New<IfcLocalPlacement>();
+                            var ax3D = model.Instances.New<IfcAxis2Placement3D>();
 
-                        var location = model.Instances.New<IfcCartesianPoint>();
-                        location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
-                        ax3D.Location = location;
+                            var location = model.Instances.New<IfcCartesianPoint>();
+                            location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
+                            ax3D.Location = location;
 
-                        ax3D.RefDirection = model.Instances.New<IfcDirection>();
-                        ax3D.RefDirection.SetXYZ(insertPlane.XAxis.X, insertPlane.XAxis.Y, insertPlane.XAxis.Z);
-                        ax3D.Axis = model.Instances.New<IfcDirection>();
-                        ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
-                        localPlacement.RelativePlacement = ax3D;
-                        footing.ObjectPlacement = localPlacement;
+                            ax3D.RefDirection = model.Instances.New<IfcDirection>();
+                            ax3D.RefDirection.SetXYZ(insertPlane.XAxis.X, insertPlane.XAxis.Y, insertPlane.XAxis.Z);
+                            ax3D.Axis = model.Instances.New<IfcDirection>();
+                            ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
+                            localPlacement.RelativePlacement = ax3D;
+                            footing.ObjectPlacement = localPlacement;
                         
-                        ifcRelAssociatesMaterial.RelatedObjects.Add(footing);
+                            ifcRelAssociatesMaterial.RelatedObjects.Add(footing);
                         
-                        buildingElements.Add(footing);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Element type not recognized");
+                            buildingElements.Add(footing);
+                            break;
+                        }
+                        default:
+                            throw new ArgumentException("Element type not recognized");
                     }
                 }
 

@@ -6,10 +6,10 @@ namespace T_RexEngine
 {
     public class RebarSpacing
     {
-        public RebarSpacing(RebarShape rebarShape, Plane rebarPlane, int count, Curve spaceCurve, double angle)
+        public RebarSpacing(RebarShape rebarShape, int count, Curve spaceCurve, double angle)
         {
             OriginRebarShape = rebarShape;
-            UseCurveSpacing(rebarPlane, count, spaceCurve, angle);
+            UseCurveSpacing(count, spaceCurve, angle);
         }
 
         public RebarSpacing(RebarShape rebarShape, Vector3d startEndVector, int count)
@@ -24,7 +24,7 @@ namespace T_RexEngine
             UseVectorLengthSpacing(startEndVector, spacingLength, spacingType, tolerance);
         }
         
-        private void UseCurveSpacing(Plane rebarPlane, int count, Curve spaceCurve, double angle)
+        private void UseCurveSpacing(int count, Curve spaceCurve, double angle)
         {
             if (spaceCurve.GetLength() <= 0)
             {
@@ -55,7 +55,7 @@ namespace T_RexEngine
             foreach (var plane in perpendicularPlanes)
             {
                 plane.Rotate(angle, plane.ZAxis);
-                Transform planeToPlane = Transform.PlaneToPlane(rebarPlane, plane);
+                Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, plane);
                 Mesh rebarShapeMesh = OriginRebarShape.RebarMesh.DuplicateMesh();
                 Curve rebarShapeCurve = OriginRebarShape.RebarCurve.DuplicateCurve();
                 rebarShapeMesh.Transform(planeToPlane);
