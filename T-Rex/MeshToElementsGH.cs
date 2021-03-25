@@ -8,10 +8,10 @@ using T_RexEngine.Enums;
 
 namespace T_Rex
 {
-    public class CustomElementsGH : GH_Component
+    public class MeshToElementsGH : GH_Component
     {
-        public CustomElementsGH()
-          : base("Custom Elements", "Custom Elements",
+        public MeshToElementsGH()
+          : base("Mesh To Elements", "Mesh To Elements",
               "Create Elements from Mesh",
               "T-Rex", "Concrete")
         {
@@ -27,7 +27,7 @@ namespace T_Rex
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Element Group", "Element Group", "Concrete elements", GH_ParamAccess.item);
-            pManager.AddMeshParameter("Meshes", "Meshes", "Meshes that  concrete elements", GH_ParamAccess.list);
+            pManager.AddMeshParameter("Meshes", "Meshes", "Meshes that represent concrete elements", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -41,7 +41,7 @@ namespace T_Rex
             DA.GetData(2, ref type);
             DA.GetDataList(3, insertPlanes);
 
-            CustomElements customElements = new CustomElements(mesh, material, type, insertPlanes);
+            MeshToElements customElements = new MeshToElements(mesh, material, type, insertPlanes);
 
             DA.SetData(0, customElements);
             DA.SetDataList(1, customElements.ResultMesh);
@@ -52,6 +52,10 @@ namespace T_Rex
             {
                 return null;
             }
+        }
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.tertiary; }
         }
         public override Guid ComponentGuid
         {

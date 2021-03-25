@@ -18,9 +18,9 @@ using Xbim.Ifc4.TopologyResource;
 
 namespace T_RexEngine.ElementLibrary
 {
-    public class CustomElements: ElementGroup
+    public class MeshToElements: ElementGroup
     {
-        public CustomElements(Mesh mesh, Material material, int type, List<Plane> insertPlanes)
+        public MeshToElements(Mesh mesh, Material material, int type, List<Plane> insertPlanes)
         {
             Mesh = mesh;
             Material = material;

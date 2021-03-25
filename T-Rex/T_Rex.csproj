@@ -63,9 +63,10 @@
     <Compile Include="CreateIfcGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
-    <Compile Include="CustomElementsGH.cs" />
+    <Compile Include="MeshToElementsGH.cs" />
     <Compile Include="PadFootingsGH.cs" />
     <Compile Include="ProfileGH.cs" />
+    <Compile Include="ProfileToElementsGH.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

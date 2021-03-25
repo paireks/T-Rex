@@ -48,10 +48,6 @@ namespace T_Rex
                 return null;
             }
         }
-        public override GH_Exposure Exposure
-        {
-            get { return GH_Exposure.secondary; }
-        }
         public override Guid ComponentGuid
         {
             get { return new Guid("67613946-8903-4845-aa5b-92c3e908f530"); }
