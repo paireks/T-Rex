@@ -16,9 +16,9 @@ using Xbim.Ifc4.StructuralElementsDomain;
 
 namespace T_RexEngine.ElementLibrary
 {
-    public class StripFoundations: ElementGroup
+    public class StripFootings: ElementGroup
     {
-        public StripFoundations(List<Line> insertLines, double height, double width, Material material)
+        public StripFootings(List<Line> insertLines, double height, double width, Material material)
         {
             Height = height;
             Width = width;
@@ -43,12 +43,12 @@ namespace T_RexEngine.ElementLibrary
             }
             
             Material = material;
-            ElementType = ElementType.StripFoundation;
+            ElementType = ElementType.StripFootings;
         }
 
         public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
         {
-            throw new Exception("Strip foundation should be converted to IfcBuildingElement");
+            throw new Exception("Strip footings should be converted to IfcBuildingElement");
         }
 
         public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
@@ -80,7 +80,8 @@ namespace T_RexEngine.ElementLibrary
                 for (int i = 0; i < InsertLines.Count; i++)
                 {
                     var footing = model.Instances.New<IfcFooting>();
-                    footing.Name = "Strip Foundation";
+                    footing.Name = "Strip Footing";
+                    footing.PredefinedType = IfcFootingTypeEnum.STRIP_FOOTING;
                     
                     //Model as a swept area solid
                     var body = model.Instances.New<IfcExtrudedAreaSolid>();

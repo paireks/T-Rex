@@ -96,6 +96,7 @@ namespace T_RexEngine.ElementLibrary
                 {
                     var footing = model.Instances.New<IfcFooting>();
                     footing.Name = "Pad Footing";
+                    footing.PredefinedType = IfcFootingTypeEnum.PAD_FOOTING;
 
                     // Add geometry to footing
                     var representation = model.Instances.New<IfcProductDefinitionShape>();

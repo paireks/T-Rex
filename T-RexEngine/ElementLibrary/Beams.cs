@@ -9,7 +9,7 @@ namespace T_RexEngine.ElementLibrary
 {
     public class Beams : ElementGroup
     {
-        public Beams(List<Plane> insertPlanes, ElementProfile profile)
+        public Beams(List<Plane> insertPlanes, Profile profile)
         {
             ElementType = ElementType.Beams;
         }

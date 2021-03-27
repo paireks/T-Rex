@@ -31,7 +31,7 @@ namespace T_RexEngine
                         switch (elementGroup.ElementType)
                         {
                             case ElementType.PadFooting:
-                            case ElementType.StripFoundation:
+                            case ElementType.StripFootings:
                             {
                                 List<IfcBuildingElement> currentElementGroup = elementGroup.ToBuildingElementIfc(model);
                                 foreach (var buildingElement in currentElementGroup)

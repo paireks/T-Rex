@@ -5,14 +5,16 @@ using Rhino.Geometry;
 
 namespace T_RexEngine
 {
-    public class ElementProfile
+    public class Profile
     {
-        public ElementProfile(List<Point3d> points, double tolerance)
+        public Profile(string name, List<Point3d> points, double tolerance)
         {
             List<Point3d> pointsForPolyline = points;
             pointsForPolyline.Add(points[0]);
 
-            Polyline polyline = new Polyline(pointsForPolyline);
+            ProfilePoints = pointsForPolyline;
+
+            Polyline polyline = new Polyline(ProfilePoints);
             
             if (!polyline.IsClosed)
             {
@@ -28,8 +30,12 @@ namespace T_RexEngine
 
             BoundarySurfaces = Brep.CreatePlanarBreps(curves, tolerance);
             ProfileCurve = polyline.ToNurbsCurve();
+            Name = name;
+            Tolerance = tolerance;
         }
-        
+        public double Tolerance { get; }
+        public string Name { get; }
+        public List<Point3d> ProfilePoints { get; }
         public Curve ProfileCurve { get; }
         public Brep[] BoundarySurfaces { get; }
     }

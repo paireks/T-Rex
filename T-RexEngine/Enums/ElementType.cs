@@ -3,7 +3,7 @@
     public enum ElementType
     {
         PadFooting,
-        StripFoundation,
+        StripFootings,
         Beams,
         Columns,
         Rebar

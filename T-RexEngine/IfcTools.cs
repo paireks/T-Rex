@@ -27,6 +27,27 @@ namespace T_RexEngine
 
             return ifcCartesianPoints;
         }
+        
+        public static List<IfcCartesianPoint> PointsToIfcCartesianPoints(IfcStore model, List<Point3d> points, bool closeShape)
+        {
+            List<IfcCartesianPoint> ifcCartesianPoints = new List<IfcCartesianPoint>();
+            
+            foreach (var point in points)
+            {
+                IfcCartesianPoint currentVertex = model.Instances.New<IfcCartesianPoint>();
+                currentVertex.SetXYZ(point.X, point.Y, point.Z);
+                ifcCartesianPoints.Add(currentVertex);
+            }
+
+            if (closeShape)
+            {
+                IfcCartesianPoint currentVertex = model.Instances.New<IfcCartesianPoint>();
+                currentVertex.SetXYZ(points[0].X, points[0].Y, points[0].Z);
+                ifcCartesianPoints.Add(currentVertex);
+            }
+
+            return ifcCartesianPoints;
+        }
 
         public static IfcFaceBasedSurfaceModel CreateIfcFaceBasedSurfaceModel(IfcStore model, MeshFaceList faces,
             List<IfcCartesianPoint> ifcVertices)

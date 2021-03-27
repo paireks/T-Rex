@@ -7,11 +7,11 @@ using Rhino.Geometry;
 
 namespace T_Rex
 {
-    public class StripFoundationsGH : GH_Component
+    public class StripFootingsGH : GH_Component
     {
-        public StripFoundationsGH()
-          : base("Strip Foundations", "Strip Foundations",
-              "Create Strip Foundations",
+        public StripFootingsGH()
+          : base("Strip Footings", "Strip Footings",
+              "Create Strip Footings",
               "T-Rex", "Concrete")
         {
         }
@@ -39,10 +39,10 @@ namespace T_Rex
             DA.GetData(2, ref width);
             DA.GetData(3, ref material);
 
-            StripFoundations stripFoundations = new StripFoundations(lines, height, width, material);
+            StripFootings stripFootings = new StripFootings(lines, height, width, material);
 
-            DA.SetData(0, stripFoundations);
-            DA.SetDataList(1, stripFoundations.Breps);
+            DA.SetData(0, stripFootings);
+            DA.SetDataList(1, stripFootings.Breps);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -31,7 +31,7 @@ namespace T_RexEngine.ElementLibrary
                     ElementType = ElementType.PadFooting;
                     break;
                 case 1:
-                    ElementType = ElementType.StripFoundation;
+                    ElementType = ElementType.StripFootings;
                     break;
                 default:
                     throw new ArgumentException("Element type not recognized");
@@ -103,10 +103,10 @@ namespace T_RexEngine.ElementLibrary
                             buildingElements.Add(footing);
                             break;
                         }
-                        case ElementType.StripFoundation:
+                        case ElementType.StripFootings:
                         {
                             var footing = model.Instances.New<IfcFooting>();
-                            footing.Name = "Strip Foundation";
+                            footing.Name = "Strip Footing";
 
                             // Add geometry to footing
                             var representation = model.Instances.New<IfcProductDefinitionShape>();

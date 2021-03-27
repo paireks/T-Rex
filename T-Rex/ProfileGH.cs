@@ -17,6 +17,7 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddTextParameter("Name", "Name", "Name of the profile", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "Points", "Points that define a section", GH_ParamAccess.list);
             pManager.AddNumberParameter("Tolerance", "Tolerance", "Tolerance setting for Brep creation",
                 GH_ParamAccess.item);
@@ -29,13 +30,15 @@ namespace T_Rex
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            string name = String.Empty;
             List<Point3d> points = new List<Point3d>();
             double tolerance = Double.NaN;
 
-            DA.GetDataList(0, points);
-            DA.GetData(1, ref tolerance);
+            DA.GetData(0, ref name);
+            DA.GetDataList(1, points);
+            DA.GetData(2, ref tolerance);
             
-            ElementProfile elementProfile = new ElementProfile(points, tolerance);
+            Profile elementProfile = new Profile(name, points, tolerance);
 
             DA.SetData(0, elementProfile);
             DA.SetData(1, elementProfile.ProfileCurve);

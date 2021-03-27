@@ -128,8 +128,8 @@
     <Compile Include="ElementLibrary\Columns.cs" />
     <Compile Include="ElementLibrary\MeshToElements.cs" />
     <Compile Include="ElementLibrary\ProfileToElements.cs" />
-    <Compile Include="ElementLibrary\StripFoundations.cs" />
-    <Compile Include="ElementProfile.cs" />
+    <Compile Include="ElementLibrary\StripFootings.cs" />
+    <Compile Include="Profile.cs" />
     <Compile Include="Ifc.cs" />
     <Compile Include="ElementGroup.cs" />
     <Compile Include="ElementLibrary\PadFootings.cs" />
