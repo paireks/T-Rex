@@ -22,6 +22,7 @@ namespace T_RexEngine.ElementLibrary
         {
             Material = material;
             Profile = elementProfile;
+            ElementLine = line;
             
             switch (type)
             {
@@ -38,14 +39,14 @@ namespace T_RexEngine.ElementLibrary
             Curve lineCurve = line.ToNurbsCurve();
             double[] divisionParameters = lineCurve.DivideByCount(1, true);
             Plane[] perpendicularPlanes = lineCurve.GetPerpendicularFrames(divisionParameters);
-            Plane insertPlane = perpendicularPlanes[0].Clone();
-            insertPlane.Rotate(angle, insertPlane.ZAxis);
-            InsertPlane = insertPlane;
+            Plane sectionInsertPlane = perpendicularPlanes[0].Clone();
+            sectionInsertPlane.Rotate(angle, sectionInsertPlane.ZAxis);
+            SectionInsertPlane = sectionInsertPlane;
             
-            Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, InsertPlane);
+            Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, SectionInsertPlane);
             Curve duplicateCurve = elementProfile.ProfileCurve.DuplicateCurve();
             duplicateCurve.Transform(planeToPlane);
-            
+
             Breps = Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true, 0.001);
         }
 
@@ -104,13 +105,13 @@ namespace T_RexEngine.ElementLibrary
                 var ax3D = model.Instances.New<IfcAxis2Placement3D>();
                     
                 var location = model.Instances.New<IfcCartesianPoint>();
-                location.SetXYZ(InsertPlane.OriginX, InsertPlane.OriginY, InsertPlane.OriginZ);
+                location.SetXYZ(SectionInsertPlane.OriginX, SectionInsertPlane.OriginY, SectionInsertPlane.OriginZ);
                 ax3D.Location = location;
                 
                 ax3D.RefDirection = model.Instances.New<IfcDirection>();
-                ax3D.RefDirection.SetXYZ(1, 0, 0);
+                ax3D.RefDirection.SetXYZ(SectionInsertPlane.XAxis.X, SectionInsertPlane.XAxis.Y, SectionInsertPlane.XAxis.Z);
                 ax3D.Axis = model.Instances.New<IfcDirection>();
-                ax3D.Axis.SetXYZ(0, 0, 1);
+                ax3D.Axis.SetXYZ(SectionInsertPlane.ZAxis.X, SectionInsertPlane.ZAxis.Y, SectionInsertPlane.ZAxis.Z);
                 localPlacement.RelativePlacement = ax3D;
                 element.ObjectPlacement = localPlacement;
 
@@ -129,7 +130,7 @@ namespace T_RexEngine.ElementLibrary
         }
         
         public Profile Profile { get; }
-        public Plane InsertPlane { get; }
+        public Plane SectionInsertPlane { get; }
         public Line ElementLine { get; }
         public Brep[] Breps { get; }
     }
