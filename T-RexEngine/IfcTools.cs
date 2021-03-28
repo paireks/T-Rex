@@ -3,6 +3,7 @@ using System.Linq;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
 using Xbim.Ifc;
+using Xbim.Ifc4.GeometricConstraintResource;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
 using Xbim.Ifc4.MaterialResource;
@@ -14,6 +15,24 @@ namespace T_RexEngine
 {
     public static class IfcTools
     {
+        public static IfcLocalPlacement CreateLocalPlacement(IfcStore model, Plane insertPlane)
+        {
+            var localPlacement = model.Instances.New<IfcLocalPlacement>();
+            var ax3D = model.Instances.New<IfcAxis2Placement3D>();
+            
+            var location = model.Instances.New<IfcCartesianPoint>();
+            location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
+            ax3D.Location = location;
+
+            ax3D.RefDirection = model.Instances.New<IfcDirection>();
+            ax3D.RefDirection.SetXYZ(insertPlane.XAxis.X, insertPlane.XAxis.Y, insertPlane.XAxis.Z);
+            ax3D.Axis = model.Instances.New<IfcDirection>();
+            ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
+            localPlacement.RelativePlacement = ax3D;
+
+            return localPlacement;
+        }
+
         public static List<IfcCartesianPoint> VerticesToIfcCartesianPoints(IfcStore model, MeshVertexList vertices)
         {
             List<IfcCartesianPoint> ifcCartesianPoints = new List<IfcCartesianPoint>();

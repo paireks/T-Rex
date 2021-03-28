@@ -18,8 +18,9 @@ namespace T_RexEngine.ElementLibrary
 {
     public class ProfileToElements: ElementGroup
     {
-        public ProfileToElements(Profile elementProfile, Line line, double angle, Material material, int type)
+        public ProfileToElements(string name, Profile elementProfile, Line line, double angle, Material material, int type)
         {
+            Name = name;
             Material = material;
             Profile = elementProfile;
             ElementLine = line;
@@ -74,7 +75,7 @@ namespace T_RexEngine.ElementLibrary
                 var elements = new List<IfcBuildingElement>();
 
                 var element = model.Instances.New<IfcFooting>();
-                element.Name = "Element";
+                element.Name = Name;
 
                 var body = model.Instances.New<IfcExtrudedAreaSolid>();
                 body.Depth = ElementLine.Length;
@@ -87,7 +88,6 @@ namespace T_RexEngine.ElementLibrary
                 body.Position = model.Instances.New<IfcAxis2Placement3D>();
                 body.Position.Location = origin;
                 
-                // Create shape that holds geometry
                 var shape = model.Instances.New<IfcShapeRepresentation>();
                 var modelContext = model.Instances.OfType<IfcGeometricRepresentationContext>().FirstOrDefault();
                 shape.ContextOfItems = modelContext;
@@ -95,24 +95,11 @@ namespace T_RexEngine.ElementLibrary
                 shape.RepresentationIdentifier = "Body";
                 shape.Items.Add(body);
                     
-                // Add geometry to footing
                 var representation = model.Instances.New<IfcProductDefinitionShape>();
                 representation.Representations.Add(shape);
                 element.Representation = representation;
-                
-                // Place footing in model
-                var localPlacement = model.Instances.New<IfcLocalPlacement>();
-                var ax3D = model.Instances.New<IfcAxis2Placement3D>();
-                    
-                var location = model.Instances.New<IfcCartesianPoint>();
-                location.SetXYZ(SectionInsertPlane.OriginX, SectionInsertPlane.OriginY, SectionInsertPlane.OriginZ);
-                ax3D.Location = location;
-                
-                ax3D.RefDirection = model.Instances.New<IfcDirection>();
-                ax3D.RefDirection.SetXYZ(SectionInsertPlane.XAxis.X, SectionInsertPlane.XAxis.Y, SectionInsertPlane.XAxis.Z);
-                ax3D.Axis = model.Instances.New<IfcDirection>();
-                ax3D.Axis.SetXYZ(SectionInsertPlane.ZAxis.X, SectionInsertPlane.ZAxis.Y, SectionInsertPlane.ZAxis.Z);
-                localPlacement.RelativePlacement = ax3D;
+
+                var localPlacement = IfcTools.CreateLocalPlacement(model, SectionInsertPlane);
                 element.ObjectPlacement = localPlacement;
 
                 ifcRelAssociatesMaterial.RelatedObjects.Add(element);
@@ -129,6 +116,7 @@ namespace T_RexEngine.ElementLibrary
             throw new ArgumentException("Profile elements should be converted to IfcBuildingElement");
         }
         
+        public string Name { get; }
         public Profile Profile { get; }
         public Plane SectionInsertPlane { get; }
         public Line ElementLine { get; }

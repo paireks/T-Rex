@@ -21,6 +21,7 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddTextParameter("Name", "Name", "Name of the elements", GH_ParamAccess.item);
             pManager.AddGenericParameter("Profile", "Profile", "Profile to create element from", GH_ParamAccess.item);
             pManager.AddLineParameter("Line", "Line", "Line to specify the element length and position",
                 GH_ParamAccess.item);
@@ -39,26 +40,28 @@ namespace T_Rex
         {
             base.BeforeSolveInstance();
             _useDegrees = false;
-            if (Params.Input[2] is Param_Number angleParameter)
+            if (Params.Input[3] is Param_Number angleParameter)
                 _useDegrees = angleParameter.UseDegrees;
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            string name = String.Empty;
             Profile profile = null;
             Line line = Line.Unset;
             double angle = 0.0;
             Material material = null;
             int type = 0;
 
-            DA.GetData(0, ref profile);
-            DA.GetData(1, ref line);
-            if (!DA.GetData(2, ref angle)) return;
+            DA.GetData(0, ref name);
+            DA.GetData(1, ref profile);
+            DA.GetData(2, ref line);
+            if (!DA.GetData(3, ref angle)) return;
             if (_useDegrees)
                 angle = RhinoMath.ToRadians(angle);
-            DA.GetData(3, ref material);
-            DA.GetData(4, ref type);
+            DA.GetData(4, ref material);
+            DA.GetData(5, ref type);
 
-            ProfileToElements profileToElements = new ProfileToElements(profile, line, angle, material, type);
+            ProfileToElements profileToElements = new ProfileToElements(name, profile, line, angle, material, type);
 
             DA.SetData(0, profileToElements);
             DA.SetDataList(1, profileToElements.Breps);
@@ -69,10 +72,6 @@ namespace T_Rex
             {
                 return null;
             }
-        }
-        public override GH_Exposure Exposure
-        {
-            get { return GH_Exposure.tertiary; }
         }
         public override Guid ComponentGuid
         {

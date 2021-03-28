@@ -4,7 +4,6 @@ using T_RexEngine.ElementLibrary;
 using System;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-using T_RexEngine.Enums;
 
 namespace T_Rex
 {
@@ -18,6 +17,7 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddTextParameter("Name", "Name", "Name of the elements", GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Mesh representation of model", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Concrete element material", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Type", "Type", "Element type as integer. 0 = Pad Footing, 1 = Strip Footing", GH_ParamAccess.item);
@@ -31,17 +31,19 @@ namespace T_Rex
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            string name = String.Empty;
             Mesh mesh = null;
             Material material = null;
             int type = 0;
             List<Plane> insertPlanes = new List<Plane>();
 
-            DA.GetData(0, ref mesh);
-            DA.GetData(1, ref material);
-            DA.GetData(2, ref type);
-            DA.GetDataList(3, insertPlanes);
+            DA.GetData(0, ref name);
+            DA.GetData(1, ref mesh);
+            DA.GetData(2, ref material);
+            DA.GetData(3, ref type);
+            DA.GetDataList(4, insertPlanes);
 
-            MeshToElements customElements = new MeshToElements(mesh, material, type, insertPlanes);
+            MeshToElements customElements = new MeshToElements(name, mesh, material, type, insertPlanes);
 
             DA.SetData(0, customElements);
             DA.SetDataList(1, customElements.ResultMesh);
@@ -55,7 +57,7 @@ namespace T_Rex
         }
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.tertiary; }
+            get { return GH_Exposure.secondary; }
         }
         public override Guid ComponentGuid
         {

@@ -4,9 +4,9 @@ using Rhino.Geometry;
 using Rhino.Geometry.Collections;
 using T_RexEngine.Enums;
 using Xbim.Ifc;
-using Xbim.Ifc4.GeometricConstraintResource;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
+using Xbim.Ifc4.Interfaces;
 using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.RepresentationResource;
 using Xbim.Ifc4.StructuralElementsDomain;
@@ -15,8 +15,9 @@ namespace T_RexEngine.ElementLibrary
 {
     public class MeshToElements: ElementGroup
     {
-        public MeshToElements(Mesh mesh, Material material, int type, List<Plane> insertPlanes)
+        public MeshToElements(string name, Mesh mesh, Material material, int type, List<Plane> insertPlanes)
         {
+            Name = name;
             Mesh = mesh;
             Material = material;
             InsertPlanes = insertPlanes;
@@ -71,28 +72,16 @@ namespace T_RexEngine.ElementLibrary
                         case ElementType.PadFooting:
                         {
                             var footing = model.Instances.New<IfcFooting>();
-                            footing.Name = "Pad Footing";
+                            footing.Name = Name;
+                            footing.PredefinedType = IfcFootingTypeEnum.PAD_FOOTING;
 
-                            // Add geometry to footing
                             var representation = model.Instances.New<IfcProductDefinitionShape>();
                             representation.Representations.Add(shape);
                             footing.Representation = representation;
-
-                            // Place footing in model
-                            var localPlacement = model.Instances.New<IfcLocalPlacement>();
-                            var ax3D = model.Instances.New<IfcAxis2Placement3D>();
-
-                            var location = model.Instances.New<IfcCartesianPoint>();
-                            location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
-                            ax3D.Location = location;
-
-                            ax3D.RefDirection = model.Instances.New<IfcDirection>();
-                            ax3D.RefDirection.SetXYZ(insertPlane.XAxis.X, insertPlane.XAxis.Y, insertPlane.XAxis.Z);
-                            ax3D.Axis = model.Instances.New<IfcDirection>();
-                            ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
-                            localPlacement.RelativePlacement = ax3D;
+                            
+                            var localPlacement = IfcTools.CreateLocalPlacement(model, insertPlane);
                             footing.ObjectPlacement = localPlacement;
-                        
+
                             ifcRelAssociatesMaterial.RelatedObjects.Add(footing);
                         
                             buildingElements.Add(footing);
@@ -101,26 +90,14 @@ namespace T_RexEngine.ElementLibrary
                         case ElementType.StripFootings:
                         {
                             var footing = model.Instances.New<IfcFooting>();
-                            footing.Name = "Strip Footing";
-
-                            // Add geometry to footing
+                            footing.Name = Name;
+                            footing.PredefinedType = IfcFootingTypeEnum.STRIP_FOOTING;
+                            
                             var representation = model.Instances.New<IfcProductDefinitionShape>();
                             representation.Representations.Add(shape);
                             footing.Representation = representation;
-
-                            // Place footing in model
-                            var localPlacement = model.Instances.New<IfcLocalPlacement>();
-                            var ax3D = model.Instances.New<IfcAxis2Placement3D>();
-
-                            var location = model.Instances.New<IfcCartesianPoint>();
-                            location.SetXYZ(insertPlane.OriginX, insertPlane.OriginY, insertPlane.OriginZ);
-                            ax3D.Location = location;
-
-                            ax3D.RefDirection = model.Instances.New<IfcDirection>();
-                            ax3D.RefDirection.SetXYZ(insertPlane.XAxis.X, insertPlane.XAxis.Y, insertPlane.XAxis.Z);
-                            ax3D.Axis = model.Instances.New<IfcDirection>();
-                            ax3D.Axis.SetXYZ(insertPlane.ZAxis.X, insertPlane.ZAxis.Y, insertPlane.ZAxis.Z);
-                            localPlacement.RelativePlacement = ax3D;
+                            
+                            var localPlacement = IfcTools.CreateLocalPlacement(model, insertPlane);
                             footing.ObjectPlacement = localPlacement;
                         
                             ifcRelAssociatesMaterial.RelatedObjects.Add(footing);
@@ -138,6 +115,7 @@ namespace T_RexEngine.ElementLibrary
                 return buildingElements;
             }
         }
+        public string Name { get; }
         public Mesh Mesh { get; }
         public List<Mesh> ResultMesh { get; }
         public List<Plane> InsertPlanes { get; }
