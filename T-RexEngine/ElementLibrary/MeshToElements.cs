@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
 using T_RexEngine.Enums;
@@ -8,13 +7,9 @@ using Xbim.Ifc;
 using Xbim.Ifc4.GeometricConstraintResource;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
-using Xbim.Ifc4.Interfaces;
-using Xbim.Ifc4.MaterialResource;
 using Xbim.Ifc4.ProductExtension;
-using Xbim.Ifc4.ProfileResource;
 using Xbim.Ifc4.RepresentationResource;
 using Xbim.Ifc4.StructuralElementsDomain;
-using Xbim.Ifc4.TopologyResource;
 
 namespace T_RexEngine.ElementLibrary
 {

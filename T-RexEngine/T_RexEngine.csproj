@@ -124,15 +124,11 @@
   <ItemGroup>
     <Compile Include="BendingRoller.cs" />
     <Compile Include="CoverDimensions.cs" />
-    <Compile Include="ElementLibrary\Beams.cs" />
-    <Compile Include="ElementLibrary\Columns.cs" />
     <Compile Include="ElementLibrary\MeshToElements.cs" />
     <Compile Include="ElementLibrary\ProfileToElements.cs" />
-    <Compile Include="ElementLibrary\StripFootings.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Ifc.cs" />
     <Compile Include="ElementGroup.cs" />
-    <Compile Include="ElementLibrary\PadFootings.cs" />
     <Compile Include="Enums\ElementType.cs" />
     <Compile Include="IfcTools.cs" />
     <Compile Include="Material.cs" />

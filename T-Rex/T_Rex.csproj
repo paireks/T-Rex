@@ -64,7 +64,6 @@
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
     <Compile Include="MeshToElementsGH.cs" />
-    <Compile Include="PadFootingsGH.cs" />
     <Compile Include="ProfileGH.cs" />
     <Compile Include="ProfileToElementsGH.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -80,7 +79,6 @@
     <Compile Include="RebarPropertiesGH.cs" />
     <Compile Include="SpacerShapeGH.cs" />
     <Compile Include="StirrupBarShapeGH.cs" />
-    <Compile Include="StripFootingsGH.cs" />
     <Compile Include="VectorCountSpacingGH.cs" />
     <Compile Include="RectangleToStirrupBarShapeGH.cs" />
     <Compile Include="T_RexInfo.cs" />
