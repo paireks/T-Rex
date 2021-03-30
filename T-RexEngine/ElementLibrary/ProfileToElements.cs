@@ -18,12 +18,23 @@ namespace T_RexEngine.ElementLibrary
 {
     public class ProfileToElements: ElementGroup
     {
-        public ProfileToElements(string name, Profile elementProfile, Line line, double angle, Material material, int type)
+        public ProfileToElements(string name, Profile elementProfile, List<Line> insertLines, double angle, Material material, int type)
         {
             Name = name;
             Material = material;
             Profile = elementProfile;
-            ElementLine = line;
+            ElementLines = insertLines;
+            Amount = insertLines.Count;
+
+            double volume = 0;
+            double surfaceArea = elementProfile.BoundarySurfaces[0].GetArea();
+            foreach (var line in insertLines)
+            {
+                volume += surfaceArea * line.Length;
+            }
+
+            Volume = volume;
+            Mass = Volume * material.Density;
             
             switch (type)
             {
@@ -37,18 +48,24 @@ namespace T_RexEngine.ElementLibrary
                     throw new ArgumentException("Element type not recognized");
             }
             
-            Curve lineCurve = line.ToNurbsCurve();
-            double[] divisionParameters = lineCurve.DivideByCount(1, true);
-            Plane[] perpendicularPlanes = lineCurve.GetPerpendicularFrames(divisionParameters);
-            Plane sectionInsertPlane = perpendicularPlanes[0].Clone();
-            sectionInsertPlane.Rotate(angle, sectionInsertPlane.ZAxis);
-            SectionInsertPlane = sectionInsertPlane;
+            SectionInsertPlanes = new List<Plane>();
+            Breps = new List<Brep>();
             
-            Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, SectionInsertPlane);
-            Curve duplicateCurve = elementProfile.ProfileCurve.DuplicateCurve();
-            duplicateCurve.Transform(planeToPlane);
-
-            Breps = Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true, 0.001);
+            foreach (var line in insertLines)
+            {
+                Curve lineCurve = line.ToNurbsCurve();
+                double[] divisionParameters = lineCurve.DivideByCount(1, true);
+                Plane[] perpendicularPlanes = lineCurve.GetPerpendicularFrames(divisionParameters);
+                Plane sectionInsertPlane = perpendicularPlanes[0].Clone();
+                sectionInsertPlane.Rotate(angle, sectionInsertPlane.ZAxis);
+                SectionInsertPlanes.Add(sectionInsertPlane);
+            
+                Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, sectionInsertPlane);
+                Curve duplicateCurve = elementProfile.ProfileCurve.DuplicateCurve();
+                duplicateCurve.Transform(planeToPlane);
+                
+                Breps.Add(Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true, elementProfile.Tolerance)[0]);
+            }
         }
 
 
@@ -74,37 +91,41 @@ namespace T_RexEngine.ElementLibrary
 
                 var elements = new List<IfcBuildingElement>();
 
-                var element = model.Instances.New<IfcFooting>();
-                element.Name = Name;
+                for (int i = 0; i < ElementLines.Count; i++)
+                {
+                    var element = model.Instances.New<IfcFooting>();
+                    element.Name = Name;
 
-                var body = model.Instances.New<IfcExtrudedAreaSolid>();
-                body.Depth = ElementLine.Length;
-                body.SweptArea = profile;
-                body.ExtrudedDirection = model.Instances.New<IfcDirection>();
-                body.ExtrudedDirection.SetXYZ(0, 0, 1);
+                    var body = model.Instances.New<IfcExtrudedAreaSolid>();
+                    body.Depth = ElementLines[i].Length;
+                    body.SweptArea = profile;
+                    body.ExtrudedDirection = model.Instances.New<IfcDirection>();
+                    body.ExtrudedDirection.SetXYZ(0, 0, 1);
                 
-                var origin = model.Instances.New<IfcCartesianPoint>();
-                origin.SetXYZ(0, 0, 0);
-                body.Position = model.Instances.New<IfcAxis2Placement3D>();
-                body.Position.Location = origin;
+                    var origin = model.Instances.New<IfcCartesianPoint>();
+                    origin.SetXYZ(0, 0, 0);
+                    body.Position = model.Instances.New<IfcAxis2Placement3D>();
+                    body.Position.Location = origin;
                 
-                var shape = model.Instances.New<IfcShapeRepresentation>();
-                var modelContext = model.Instances.OfType<IfcGeometricRepresentationContext>().FirstOrDefault();
-                shape.ContextOfItems = modelContext;
-                shape.RepresentationType = "SweptSolid";
-                shape.RepresentationIdentifier = "Body";
-                shape.Items.Add(body);
+                    var shape = model.Instances.New<IfcShapeRepresentation>();
+                    var modelContext = model.Instances.OfType<IfcGeometricRepresentationContext>().FirstOrDefault();
+                    shape.ContextOfItems = modelContext;
+                    shape.RepresentationType = "SweptSolid";
+                    shape.RepresentationIdentifier = "Body";
+                    shape.Items.Add(body);
                     
-                var representation = model.Instances.New<IfcProductDefinitionShape>();
-                representation.Representations.Add(shape);
-                element.Representation = representation;
+                    var representation = model.Instances.New<IfcProductDefinitionShape>();
+                    representation.Representations.Add(shape);
+                    element.Representation = representation;
 
-                var localPlacement = IfcTools.CreateLocalPlacement(model, SectionInsertPlane);
-                element.ObjectPlacement = localPlacement;
+                    var localPlacement = IfcTools.CreateLocalPlacement(model, SectionInsertPlanes[i]);
+                    element.ObjectPlacement = localPlacement;
 
-                ifcRelAssociatesMaterial.RelatedObjects.Add(element);
+                    ifcRelAssociatesMaterial.RelatedObjects.Add(element);
                 
-                elements.Add(element);
+                    elements.Add(element);
+                }
+
                 
                 transaction.Commit();
                 return elements;
@@ -118,8 +139,8 @@ namespace T_RexEngine.ElementLibrary
         
         public string Name { get; }
         public Profile Profile { get; }
-        public Plane SectionInsertPlane { get; }
-        public Line ElementLine { get; }
-        public Brep[] Breps { get; }
+        public List<Plane> SectionInsertPlanes { get; }
+        public List<Line> ElementLines { get; }
+        public List<Brep> Breps { get; }
     }
 }

@@ -25,9 +25,9 @@ namespace T_RexEngine
         {
             Id = id;
             OriginRebarShape = rebarSpacing.OriginRebarShape;
-            Count = rebarSpacing.Count;
+            Amount = rebarSpacing.Count;
             Volume = rebarSpacing.Volume;
-            Weight = rebarSpacing.Weight;
+            Mass = rebarSpacing.Weight;
             RebarGroupMesh = rebarSpacing.RebarGroupMesh;
             RebarGroupCurves = rebarSpacing.RebarGroupCurves;
             RebarInsertPlanes = rebarSpacing.RebarInsertPlanes;
@@ -38,11 +38,11 @@ namespace T_RexEngine
         public RebarGroup(int id, List<RebarShape> rebarShapes)
         {
             Id = id;
-            Count = rebarShapes.Count;
+            Amount = rebarShapes.Count;
             RebarGroupMesh = new List<Mesh>();
             RebarGroupCurves = new List<Curve>();
             Volume = 0.0;
-            Weight = 0.0;
+            Mass = 0.0;
             Diameter = rebarShapes[0].Props.Diameter;
             Material = rebarShapes[0].Props.Material;
 
@@ -63,7 +63,7 @@ namespace T_RexEngine
                 double currentRebarVolume = rebarShape.RebarCurve.GetLength() * Math.PI * Math.Pow(rebarShape.Props.Radius, 2.0);
                 
                 Volume += currentRebarVolume;
-                Weight += currentRebarVolume * rebarShape.Props.Material.Density;
+                Mass += currentRebarVolume * rebarShape.Props.Material.Density;
             }
         }
         public override string ToString()
@@ -71,7 +71,7 @@ namespace T_RexEngine
             return String.Format("Rebar Group{0}" +
                                  "Id: {1}{0}" +
                                  "Count: {2}",
-                Environment.NewLine, Id, Count);
+                Environment.NewLine, Id, Amount);
         }
         public int Id
         {
@@ -194,13 +194,9 @@ namespace T_RexEngine
                 return rebars;
             }
         }
-
         public List<Mesh> RebarGroupMesh { get; }
         public List<Curve> RebarGroupCurves { get; }
         public List<Plane> RebarInsertPlanes { get; }
-        public int Count { get; }
-        public double Volume { get; }
-        public double Weight { get; }
         public RebarShape OriginRebarShape { get; }
         public double Diameter { get; }
     }

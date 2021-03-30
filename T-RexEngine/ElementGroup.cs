@@ -14,5 +14,8 @@ namespace T_RexEngine
         public ElementType ElementType { get; set; }
         public abstract List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model);
         public abstract List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model);
+        public int Amount { get; set; }
+        public double Volume { get; set; }
+        public double Mass { get; set; }
     }
 }

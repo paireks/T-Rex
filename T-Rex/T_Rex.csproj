@@ -63,6 +63,7 @@
     <Compile Include="CreateIfcGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
+    <Compile Include="ElementGroupInfoGH.cs" />
     <Compile Include="MeshToElementsGH.cs" />
     <Compile Include="ProfileGH.cs" />
     <Compile Include="ProfileToElementsGH.cs" />

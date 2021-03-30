@@ -20,6 +20,9 @@ namespace T_RexEngine.ElementLibrary
             Name = name;
             Mesh = mesh;
             Material = material;
+            Amount = insertPlanes.Count;
+            Volume = VolumeMassProperties.Compute(mesh).Volume;
+            Mass = Volume * material.Density;
             InsertPlanes = insertPlanes;
             switch (type)
             {
@@ -119,5 +122,6 @@ namespace T_RexEngine.ElementLibrary
         public Mesh Mesh { get; }
         public List<Mesh> ResultMesh { get; }
         public List<Plane> InsertPlanes { get; }
+        
     }
 }
