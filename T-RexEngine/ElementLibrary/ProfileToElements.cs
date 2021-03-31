@@ -4,7 +4,6 @@ using System.Linq;
 using Rhino.Geometry;
 using T_RexEngine.Enums;
 using Xbim.Ifc;
-using Xbim.Ifc4.GeometricConstraintResource;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
 using Xbim.Ifc4.Interfaces;
@@ -89,12 +88,27 @@ namespace T_RexEngine.ElementLibrary
                 profile.ProfileName = Profile.Name;
                 profile.ProfileType = IfcProfileTypeEnum.AREA;
 
+                IfcFootingTypeEnum predefinedTypeEnum;
+                
+                switch (ElementType)
+                {
+                    case ElementType.PadFooting:
+                        predefinedTypeEnum = IfcFootingTypeEnum.PAD_FOOTING;
+                        break;
+                    case ElementType.StripFootings:
+                        predefinedTypeEnum = IfcFootingTypeEnum.STRIP_FOOTING;
+                        break;
+                    default:
+                        throw new ArgumentException("Element type not recognized");
+                }
+
                 var elements = new List<IfcBuildingElement>();
 
                 for (int i = 0; i < ElementLines.Count; i++)
                 {
                     var element = model.Instances.New<IfcFooting>();
                     element.Name = Name;
+                    element.PredefinedType = predefinedTypeEnum;
 
                     var body = model.Instances.New<IfcExtrudedAreaSolid>();
                     body.Depth = ElementLines[i].Length;

@@ -32,6 +32,8 @@ namespace T_RexEngine
                         {
                             case ElementType.PadFooting:
                             case ElementType.StripFootings:
+                            case ElementType.Beams:
+                            case ElementType.Columns:
                             {
                                 List<IfcBuildingElement> currentElementGroup = elementGroup.ToBuildingElementIfc(model);
                                 foreach (var buildingElement in currentElementGroup)
