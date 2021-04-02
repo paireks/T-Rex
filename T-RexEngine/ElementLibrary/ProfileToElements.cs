@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Rhino.Geometry;
-using T_RexEngine.Enums;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
@@ -24,29 +23,12 @@ namespace T_RexEngine.ElementLibrary
             Profile = elementProfile;
             ElementLines = insertLines;
             Amount = insertLines.Count;
+            ElementType = IfcTools.IntToType(type);
 
-            double volume = 0;
             double surfaceArea = elementProfile.BoundarySurfaces[0].GetArea();
-            foreach (var line in insertLines)
-            {
-                volume += surfaceArea * line.Length;
-            }
-
-            Volume = volume;
+            Volume = insertLines.Sum(line => surfaceArea * line.Length);
+            
             Mass = Volume * material.Density;
-            
-            switch (type)
-            {
-                case 0:
-                    ElementType = ElementType.PadFooting;
-                    break;
-                case 1:
-                    ElementType = ElementType.StripFootings;
-                    break;
-                default:
-                    throw new ArgumentException("Element type not recognized");
-            }
-            
             SectionInsertPlanes = new List<Plane>();
             Breps = new List<Brep>();
             
@@ -88,30 +70,12 @@ namespace T_RexEngine.ElementLibrary
                 profile.ProfileName = Profile.Name;
                 profile.ProfileType = IfcProfileTypeEnum.AREA;
 
-                IfcFootingTypeEnum predefinedTypeEnum;
-                
-                switch (ElementType)
+                List<IfcShapeRepresentation> shapes = new List<IfcShapeRepresentation>();
+
+                foreach (var t in ElementLines)
                 {
-                    case ElementType.PadFooting:
-                        predefinedTypeEnum = IfcFootingTypeEnum.PAD_FOOTING;
-                        break;
-                    case ElementType.StripFootings:
-                        predefinedTypeEnum = IfcFootingTypeEnum.STRIP_FOOTING;
-                        break;
-                    default:
-                        throw new ArgumentException("Element type not recognized");
-                }
-
-                var elements = new List<IfcBuildingElement>();
-
-                for (int i = 0; i < ElementLines.Count; i++)
-                {
-                    var element = model.Instances.New<IfcFooting>();
-                    element.Name = Name;
-                    element.PredefinedType = predefinedTypeEnum;
-
                     var body = model.Instances.New<IfcExtrudedAreaSolid>();
-                    body.Depth = ElementLines[i].Length;
+                    body.Depth = t.Length;
                     body.SweptArea = profile;
                     body.ExtrudedDirection = model.Instances.New<IfcDirection>();
                     body.ExtrudedDirection.SetXYZ(0, 0, 1);
@@ -128,21 +92,15 @@ namespace T_RexEngine.ElementLibrary
                     shape.RepresentationIdentifier = "Body";
                     shape.Items.Add(body);
                     
-                    var representation = model.Instances.New<IfcProductDefinitionShape>();
-                    representation.Representations.Add(shape);
-                    element.Representation = representation;
-
-                    var localPlacement = IfcTools.CreateLocalPlacement(model, SectionInsertPlanes[i]);
-                    element.ObjectPlacement = localPlacement;
-
-                    ifcRelAssociatesMaterial.RelatedObjects.Add(element);
-                
-                    elements.Add(element);
+                    shapes.Add(shape);
                 }
 
+                var buildingElements = IfcTools.CreateBuildingElements(model, ElementType, Name, shapes, SectionInsertPlanes,
+                    ifcRelAssociatesMaterial);
                 
                 transaction.Commit();
-                return elements;
+                
+                return buildingElements;
             }
         }
 

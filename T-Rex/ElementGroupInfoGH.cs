@@ -39,7 +39,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.ElementInfo;
             }
         }
         public override GH_Exposure Exposure

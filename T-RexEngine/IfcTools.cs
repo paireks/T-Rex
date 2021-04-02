@@ -20,7 +20,32 @@ namespace T_RexEngine
 {
     public static class IfcTools
     {
-        public static IfcLocalPlacement CreateLocalPlacement(IfcStore model, Plane insertPlane)
+        public static ElementType IntToType(int integerType)
+        {
+            ElementType type;
+            
+            switch (integerType)
+            {
+                case 0:
+                    type = ElementType.PadFooting;
+                    break;
+                case 1:
+                    type = ElementType.StripFootings;
+                    break;
+                case 2:
+                    type = ElementType.Beams;
+                    break;
+                case 3:
+                    type = ElementType.Columns;
+                    break;
+                default:
+                    throw new ArgumentException("Element type not recognized");
+            }
+
+            return type;
+        }
+
+        private static IfcLocalPlacement CreateLocalPlacement(IfcStore model, Plane insertPlane)
         {
             var localPlacement = model.Instances.New<IfcLocalPlacement>();
             var ax3D = model.Instances.New<IfcAxis2Placement3D>();
@@ -214,6 +239,51 @@ namespace T_RexEngine
                     foreach (var insertPlane in insertPlanes)
                     {
                         var column = CreateColumn(model, name, shape, insertPlane);
+                        relAssociatesMaterial.RelatedObjects.Add(column);
+                        buildingElements.Add(column);
+                    }
+                    break;
+                }
+                default:
+                    throw new ArgumentException("Element type not recognized");
+            }
+
+            return buildingElements;
+        }
+        
+        public static List<IfcBuildingElement> CreateBuildingElements(IfcStore model, ElementType type, string name,
+            List<IfcShapeRepresentation> shapes, List<Plane> insertPlanes, IfcRelAssociatesMaterial relAssociatesMaterial)
+        {
+            var buildingElements = new List<IfcBuildingElement>();
+
+            switch (type)
+            {
+                case ElementType.PadFooting:
+                case ElementType.StripFootings:
+                {
+                    for (int i = 0; i < insertPlanes.Count; i++)
+                    {
+                        var footing = CreateFooting(model, type, name, shapes[i], insertPlanes[i]);
+                        relAssociatesMaterial.RelatedObjects.Add(footing);
+                        buildingElements.Add(footing);
+                    }
+                    break;
+                }
+                case ElementType.Beams:
+                {
+                    for (int i = 0; i < insertPlanes.Count; i++)
+                    {
+                        var beam = CreateBeam(model, name, shapes[i], insertPlanes[i]);
+                        relAssociatesMaterial.RelatedObjects.Add(beam);
+                        buildingElements.Add(beam); 
+                    }
+                    break;
+                }
+                case ElementType.Columns:
+                {
+                    for (int i = 0; i < insertPlanes.Count; i++)
+                    {
+                        var column = CreateColumn(model, name, shapes[i], insertPlanes[i]);
                         relAssociatesMaterial.RelatedObjects.Add(column);
                         buildingElements.Add(column);
                     }

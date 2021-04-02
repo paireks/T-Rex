@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
-using T_RexEngine.Enums;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
@@ -22,24 +21,7 @@ namespace T_RexEngine.ElementLibrary
             Volume = VolumeMassProperties.Compute(mesh).Volume;
             Mass = Volume * material.Density;
             InsertPlanes = insertPlanes;
-            switch (type)
-            {
-                case 0:
-                    ElementType = ElementType.PadFooting;
-                    break;
-                case 1:
-                    ElementType = ElementType.StripFootings;
-                    break;
-                case 2:
-                    ElementType = ElementType.Beams;
-                    break;
-                case 3:
-                    ElementType = ElementType.Columns;
-                    break;
-                default:
-                    throw new ArgumentException("Element type not recognized");
-            }
-            
+            ElementType = IfcTools.IntToType(type);
             ResultMesh = new List<Mesh>();
 
             foreach (var plane in InsertPlanes)

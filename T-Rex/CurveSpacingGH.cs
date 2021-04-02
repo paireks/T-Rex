@@ -77,7 +77,7 @@ namespace T_Rex
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("5eef3b17-2baf-40f8-866b-9b97f93379b9"); }
+            get { return new Guid("5eef3b17-2baf-40f8-866b-9b97f93379b0"); }
         }
     }
 }
