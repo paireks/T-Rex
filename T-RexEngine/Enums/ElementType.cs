@@ -3,9 +3,9 @@
     public enum ElementType
     {
         PadFooting,
-        StripFootings,
-        Beams,
-        Columns,
+        StripFooting,
+        Beam,
+        Column,
         Rebar
     }
 }

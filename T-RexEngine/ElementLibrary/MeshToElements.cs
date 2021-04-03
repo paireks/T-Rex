@@ -12,13 +12,14 @@ namespace T_RexEngine.ElementLibrary
 {
     public class MeshToElements: ElementGroup
     {
+        private Mesh _mesh;
         public MeshToElements(string name, Mesh mesh, Material material, int type, List<Plane> insertPlanes)
         {
             Name = name;
             Mesh = mesh;
             Material = material;
             Amount = insertPlanes.Count;
-            Volume = VolumeMassProperties.Compute(mesh).Volume;
+            Volume = VolumeMassProperties.Compute(mesh).Volume * Amount;
             Mass = Volume * material.Density;
             InsertPlanes = insertPlanes;
             ElementType = IfcTools.IntToType(type);
@@ -63,7 +64,20 @@ namespace T_RexEngine.ElementLibrary
             }
         }
         public string Name { get; }
-        public Mesh Mesh { get; }
+
+        public Mesh Mesh
+        {
+            get { return _mesh; }
+            private set
+            {
+                if (!value.IsClosed)
+                {
+                    throw new ArgumentException("Mesh should be closed");
+                }
+                _mesh = value;
+            }
+        }
+
         public List<Mesh> ResultMesh { get; }
         public List<Plane> InsertPlanes { get; }
         

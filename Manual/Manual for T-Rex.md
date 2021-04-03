@@ -65,6 +65,8 @@ Volume of rebar with diameter: 8 and length: 100 should be around 5026.5482. As 
 
 ![ComponentVolume](Img\ComponentVolume.png)
 
+For this reason: remember, that if you're using Mesh To Elements component - the volume and mass calculated will not be precise, because of this type of representation.
+
 ### Units
 
 Grasshopper is unit-less, you can read more about it there: https://www.grasshopper3d.com/forum/topics/units-m-ft

@@ -30,13 +30,13 @@ namespace T_RexEngine
                     type = ElementType.PadFooting;
                     break;
                 case 1:
-                    type = ElementType.StripFootings;
+                    type = ElementType.StripFooting;
                     break;
                 case 2:
-                    type = ElementType.Beams;
+                    type = ElementType.Beam;
                     break;
                 case 3:
-                    type = ElementType.Columns;
+                    type = ElementType.Column;
                     break;
                 default:
                     throw new ArgumentException("Element type not recognized");
@@ -172,7 +172,7 @@ namespace T_RexEngine
                 case ElementType.PadFooting:
                     footing.PredefinedType = IfcFootingTypeEnum.PAD_FOOTING;
                     break;
-                case ElementType.StripFootings:
+                case ElementType.StripFooting:
                     footing.PredefinedType = IfcFootingTypeEnum.STRIP_FOOTING;
                     break;
                 default:
@@ -214,7 +214,7 @@ namespace T_RexEngine
             switch (type)
             {
                 case ElementType.PadFooting:
-                case ElementType.StripFootings:
+                case ElementType.StripFooting:
                 {
                     foreach (var insertPlane in insertPlanes)
                     {
@@ -224,7 +224,7 @@ namespace T_RexEngine
                     }
                     break;
                 }
-                case ElementType.Beams:
+                case ElementType.Beam:
                 {
                     foreach (var insertPlane in insertPlanes)
                     {
@@ -234,7 +234,7 @@ namespace T_RexEngine
                     }
                     break;
                 }
-                case ElementType.Columns:
+                case ElementType.Column:
                 {
                     foreach (var insertPlane in insertPlanes)
                     {
@@ -259,7 +259,7 @@ namespace T_RexEngine
             switch (type)
             {
                 case ElementType.PadFooting:
-                case ElementType.StripFootings:
+                case ElementType.StripFooting:
                 {
                     for (int i = 0; i < insertPlanes.Count; i++)
                     {
@@ -269,7 +269,7 @@ namespace T_RexEngine
                     }
                     break;
                 }
-                case ElementType.Beams:
+                case ElementType.Beam:
                 {
                     for (int i = 0; i < insertPlanes.Count; i++)
                     {
@@ -279,7 +279,7 @@ namespace T_RexEngine
                     }
                     break;
                 }
-                case ElementType.Columns:
+                case ElementType.Column:
                 {
                     for (int i = 0; i < insertPlanes.Count; i++)
                     {
