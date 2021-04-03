@@ -49,6 +49,11 @@ namespace T_RexEngine.ElementLibrary
             }
         }
 
+        public override string ToString()
+        {
+            return $"Element Group{Environment.NewLine}" + $"Count: {Amount}";
+        }
+
 
         public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
         {

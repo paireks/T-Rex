@@ -15,7 +15,7 @@ Basically T-Rex can help you to model different rebars, which are represented by
 
 Check Manual here: https://code-structures.com/T_Rex_Manual/Manual%20for%20T-Rex.html
 
-## Features (0.1.0) BETA
+## Features (0.2.0) BETA
 
 <p align="center">
   <img src="https://github.com/paireks/T-Rex/blob/Version1_0_0/IMG/2020-11-08_22h34_54.png">
@@ -30,7 +30,7 @@ Check Manual here: https://code-structures.com/T_Rex_Manual/Manual%20for%20T-Rex
 
 ## License (MIT License)
 
-Copyright © 2020 Wojciech Radaczyński
+Copyright © 2021 Wojciech Radaczyński
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

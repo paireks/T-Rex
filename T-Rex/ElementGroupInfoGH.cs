@@ -23,6 +23,8 @@ namespace T_Rex
             pManager.AddGenericParameter("Material", "Material", "Material of elements in a group", GH_ParamAccess.item);
             pManager.AddNumberParameter("Volume", "Volume", "Volume of all of the elements in a given group.", GH_ParamAccess.item);
             pManager.AddNumberParameter("Mass", "Mass", "Mass of all of the elements in a given group. Calculated by multiplying given density and calculated volume.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Type", "Type", "Type of elements in a group", GH_ParamAccess.item);
+
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -34,6 +36,7 @@ namespace T_Rex
             DA.SetData(1, elementGroup.Material);
             DA.SetData(2, elementGroup.Volume);
             DA.SetData(3, elementGroup.Mass);
+            DA.SetData(4, elementGroup.ElementType);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -18,13 +18,13 @@ namespace T_RexEngine
 {
     public class Ifc
     {
-        public Ifc(List<ElementGroup> elementGroups, string path)
+        public Ifc(List<ElementGroup> elementGroups, string projectName, string buildingName, string path)
         {
-            using (IfcStore model = CreateAndInitModel("My Model"))
+            using (IfcStore model = CreateAndInitModel(projectName))
             {
                 if (model != null)
                 {
-                    IfcBuilding building = CreateBuilding(model, "Default Building");
+                    IfcBuilding building = CreateBuilding(model, buildingName);
 
                     foreach (var elementGroup in elementGroups)
                     {

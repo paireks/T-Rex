@@ -32,7 +32,12 @@ namespace T_RexEngine.ElementLibrary
                 ResultMesh.Add(duplicateMesh);
             }
         }
-        
+
+        public override string ToString()
+        {
+            return $"Element Group{Environment.NewLine}" + $"Count: {Amount}";
+        }
+
         public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
         {
             throw new ArgumentException("Mesh elements should be converted to IfcBuildingElement");

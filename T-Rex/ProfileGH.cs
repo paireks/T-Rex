@@ -20,13 +20,12 @@ namespace T_Rex
             pManager.AddTextParameter("Name", "Name", "Name of the profile", GH_ParamAccess.item);
             pManager.AddPointParameter("Points", "Points", "Points that define a section", GH_ParamAccess.list);
             pManager.AddNumberParameter("Tolerance", "Tolerance", "Tolerance setting for Brep creation",
-                GH_ParamAccess.item);
+                GH_ParamAccess.item, 0.0001);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Profile", "Profile", "Created profile", GH_ParamAccess.item);
-            pManager.AddCurveParameter("Curve", "Curve", "Curve of profile", GH_ParamAccess.item);
-            pManager.AddBrepParameter("Brep", "Brep", "Brep of profile", GH_ParamAccess.list);
+            pManager.AddBrepParameter("Brep", "Brep", "Brep of profile", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -41,8 +40,7 @@ namespace T_Rex
             Profile elementProfile = new Profile(name, points, tolerance);
 
             DA.SetData(0, elementProfile);
-            DA.SetData(1, elementProfile.ProfileCurve);
-            DA.SetDataList(2, elementProfile.BoundarySurfaces);
+            DA.SetData(1, elementProfile.BoundarySurfaces[0]);
         }
         protected override System.Drawing.Bitmap Icon
         {

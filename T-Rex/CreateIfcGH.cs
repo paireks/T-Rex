@@ -18,6 +18,10 @@ namespace T_Rex
         {
             pManager.AddGenericParameter("Groups", "Groups", "T-Rex groups to add to the IFC file",
                 GH_ParamAccess.list);
+            pManager.AddTextParameter("Project Name", "Project Name", "Name of the project",
+                GH_ParamAccess.item);
+            pManager.AddTextParameter("Building Name", "Building Name", "Name of the building",
+                GH_ParamAccess.item);
             pManager.AddTextParameter("Path", "Path", "Path where the IFC file will be saved, should end up with .ifc",
                 GH_ParamAccess.item);
         }
@@ -28,12 +32,16 @@ namespace T_Rex
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<ElementGroup> elementGroups = new List<ElementGroup>();
+            string projectName = string.Empty;
+            string buildingName = string.Empty;
             string path = string.Empty;
 
             DA.GetDataList(0, elementGroups);
-            DA.GetData(1, ref path);
+            DA.GetData(1, ref projectName);
+            DA.GetData(2, ref buildingName);
+            DA.GetData(3, ref path);
             
-            Ifc Ifc = new Ifc(elementGroups, path);
+            Ifc Ifc = new Ifc(elementGroups, projectName, buildingName, path);
         }
         protected override System.Drawing.Bitmap Icon
         {

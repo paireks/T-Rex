@@ -1,4 +1,4 @@
-# Manual for T-Rex 0.1.0
+# Manual for T-Rex 0.2.0
 
 [TOC]
 
@@ -26,7 +26,7 @@ T-Rex is an open-source plug-in for Grasshopper.
 
 ### License (MIT License)
 
-Copyright © 2020 Wojciech Radaczyński
+Copyright © 2021 Wojciech Radaczyński
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -71,6 +71,8 @@ Grasshopper is unit-less, you can read more about it there: https://www.grasshop
 
 So is the T-Rex. It means that you will have to choose your unit system by yourself. If you choose to use meters then make sure that every dimension is in meters and the Rhino document related to Grasshopper script is set to meters.
 
+**Important note:** In T-Rex 0.2.0 IFC export is always treating the model as it is in **millimeters**.
+
 ### Tolerances
 
 There are two places where you have to set proper tolerances values:
@@ -84,6 +86,24 @@ There are two places where you have to set proper tolerances values:
 - Inside the T-Rex components
 
   There are a few components that require Tolerance value as input. Most of the time default values will be sufficient. To understand it more: you will have to see the source code.
+
+## Concrete
+
+### About
+
+Concrete components will help you to create typical shapes of concrete elements.
+
+In fact you will model a group of elements at once. This way it is easier to create smaller IFC files, because the reference to the same property (like materials, profiles, etc.) will be putted once for whole group.
+
+### Components
+
+#### Profile
+
+#### Profile To Elements
+
+#### Mesh To Elements
+
+#### Element Group Info
 
 ## Properties
 
