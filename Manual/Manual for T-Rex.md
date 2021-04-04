@@ -24,6 +24,10 @@ T-Rex is an open-source plug-in for Grasshopper.
 
 **Videos:** You can find videos on my YT channel here: https://www.youtube.com/channel/UCfXkMo1rOMhKGBoNwd7JPsw
 
+**Used libraries:**
+
+- xbim: for IFC export: https://docs.xbim.net/, license: https://docs.xbim.net/license/license.html
+
 ### License (MIT License)
 
 Copyright © 2021 Wojciech Radaczyński
@@ -143,9 +147,28 @@ Remember that Volume and Mass is a sum of the whole group.
 
 ### About
 
+Tools for IFC files creation.
+
+T-Rex is using xbim library for IFC export.
+
 ### Components
 
 #### Create IFC
+
+Component creates an .ifc file of given groups of elements. Schema supported: **IFC4x1**.
+
+I test IFC export on 2 free IFC viewers:
+
+- BIMvision (https://bimvision.eu/)
+- Open IFC Viewer (https://openifcviewer.com/)
+
+You have to understand one thing: IFC is so complex, that depending on a software you're using for import - the results might differ. Some software can miss some types of geometries or information. In my opinion it's because of the complexity of the IFC schema, which makes it hard for each software developer to support all these features, types of geometries and so on.
+
+![IFC](Img\IFC.png)
+
+To Groups input you can plug Rebar Groups and Element Groups.
+
+Path should have .ifc extension at the end.
 
 ## Properties
 
