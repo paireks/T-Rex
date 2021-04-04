@@ -17,15 +17,13 @@ Check Manual here: https://code-structures.com/T_Rex_Manual/Manual%20for%20T-Rex
 
 ## Features (0.2.0) BETA
 
-<p align="center">
-  <img src="https://github.com/paireks/T-Rex/blob/Version1_0_0/IMG/2020-11-08_22h34_54.png">
-</p>
 
+- Concrete: Profile, Profile To Elements, Mesh To Elements, Element Group Info
+- IFC: Create IFC
 - Rebar Shapes from curves: Curve To Rebar, Polyline To Rebar
 - Rebar Shapes from rectangle: Rectangle To Line Bar Shape, Rectangle To U-Bar Shape, Rectangle To Stirrup Shape
 - Rebar Shapes library: L-Bar Shape, Stirrup Shape, Spacer Shape
-- Rebar Spacings: Curve Spacing, Custom Spacing, Vector Count Spacing, Vector Length Spacing
-- Tools: Rebar Group Info
+- Rebar Spacings: Curve Spacing, Custom Spacing, Vector Count Spacing, Vector Length Spacing, Rebar Group Info
 - Properties: Bending Roller, Cover Dimensions, Material, Rebar Properties
 
 ## License (MIT License)
@@ -41,6 +39,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## About the code
 
 Code is not designed to be used outside Grasshopper environment.
+
+xbim library was used to allow IFCs creation: https://docs.xbim.net/, license: https://docs.xbim.net/license/license.html.
 
 xUnit library was used to unit-test the project.
 
