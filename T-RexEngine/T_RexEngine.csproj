@@ -126,6 +126,7 @@
     <Compile Include="CoverDimensions.cs" />
     <Compile Include="ElementLibrary\MeshToElements.cs" />
     <Compile Include="ElementLibrary\ProfileToElements.cs" />
+    <Compile Include="Enums\RebarSpacingType.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Ifc.cs" />
     <Compile Include="ElementGroup.cs" />

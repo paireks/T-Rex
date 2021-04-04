@@ -158,7 +158,17 @@ namespace T_RexEngine
             representation.Representations.Add(shape);
             element.Representation = representation;
                             
-            var localPlacement = IfcTools.CreateLocalPlacement(model, insertPlane);
+            var localPlacement = CreateLocalPlacement(model, insertPlane);
+            element.ObjectPlacement = localPlacement;
+        }
+        
+        public static void ApplyRepresentationAndPlacement(IfcStore model, IfcReinforcingBar element, IfcShapeRepresentation shape, Plane insertPlane)
+        {
+            var representation = model.Instances.New<IfcProductDefinitionShape>();
+            representation.Representations.Add(shape);
+            element.Representation = representation;
+                            
+            var localPlacement = CreateLocalPlacement(model, insertPlane);
             element.ObjectPlacement = localPlacement;
         }
 
