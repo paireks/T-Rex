@@ -65,13 +65,18 @@ namespace T_RexEngine
                         }
                     }
 
+                    if (path.Substring(path.Length - 4) != ".ifc")
+                    {
+                        throw new ArgumentException("Path should end up with .ifc");
+                    }
+                    
                     try
                     {
                         model.SaveAs(path, StorageType.Ifc);
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.Message);
+                        throw new ArgumentException("Couldn't save the file. " + e);
                     }
                 }
             }
