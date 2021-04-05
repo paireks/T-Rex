@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-
 using Grasshopper.Kernel;
-using Rhino.Geometry;
 using T_RexEngine;
 
 namespace T_Rex
@@ -12,7 +9,7 @@ namespace T_Rex
         public RebarGroupInfoGH()
           : base("Rebar Group Info", "Rebar Group Info",
               "Creates information about given rebar group",
-              "T-Rex", "Tools")
+              "T-Rex", "Rebar Spacing")
         {
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
@@ -27,7 +24,7 @@ namespace T_Rex
             pManager.AddIntegerParameter("Amount", "Amount", "How many bars in a group", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Material of a group of rebars", GH_ParamAccess.item);
             pManager.AddNumberParameter("Volume", "Volume", "Volume of all the rebars in a given group.", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Weight", "Weight", "Weight of all the rebars in a given group. Calculated by multiplying given density and calculated volume.", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Mass", "Mass", "Mass of all the rebars in a given group. Calculated by multiplying given density and calculated volume.", GH_ParamAccess.item);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -37,10 +34,10 @@ namespace T_Rex
 
             DA.SetData(0, rebarGroup.Id);
             DA.SetData(1, rebarGroup.Diameter);
-            DA.SetData(2, rebarGroup.Count);
+            DA.SetData(2, rebarGroup.Amount);
             DA.SetData(3, rebarGroup.Material);
             DA.SetData(4, rebarGroup.Volume);
-            DA.SetData(5, rebarGroup.Weight);
+            DA.SetData(5, rebarGroup.Mass);
         }
         protected override System.Drawing.Bitmap Icon
         {

@@ -1,4 +1,4 @@
-# Manual for T-Rex 0.1.0
+# Manual for T-Rex 0.2.0
 
 [TOC]
 
@@ -22,11 +22,15 @@ T-Rex is an open-source plug-in for Grasshopper.
 
 **Website:** www.code-structures.com
 
-**Tutorials:** You can find many tutorials on my YT channel here: https://www.youtube.com/channel/UCfXkMo1rOMhKGBoNwd7JPsw
+**Videos:** You can find videos on my YT channel here: https://www.youtube.com/channel/UCfXkMo1rOMhKGBoNwd7JPsw
+
+**Used libraries:**
+
+- xbim: for IFC export: https://docs.xbim.net/, license: https://docs.xbim.net/license/license.html
 
 ### License (MIT License)
 
-Copyright © 2020 Wojciech Radaczyński
+Copyright © 2021 Wojciech Radaczyński
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -65,11 +69,15 @@ Volume of rebar with diameter: 8 and length: 100 should be around 5026.5482. As 
 
 ![ComponentVolume](Img\ComponentVolume.png)
 
+For this reason: remember, that if you're using Mesh To Elements component - the volume and mass calculated will not be precise, because of this type of representation.
+
 ### Units
 
 Grasshopper is unit-less, you can read more about it there: https://www.grasshopper3d.com/forum/topics/units-m-ft
 
 So is the T-Rex. It means that you will have to choose your unit system by yourself. If you choose to use meters then make sure that every dimension is in meters and the Rhino document related to Grasshopper script is set to meters.
+
+**Important note:** In T-Rex 0.2.0 IFC export is always treating the model as it is in **millimeters**.
 
 ### Tolerances
 
@@ -84,6 +92,85 @@ There are two places where you have to set proper tolerances values:
 - Inside the T-Rex components
 
   There are a few components that require Tolerance value as input. Most of the time default values will be sufficient. To understand it more: you will have to see the source code.
+
+## Concrete
+
+### About
+
+Concrete components will help you to create typical shapes of concrete elements.
+
+In fact you will model a group of elements at once. This way it is easier to create smaller IFC files, because the reference to the same property (like materials, profiles, etc.) will be putted once for whole group.
+
+### Components
+
+#### Profile
+
+![Profile](Img\Profile.png)
+
+All points that defines profile should be placed on XY Plane.
+
+Profile can be used to create elements with Profile To Elements.
+
+#### Profile To Elements
+
+When we have an element, that can be represented as Sweep along the curve: we can use this component. At first we need to create the profile with Profile component. Then we can use this profile to sweep it along given lines:
+
+![ProfileToElement](Img\ProfileToElement.png)
+
+It's not easy to obtain needed position of the profile along the line. That's why there is Rotation Angle as input, which allows to rotate the profiles of elements.
+
+Profile Elements look empty inside, but this just the visual representation, they are treated as if they were closed solids - you can see it after IFC export.
+
+#### Mesh To Elements
+
+Mesh elements should be used when the geometry of an element is complex and it cannot be represented in any different way. Meshes have to store a lot of information (about vertices coordinates, faces), which will affect the size of the IFC file.
+
+Only closed meshes are allowed as input.
+
+![Dino](Img\Dino.png)
+
+![Stairs](Img\Stairs.png)
+
+If the same element should be placed in different places, then put use multiple Insert Planes as input:
+
+![Tube](Img\Tube.png)
+
+**Important note:** remember, that mesh representation is not always precise, so the Volume and Mass calculated would not precise as well, because of the discretization.
+
+#### Element Group Info
+
+This component allows to read the properties of the group of elements.
+
+Remember that Volume and Mass is a sum of the whole group.
+
+## IFC
+
+### About
+
+Tools for IFC files creation.
+
+T-Rex is using xbim library for IFC export.
+
+T-Rex 0.2.0 allows only models in **millimeters** to be exported to IFC.
+
+### Components
+
+#### Create IFC
+
+Component creates an .ifc file of given groups of elements. Schema supported: **IFC4x1**.
+
+I test IFC export on 2 free IFC viewers:
+
+- BIMvision (https://bimvision.eu/)
+- Open IFC Viewer (https://openifcviewer.com/)
+
+You have to understand one thing: IFC is so complex, that depending on a software you're using for import - the results might differ. Some software can miss some types of geometries or information. In my opinion it's because of the complexity of the IFC schema, which makes it hard for each software developer to support all these features, types of geometries and so on.
+
+![IFC](Img\IFC.png)
+
+To Groups input you can plug Rebar Groups and Element Groups.
+
+Path should have .ifc extension at the end.
 
 ## Properties
 
@@ -241,7 +328,7 @@ The issue is that sometimes those new division planes are rotated in the differe
 
 If you right click this input you can click Degrees, so there is no need to play with radians.
 
-Shape's Origin Plane should be the plane where Rebar Shape is. Basically if you use Curve Spacing then it doesn't matter where the Rebar Shape is, because it will be copied from the Shape's Origin Plane to all of the division planes that were created along the curve.
+Shape's Origin Plane = World XY Plane. Basically you should place the Rebar Shape inside XY Plane, because it will be copied from this plane to all of the division planes that were created along the curve.
 
 ![DivisionPlanes](Img\DivisionPlanes.png)
 
@@ -294,8 +381,6 @@ Tolerance default value should be sufficient for most of the cases, to understan
 ![Collision](Img\Collision.png)
 
 Most of the time it will be visible, but sometimes the distance between collided bars is so small, that you cannot barely see the difference if one rebar is inside an another or is it just one bar. That's why you should always make sure that the Rebar Group is created correctly.
-
-## Tools
 
 #### Rebar Group Info
 

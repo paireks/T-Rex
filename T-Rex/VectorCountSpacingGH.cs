@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using T_RexEngine;
+using T_RexEngine.ElementLibrary;
 
 namespace T_Rex
 {
@@ -29,6 +30,7 @@ namespace T_Rex
             pManager.AddGenericParameter("Rebar Group", "Rebar Group", "Group of reinforcement bars",
                 GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Mesh group representation", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Curve", "Curve", "Curves that represents reinforcement", GH_ParamAccess.list);
         }
         protected override void SolveInstance(IGH_DataAccess DA)
         {
@@ -46,6 +48,7 @@ namespace T_Rex
 
             DA.SetData(0, rebarGroup);
             DA.SetDataList(1, rebarGroup.RebarGroupMesh);
+            DA.SetDataList(2, rebarGroup.RebarGroupCurves);
         }
         protected override System.Drawing.Bitmap Icon
         {
