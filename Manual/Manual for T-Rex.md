@@ -151,6 +151,8 @@ Tools for IFC files creation.
 
 T-Rex is using xbim library for IFC export.
 
+T-Rex 0.2.0 allows only models in **millimeters** to be exported to IFC.
+
 ### Components
 
 #### Create IFC

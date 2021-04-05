@@ -10,7 +10,7 @@ namespace T_Rex
     {
         public CreateIfcGH()
           : base("Create IFC", "Create IFC",
-              "Create IFC",
+              "Creates IFC file. Make sure that groups are modelled in millimeters, because right now all of the input will be exported as millimeters.",
               "T-Rex", "IFC")
         {
         }
