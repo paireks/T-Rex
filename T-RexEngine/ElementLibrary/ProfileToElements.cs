@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Rhino.Geometry;
 using Xbim.Ifc;
+using Xbim.Ifc4.Kernel;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
 using Xbim.Ifc4.Interfaces;
@@ -11,10 +12,11 @@ using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.ProfileResource;
 using Xbim.Ifc4.RepresentationResource;
 using Xbim.Ifc4.StructuralElementsDomain;
+using Xbim.Ifc4.SharedComponentElements;
 
 namespace T_RexEngine.ElementLibrary
 {
-    public class ProfileToElements: ElementGroup
+    public class ProfileToElements : ElementGroup
     {
         public ProfileToElements(string name, Profile elementProfile, List<Line> insertLines, double angle, Material material, int type)
         {
@@ -27,11 +29,11 @@ namespace T_RexEngine.ElementLibrary
 
             double surfaceArea = elementProfile.BoundarySurfaces[0].GetArea();
             Volume = insertLines.Sum(line => surfaceArea * line.Length);
-            
+
             Mass = Volume * material.Density;
             SectionInsertPlanes = new List<Plane>();
             Breps = new List<Brep>();
-            
+
             foreach (var line in insertLines)
             {
                 Curve lineCurve = line.ToNurbsCurve();
@@ -40,11 +42,11 @@ namespace T_RexEngine.ElementLibrary
                 Plane sectionInsertPlane = perpendicularPlanes[0].Clone();
                 sectionInsertPlane.Rotate(angle, sectionInsertPlane.ZAxis);
                 SectionInsertPlanes.Add(sectionInsertPlane);
-            
+
                 Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, sectionInsertPlane);
                 Curve duplicateCurve = elementProfile.ProfileCurve.DuplicateCurve();
                 duplicateCurve.Transform(planeToPlane);
-                
+
                 Breps.Add(Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true, elementProfile.Tolerance)[0]);
             }
         }
@@ -64,12 +66,12 @@ namespace T_RexEngine.ElementLibrary
                 material.Name = Material.Grade;
                 var ifcRelAssociatesMaterial = model.Instances.New<IfcRelAssociatesMaterial>();
                 ifcRelAssociatesMaterial.RelatingMaterial = material;
-                
+
                 var ifcCartesianPoints = IfcTools.PointsToIfcCartesianPoints(model, Profile.ProfilePoints, true);
-                
+
                 var polyline = model.Instances.New<IfcPolyline>();
                 polyline.Points.AddRange(ifcCartesianPoints);
-                
+
                 var profile = model.Instances.New<IfcArbitraryClosedProfileDef>();
                 profile.OuterCurve = polyline;
                 profile.ProfileName = Profile.Name;
@@ -84,27 +86,27 @@ namespace T_RexEngine.ElementLibrary
                     body.SweptArea = profile;
                     body.ExtrudedDirection = model.Instances.New<IfcDirection>();
                     body.ExtrudedDirection.SetXYZ(0, 0, 1);
-                
+
                     var origin = model.Instances.New<IfcCartesianPoint>();
                     origin.SetXYZ(0, 0, 0);
                     body.Position = model.Instances.New<IfcAxis2Placement3D>();
                     body.Position.Location = origin;
-                
+
                     var shape = model.Instances.New<IfcShapeRepresentation>();
                     var modelContext = model.Instances.OfType<IfcGeometricRepresentationContext>().FirstOrDefault();
                     shape.ContextOfItems = modelContext;
                     shape.RepresentationType = "SweptSolid";
                     shape.RepresentationIdentifier = "Body";
                     shape.Items.Add(body);
-                    
+
                     shapes.Add(shape);
                 }
 
                 var buildingElements = IfcTools.CreateBuildingElements(model, ElementType, Name, shapes, SectionInsertPlanes,
                     ifcRelAssociatesMaterial);
-                
+
                 transaction.Commit();
-                
+
                 return buildingElements;
             }
         }
@@ -113,7 +115,27 @@ namespace T_RexEngine.ElementLibrary
         {
             throw new ArgumentException("Profile elements should be converted to IfcBuildingElement");
         }
-        
+
+        public override List<IfcElementComponent> ToElementComponentIfc(IfcStore model)
+        {
+            throw new ArgumentException("Profile elements should be converted to IfcBuildingElement");
+        }
+
+        public override List<IfcDistributionElement> ToDistributionElementIfc(IfcStore model)
+        {
+            throw new ArgumentException("Profile elements should be converted to IfcBuildingElement");
+        }
+
+        public override List<IfcProxy> ToProxyIfc(IfcStore model)
+        {
+            throw new ArgumentException("Profile elements should be converted to IfcBuildingElement");
+        }
+
+        public override List<IfcElement> ToElementIfc(IfcStore model)
+        {
+            throw new ArgumentException("Profile elements should be converted to IfcBuildingElement");
+        }
+
         public string Name { get; }
         public Profile Profile { get; }
         public List<Plane> SectionInsertPlanes { get; }

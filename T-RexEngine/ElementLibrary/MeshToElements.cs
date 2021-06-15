@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
 using Xbim.Ifc;
+using Xbim.Ifc4.Kernel;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
 using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.StructuralElementsDomain;
+using Xbim.Ifc4.SharedComponentElements;
 
 namespace T_RexEngine.ElementLibrary
 {
-    public class MeshToElements: ElementGroup
+    public class MeshToElements : ElementGroup
     {
         private Mesh _mesh;
         public MeshToElements(string name, Mesh mesh, Material material, int type, List<Plane> insertPlanes)
@@ -41,7 +43,22 @@ namespace T_RexEngine.ElementLibrary
 
         public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
         {
-            throw new ArgumentException("Mesh elements should be converted to IfcBuildingElement");
+            using (var transaction = model.BeginTransaction("Create Mesh Element"))
+            {
+                MeshFaceList faces = Mesh.Faces;
+                MeshVertexList vertices = Mesh.Vertices;
+                List<IfcCartesianPoint> ifcVertices = IfcTools.VerticesToIfcCartesianPoints(model, vertices);
+                IfcFaceBasedSurfaceModel faceBasedSurfaceModel = IfcTools.CreateIfcFaceBasedSurfaceModel(model, faces, ifcVertices);
+                var shape = IfcTools.CreateIfcShapeRepresentation(model, "Mesh");
+                shape.Items.Add(faceBasedSurfaceModel);
+                var ifcRelAssociatesMaterial = IfcTools.CreateIfcRelAssociatesMaterial(model, Material.Name, Material.Grade);
+                var reinforcingElements = IfcTools.CreateReinforcingElements(model, ElementType, Name, shape, InsertPlanes,
+                    ifcRelAssociatesMaterial);
+
+                transaction.Commit();
+
+                return reinforcingElements;
+            }
         }
 
         public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
@@ -59,10 +76,91 @@ namespace T_RexEngine.ElementLibrary
                     ifcRelAssociatesMaterial);
 
                 transaction.Commit();
-                
+
                 return buildingElements;
             }
         }
+
+        public override List<IfcProxy> ToProxyIfc(IfcStore model)
+        {
+            using (var transaction = model.BeginTransaction("Create Mesh Element"))
+            {
+                MeshFaceList faces = Mesh.Faces;
+                MeshVertexList vertices = Mesh.Vertices;
+                List<IfcCartesianPoint> ifcVertices = IfcTools.VerticesToIfcCartesianPoints(model, vertices);
+                IfcFaceBasedSurfaceModel faceBasedSurfaceModel = IfcTools.CreateIfcFaceBasedSurfaceModel(model, faces, ifcVertices);
+                var shape = IfcTools.CreateIfcShapeRepresentation(model, "Mesh");
+                shape.Items.Add(faceBasedSurfaceModel);
+                var ifcRelAssociatesMaterial = IfcTools.CreateIfcRelAssociatesMaterial(model, Material.Name, Material.Grade);
+                var proxy = IfcTools.CreateProxy(model, ElementType, Name, shape, InsertPlanes,
+                    ifcRelAssociatesMaterial);
+
+                transaction.Commit();
+
+                return proxy;
+            }
+        }
+
+        public override List<IfcElement> ToElementIfc(IfcStore model)
+        {
+            using (var transaction = model.BeginTransaction("Create Mesh Element"))
+            {
+                MeshFaceList faces = Mesh.Faces;
+                MeshVertexList vertices = Mesh.Vertices;
+                List<IfcCartesianPoint> ifcVertices = IfcTools.VerticesToIfcCartesianPoints(model, vertices);
+                IfcFaceBasedSurfaceModel faceBasedSurfaceModel = IfcTools.CreateIfcFaceBasedSurfaceModel(model, faces, ifcVertices);
+                var shape = IfcTools.CreateIfcShapeRepresentation(model, "Mesh");
+                shape.Items.Add(faceBasedSurfaceModel);
+                var ifcRelAssociatesMaterial = IfcTools.CreateIfcRelAssociatesMaterial(model, Material.Name, Material.Grade);
+                var element = IfcTools.CreateElement(model, ElementType, Name, shape, InsertPlanes,
+                    ifcRelAssociatesMaterial);
+
+                transaction.Commit();
+
+                return element;
+            }
+        }
+
+        public override List<IfcElementComponent> ToElementComponentIfc(IfcStore model)
+        {
+            using (var transaction = model.BeginTransaction("Create Mesh Element"))
+            {
+                MeshFaceList faces = Mesh.Faces;
+                MeshVertexList vertices = Mesh.Vertices;
+                List<IfcCartesianPoint> ifcVertices = IfcTools.VerticesToIfcCartesianPoints(model, vertices);
+                IfcFaceBasedSurfaceModel faceBasedSurfaceModel = IfcTools.CreateIfcFaceBasedSurfaceModel(model, faces, ifcVertices);
+                var shape = IfcTools.CreateIfcShapeRepresentation(model, "Mesh");
+                shape.Items.Add(faceBasedSurfaceModel);
+                var ifcRelAssociatesMaterial = IfcTools.CreateIfcRelAssociatesMaterial(model, Material.Name, Material.Grade);
+                var elementComponents = IfcTools.CreateElementComponent(model, ElementType, Name, shape, InsertPlanes,
+                    ifcRelAssociatesMaterial);
+
+                transaction.Commit();
+
+                return elementComponents;
+            }
+        }
+
+        public override List<IfcDistributionElement> ToDistributionElementIfc(IfcStore model)
+        {
+            using (var transaction = model.BeginTransaction("Create Mesh Element"))
+            {
+                MeshFaceList faces = Mesh.Faces;
+                MeshVertexList vertices = Mesh.Vertices;
+                List<IfcCartesianPoint> ifcVertices = IfcTools.VerticesToIfcCartesianPoints(model, vertices);
+                IfcFaceBasedSurfaceModel faceBasedSurfaceModel = IfcTools.CreateIfcFaceBasedSurfaceModel(model, faces, ifcVertices);
+                var shape = IfcTools.CreateIfcShapeRepresentation(model, "Mesh");
+                shape.Items.Add(faceBasedSurfaceModel);
+                var ifcRelAssociatesMaterial = IfcTools.CreateIfcRelAssociatesMaterial(model, Material.Name, Material.Grade);
+                var elementComponents = IfcTools.CreateDistributionElement(model, ElementType, Name, shape, InsertPlanes,
+                    ifcRelAssociatesMaterial);
+
+                transaction.Commit();
+
+                return elementComponents;
+            }
+        }
+
         public string Name { get; }
 
         public Mesh Mesh
@@ -80,6 +178,6 @@ namespace T_RexEngine.ElementLibrary
 
         public List<Mesh> ResultMesh { get; }
         public List<Plane> InsertPlanes { get; }
-        
+
     }
 }

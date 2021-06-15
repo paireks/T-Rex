@@ -5,10 +5,12 @@ using Rhino.Geometry;
 using Rhino.Geometry.Collections;
 using T_RexEngine.Enums;
 using Xbim.Ifc;
+using Xbim.Ifc4.Kernel;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
 using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.StructuralElementsDomain;
+using Xbim.Ifc4.SharedComponentElements;
 
 namespace T_RexEngine
 {
@@ -54,12 +56,12 @@ namespace T_RexEngine
                 {
                     throw new ArgumentException("You can't add bars with different diameters to one group");
                 }
-                
+
                 RebarGroupMesh.Add(rebarShape.RebarMesh);
                 RebarGroupCurves.Add(rebarShape.RebarCurve);
 
                 double currentRebarVolume = rebarShape.RebarCurve.GetLength() * Math.PI * Math.Pow(rebarShape.Props.Radius, 2.0);
-                
+
                 Volume += currentRebarVolume;
                 Mass += currentRebarVolume * rebarShape.Props.Material.Density;
             }
@@ -89,6 +91,26 @@ namespace T_RexEngine
             throw new ArgumentException("Rebars should be converted to IfcReinforcingElement");
         }
 
+        public override List<IfcElementComponent> ToElementComponentIfc(IfcStore model)
+        {
+            throw new ArgumentException("Rebars should be converted to IfcReinforcingElement");
+        }
+
+        public override List<IfcDistributionElement> ToDistributionElementIfc(IfcStore model)
+        {
+            throw new ArgumentException("Rebars should be converted to IfcReinforcingElement");
+        }
+
+        public override List<IfcProxy> ToProxyIfc(IfcStore model)
+        {
+            throw new ArgumentException("Rebars should be converted to IfcReinforcingElement");
+        }
+
+        public override List<IfcElement> ToElementIfc(IfcStore model)
+        {
+            throw new ArgumentException("Rebars should be converted to IfcReinforcingElement");
+        }
+
         public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)
         {
             using (var transaction = model.BeginTransaction("Create Mesh Element"))
@@ -98,35 +120,35 @@ namespace T_RexEngine
                 switch (SpacingType)
                 {
                     case RebarSpacingType.NormalSpacing:
-                    {
-                        MeshFaceList faces = OriginRebarShape.RebarMesh.Faces;
-                        MeshVertexList vertices = OriginRebarShape.RebarMesh.Vertices;
-                        List<IfcCartesianPoint> ifcVertices = IfcTools.VerticesToIfcCartesianPoints(model, vertices);
-                        IfcFaceBasedSurfaceModel faceBasedSurfaceModel =
-                            IfcTools.CreateIfcFaceBasedSurfaceModel(model, faces, ifcVertices);
-                        var shape = IfcTools.CreateIfcShapeRepresentation(model, "Mesh");
-                        shape.Items.Add(faceBasedSurfaceModel);
-                        var ifcRelAssociatesMaterial = IfcTools.CreateIfcRelAssociatesMaterial(model, Material.Name, Material.Grade);
-
-                        foreach (var insertPlane in RebarInsertPlanes)
                         {
-                            var rebar = model.Instances.New<IfcReinforcingBar>();
-                            rebar.Name = "Rebar";
-                            rebar.NominalDiameter = Diameter;
-                            rebar.BarLength = (int) Math.Round(OriginRebarShape.RebarCurve.GetLength());
-                            rebar.SteelGrade = Material.Grade;
+                            MeshFaceList faces = OriginRebarShape.RebarMesh.Faces;
+                            MeshVertexList vertices = OriginRebarShape.RebarMesh.Vertices;
+                            List<IfcCartesianPoint> ifcVertices = IfcTools.VerticesToIfcCartesianPoints(model, vertices);
+                            IfcFaceBasedSurfaceModel faceBasedSurfaceModel =
+                                IfcTools.CreateIfcFaceBasedSurfaceModel(model, faces, ifcVertices);
+                            var shape = IfcTools.CreateIfcShapeRepresentation(model, "Mesh");
+                            shape.Items.Add(faceBasedSurfaceModel);
+                            var ifcRelAssociatesMaterial = IfcTools.CreateIfcRelAssociatesMaterial(model, Material.Name, Material.Grade);
 
-                            IfcTools.ApplyRepresentationAndPlacement(model, rebar, shape, insertPlane);
+                            foreach (var insertPlane in RebarInsertPlanes)
+                            {
+                                var rebar = model.Instances.New<IfcReinforcingBar>();
+                                rebar.Name = "Rebar";
+                                rebar.NominalDiameter = Diameter;
+                                rebar.BarLength = (int)Math.Round(OriginRebarShape.RebarCurve.GetLength());
+                                rebar.SteelGrade = Material.Grade;
 
-                            ifcRelAssociatesMaterial.RelatedObjects.Add(rebar);
+                                IfcTools.ApplyRepresentationAndPlacement(model, rebar, shape, insertPlane);
 
-                            rebars.Add(rebar);
+                                ifcRelAssociatesMaterial.RelatedObjects.Add(rebar);
+
+                                rebars.Add(rebar);
+                            }
+
+                            break;
                         }
-
-                        break;
-                    }
                     case RebarSpacingType.CustomSpacing:
-                        
+
                         for (int i = 0; i < RebarGroupMesh.Count; i++)
                         {
                             MeshFaceList faces = RebarGroupMesh[i].Faces;
@@ -141,7 +163,7 @@ namespace T_RexEngine
                             var rebar = model.Instances.New<IfcReinforcingBar>();
                             rebar.Name = "Rebar";
                             rebar.NominalDiameter = Diameter;
-                            rebar.BarLength = (int) Math.Round(RebarGroupCurves[i].GetLength());
+                            rebar.BarLength = (int)Math.Round(RebarGroupCurves[i].GetLength());
                             rebar.SteelGrade = Material.Grade;
 
                             IfcTools.ApplyRepresentationAndPlacement(model, rebar, shape, Plane.WorldXY);
@@ -150,7 +172,7 @@ namespace T_RexEngine
 
                             rebars.Add(rebar);
                         }
-                        
+
                         break;
                     default:
                         throw new ArgumentException("Spacing type not recognized");
