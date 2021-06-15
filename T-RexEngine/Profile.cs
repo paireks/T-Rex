@@ -132,8 +132,8 @@ namespace T_RexEngine
 
         public double Tolerance
         {
-            get { return _tolerance; }
-            set
+            get => _tolerance;
+            private set
             {
                 if (value <= 0)
                 {
@@ -147,7 +147,7 @@ namespace T_RexEngine
 
         public List<Point3d> ProfilePoints
         {
-            get { return _profilePoints; }
+            get => _profilePoints;
             private set 
             {
                 if (value.Count <= 2)
@@ -170,7 +170,7 @@ namespace T_RexEngine
 
         public Brep[] BoundarySurfaces
         {
-            get { return _breps; }
+            get => _breps;
             private set
             {
                 if (value == null)

@@ -44,8 +44,21 @@ namespace T_RexEngine.ElementLibrary
                 Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, sectionInsertPlane);
                 Curve duplicateCurve = elementProfile.ProfileCurve.DuplicateCurve();
                 duplicateCurve.Transform(planeToPlane);
+
+                Brep startBrep = Profile.BoundarySurfaces[0];
+                startBrep.Transform(planeToPlane);
+
+                Brep endBrep = startBrep.DuplicateBrep();
+                endBrep.Transform(Transform.Translation(line.Direction));
                 
-                Breps.Add(Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true, elementProfile.Tolerance)[0]);
+                Brep[] breps = new Brep[3];
+                breps[0] = startBrep;
+                breps[1] = Surface.CreateExtrusion(duplicateCurve, line.Direction).ToBrep();
+                breps[2] = endBrep;
+                
+                var solidBreps = Brep.CreateSolid(breps, Profile.Tolerance);
+
+                Breps.Add(solidBreps[0]);
             }
         }
 
