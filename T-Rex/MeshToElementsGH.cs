@@ -20,7 +20,7 @@ namespace T_Rex
             pManager.AddTextParameter("Name", "Name", "Name of the elements", GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Mesh representation of model", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Concrete element material", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Type", "Type", "Element type as integer. 0 = Pad Footing, 1 = Strip Footing, 2 = Beam, 3 = Column", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Type", "Type", "Element type as integer", GH_ParamAccess.item);
             pManager.AddPlaneParameter("Insert Planes", "Insert Planes", "Destination planes of an element",
                 GH_ParamAccess.list);
         }
