@@ -26,7 +26,8 @@ namespace T_Rex
             pManager.AddAngleParameter("Rotation Angle", "Rotation Angle", "Set rotation angle for the profile",
                 GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Concrete element material", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Type", "Type", "Element type as integer. 0 = Pad Footing, 1 = Strip Footing, 2 = Beam, 3 = Column", GH_ParamAccess.item);
+            pManager.AddTextParameter("MainType", "MainType", "Main Element type as text", GH_ParamAccess.item);
+            pManager.AddTextParameter("SubType", "SubType", "Sub Element type as text", GH_ParamAccess.item, "notdefined");
             pManager.AddLineParameter("Insert Lines", "Insert Lines", "Lines to specify the element length and position",
                 GH_ParamAccess.list);
         }
@@ -35,7 +36,7 @@ namespace T_Rex
             pManager.AddGenericParameter("Element Group", "Element Group", "Concrete elements", GH_ParamAccess.item);
             pManager.AddBrepParameter("Breps", "Breps", "Breps that represent concrete elements", GH_ParamAccess.list);
         }
-        
+
         protected override void BeforeSolveInstance()
         {
             base.BeforeSolveInstance();
@@ -50,7 +51,8 @@ namespace T_Rex
             List<Line> lines = new List<Line>();
             double angle = 0.0;
             Material material = null;
-            int type = 0;
+            string maintype = "door";
+            string subtype = "notdefined";
 
             DA.GetData(0, ref name);
             DA.GetData(1, ref profile);
@@ -58,10 +60,14 @@ namespace T_Rex
             if (_useDegrees)
                 angle = RhinoMath.ToRadians(angle);
             DA.GetData(3, ref material);
-            DA.GetData(4, ref type);
-            DA.GetDataList(5, lines);
+            DA.GetData(4, ref maintype);
+            DA.GetData(5, ref subtype);
+            DA.GetDataList(6, lines);
 
-            ProfileToElements profileToElements = new ProfileToElements(name, profile, lines, angle, material, type);
+            string maintype_small = maintype.ToLower();
+            string subtype_small = subtype.ToLower();
+
+            ProfileToElements profileToElements = new ProfileToElements(name, profile, lines, angle, material, maintype_small, subtype_small);
 
             DA.SetData(0, profileToElements);
             DA.SetDataList(1, profileToElements.Breps);

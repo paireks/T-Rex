@@ -20,9 +20,11 @@ namespace T_Rex
             pManager.AddTextParameter("Name", "Name", "Name of the elements", GH_ParamAccess.item);
             pManager.AddMeshParameter("Mesh", "Mesh", "Mesh representation of model", GH_ParamAccess.item);
             pManager.AddGenericParameter("Material", "Material", "Concrete element material", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Type", "Type", "Element type as integer. 0 = Pad Footing, 1 = Strip Footing, 2 = Beam, 3 = Column", GH_ParamAccess.item);
+            pManager.AddTextParameter("MainType", "MainType", "Main Element type as text", GH_ParamAccess.item);
+            pManager.AddTextParameter("SubType", "SubType", "Sub Element type as text", GH_ParamAccess.item, "notdefined");
             pManager.AddPlaneParameter("Insert Planes", "Insert Planes", "Destination planes of an element",
                 GH_ParamAccess.list);
+
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -34,16 +36,21 @@ namespace T_Rex
             string name = String.Empty;
             Mesh mesh = null;
             Material material = null;
-            int type = 0;
             List<Plane> insertPlanes = new List<Plane>();
+            string maintype = "door";
+            string subtype = "notdefined";
 
             DA.GetData(0, ref name);
             DA.GetData(1, ref mesh);
             DA.GetData(2, ref material);
-            DA.GetData(3, ref type);
-            DA.GetDataList(4, insertPlanes);
+            DA.GetData(3, ref maintype);
+            DA.GetData(4, ref subtype);
+            DA.GetDataList(5, insertPlanes);
 
-            MeshToElements customElements = new MeshToElements(name, mesh, material, type, insertPlanes);
+            string maintype_small = maintype.ToLower();
+            string subtype_small = subtype.ToLower();
+
+            MeshToElements customElements = new MeshToElements(name, mesh, material, maintype_small, subtype_small, insertPlanes);
 
             DA.SetData(0, customElements);
             DA.SetDataList(1, customElements.ResultMesh);

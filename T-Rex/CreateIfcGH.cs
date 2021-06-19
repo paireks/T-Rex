@@ -24,6 +24,8 @@ namespace T_Rex
                 GH_ParamAccess.item);
             pManager.AddTextParameter("Path", "Path", "Path where the IFC file will be saved, should end up with .ifc",
                 GH_ParamAccess.item);
+            pManager.AddBooleanParameter("EnableGenerate", "EnableGenerate", "Enable generation of ifc",
+                GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -35,13 +37,18 @@ namespace T_Rex
             string projectName = string.Empty;
             string buildingName = string.Empty;
             string path = string.Empty;
+            bool enableGen = false;
 
             DA.GetDataList(0, elementGroups);
             DA.GetData(1, ref projectName);
             DA.GetData(2, ref buildingName);
             DA.GetData(3, ref path);
-            
-            Ifc Ifc = new Ifc(elementGroups, projectName, buildingName, path);
+            DA.GetData(4, ref enableGen);
+
+            if (enableGen)
+            {
+                Ifc Ifc = new Ifc(elementGroups, projectName, buildingName, path);
+            }
         }
         protected override System.Drawing.Bitmap Icon
         {
