@@ -10,12 +10,13 @@ using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.StructuralElementsDomain;
 using Xbim.Ifc4.SharedComponentElements;
 
+
 namespace T_RexEngine.ElementLibrary
 {
     public class MeshToElements : ElementGroup
     {
         private Mesh _mesh;
-        public MeshToElements(string name, Mesh mesh, Material material, int type, List<Plane> insertPlanes)
+        public MeshToElements(string name, Mesh mesh, Material material, string mainType, string subType, List<Plane> insertPlanes)
         {
             Name = name;
             Mesh = mesh;
@@ -24,7 +25,7 @@ namespace T_RexEngine.ElementLibrary
             Volume = VolumeMassProperties.Compute(mesh).Volume * Amount;
             Mass = Volume * material.Density;
             InsertPlanes = insertPlanes;
-            ElementType = IfcTools.IntToType(type);
+            ElementType = IfcTools.StringToType(mainType, subType);
             ResultMesh = new List<Mesh>();
 
             foreach (var plane in InsertPlanes)

@@ -23,812 +23,838 @@ namespace T_RexEngine
 {
     public static class IfcTools
     {
-        public static ElementType IntToType(int integerType)
+        public static ElementType StringToType(string main, string subt)
         {
             ElementType type;
 
-            switch (integerType)
+            switch (main)
             {
-                case 0:
+                case "ifcpadfooting":
+                case "padfooting":
+                case "pad pooting":
                     type = ElementType.PadFooting;
                     break;
-                case 1:
+
+                case "ifcstripfooting":
+                case "stripfooting":
+                case "strip footing":
                     type = ElementType.StripFooting;
                     break;
-                case 2:
-                    type = ElementType.Beam;
+
+                case "ifcbeam":
+                case "beam":
+                    {
+                        if (subt == "beam")
+                            type = ElementType.Beam;
+                        else if (subt == "joist")
+                            type = ElementType.Beam_Joist;
+                        else if (subt == "hollowcore")
+                            type = ElementType.Beam_Hollowcore;
+                        else if (subt == "lintel")
+                            type = ElementType.Beam_Lintel;
+                        else if (subt == "spandrel")
+                            type = ElementType.Beam_Spandrel;
+                        else if (subt == "t_beam" || subt == "tbeam")
+                            type = ElementType.Beam_T_Beam;
+                        else if (subt == "userdefined")
+                            type = ElementType.Beam_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Beam_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 3:
-                    type = ElementType.Column;
+
+                case "ifccolumn":
+                case "column":
+                    {
+                        if (subt == "column")
+                            type = ElementType.Column;
+                        else if (subt == "pilaster")
+                            type = ElementType.Column_Pilaster;
+                        else if (subt == "userdefined")
+                            type = ElementType.Column_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Column_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 4:
-                    type = ElementType.Door;
+
+                case "ifcdoor":
+                case "door":
+                    {
+                        if (subt == "door")
+                            type = ElementType.Door;
+                        else if (subt == "gate")
+                            type = ElementType.Door_Gate;
+                        else if (subt == "trapdoor")
+                            type = ElementType.Door_Trapdoor;
+                        else if (subt == "userdefined")
+                            type = ElementType.Door_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Door_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 5:
-                    type = ElementType.Stair;
+
+                case "ifcstair":
+                case "stair":
+                    {
+                        if (subt == "straightrunstair" || subt == "straight run stair" || subt == "straight_run_stair")
+                            type = ElementType.Stair_StraightRunStair;
+                        else if (subt == "twostraightrunstair" || subt == "two straight run stair" || subt == "two_straight_run_stair")
+                            type = ElementType.Stair_TwoStraightRunStair;
+                        else if (subt == "quarterwindingstair" || subt == "quarter winding stair" || subt == "quarter_winding_stair")
+                            type = ElementType.Stair_QuarterWindingStair;
+                        else if (subt == "quarterturnstair" || subt == "quarter turn stair" || subt == "quarter_turn_stair")
+                            type = ElementType.Stair_QuarterTurnStair;
+                        else if (subt == "halfwindingstair" || subt == "half winding stair" || subt == "half_winding_stair")
+                            type = ElementType.Stair_HalfWindingStair;
+                        else if (subt == "half_turn_stair" || subt == "halfturnstair" || subt == "half turn stair")
+                            type = ElementType.Stair_HalfTurnStair;
+                        else if (subt == "twoquarterwindingstair" || subt == "two quarter winding stair" || subt == "two_quarter_winding_stair")
+                            type = ElementType.Stair_TwoQuarterWindingStair;
+                        else if (subt == "twoquarterturnstair" || subt == "two quarter turn stair" || subt == "two_quarter_turn_stair")
+                            type = ElementType.Stair_TwoQuarterTurnStair;
+                        else if (subt == "threequarterwindingstair" || subt == "three quarter winding stair" || subt == "three_quarter_winding_stair")
+                            type = ElementType.Stair_ThreeQuarterWindingStair;
+                        else if (subt == "spiral_stair")
+                            type = ElementType.Stair_SpiralStair;
+                        else if (subt == "double_return_stair" || subt == "doublereturnstair" || subt == "double return stair")
+                            type = ElementType.Stair_DoubleReturnStair;
+                        else if (subt == "curvedrunstair" || subt == "curved_run_stair" || subt == "curved run stair")
+                            type = ElementType.Stair_CurvedRunStair;
+                        else if (subt == "twocurvedrunstair" || subt == "two_curved_run_stair" || subt == "two curved run stair")
+                            type = ElementType.Stair_TwoCurvedRunStair;
+                        else if (subt == "threequarterturnstair" || subt == "three quarter turn stair" || subt == "three_quarter_turn_stair")
+                            type = ElementType.Stair_ThreeQuarterTurnStair;
+                        else if (subt == "userdefined")
+                            type = ElementType.Stair_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Stair_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 6:
+
+                case "ifcproxy":
+                case "proxy":
                     type = ElementType.Proxy;
                     break;
-                case 7:
-                    type = ElementType.Covering_Notdefined;
+
+                case "ifccovering":
+                case "covering":
+                    {
+                        if (subt == "ceiling")
+                            type = ElementType.Covering_Ceiling;
+                        else if (subt == "flooring")
+                            type = ElementType.Covering_Flooring;
+                        else if (subt == "cladding")
+                            type = ElementType.Covering_Cladding;
+                        else if (subt == "roofing")
+                            type = ElementType.Covering_Roofing;
+                        else if (subt == "molding")
+                            type = ElementType.Covering_Molding;
+                        else if (subt == "skirtingboard" || subt == "skirting board" || subt == "skirting_board")
+                            type = ElementType.Covering_Skirtingboard;
+                        else if (subt == "insulation")
+                            type = ElementType.Covering_Insulation;
+                        else if (subt == "membrane")
+                            type = ElementType.Covering_Membrane;
+                        else if (subt == "sleeving")
+                            type = ElementType.Covering_Sleeving;
+                        else if (subt == "wrapping")
+                            type = ElementType.Covering_Wrapping;
+                        else if (subt == "userdefined")
+                            type = ElementType.Covering_Notdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Covering_Userdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 8:
-                    type = ElementType.CurtainWall_Notdefined;
+
+                case "ifccurtainwall":
+                case "curtainwall":
+                case "curtain wall":
+                case "curtain_wall":
+                    {
+                        if (subt == "userdefined")
+                            type = ElementType.CurtainWall_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.CurtainWall_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 9:
-                    type = ElementType.Footing_Notdefined;
+
+                case "ifcfooting":
+                case "footing":
+                    {
+                        if (subt == "caissonfoundation" || subt == "caisson foundation" || subt == "caisson_foundation")
+                            type = ElementType.Footing_Caisson_Foundation;
+                        else if (subt == "footingbeam" || subt == "footing beam" || subt == "footing_beam")
+                            type = ElementType.Footing_Footing_Beam;
+                        else if (subt == "padfooting" || subt == "pad_footing" || subt == "pad footing")
+                            type = ElementType.Footing_Pad_Footing;
+                        else if (subt == "pilecap" || subt == "pile cap" || subt == "pile_cap")
+                            type = ElementType.Footing_Pile_Cap;
+                        else if (subt == "stripfooting" || subt == "strip footing" || subt == "strip_footing")
+                            type = ElementType.Footing_Strip_Footing;
+                        else if (subt == "userdefined")
+                            type = ElementType.Footing_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Footing_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 10:
-                    type = ElementType.Member_Notdefined;
+
+                case "ifcmember":
+                case "member":
+                    {
+                        if (subt == "brace")
+                            type = ElementType.Member_Brace;
+                        else if (subt == "chord")
+                            type = ElementType.Member_Chord;
+                        else if (subt == "collar")
+                            type = ElementType.Member_Collar;
+                        else if (subt == "member")
+                            type = ElementType.Member_Member;
+                        else if (subt == "mullion")
+                            type = ElementType.Member_Mullion;
+                        else if (subt == "plate")
+                            type = ElementType.Member_Plate;
+                        else if (subt == "post")
+                            type = ElementType.Member_Post;
+                        else if (subt == "purlin")
+                            type = ElementType.Member_Purlin;
+                        else if (subt == "rafter")
+                            type = ElementType.Member_Rafter;
+                        else if (subt == "stringer")
+                            type = ElementType.Member_Stringer;
+                        else if (subt == "strut")
+                            type = ElementType.Member_Strut;
+                        else if (subt == "stud")
+                            type = ElementType.Member_Stud;
+                        else if (subt == "userdefined")
+                            type = ElementType.Member_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Member_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 11:
-                    type = ElementType.Pile_Notdefined;
+
+                case "ifcpile":
+                case "pile":
+                    {
+                        if (subt == "bored")
+                            type = ElementType.Pile_Bored;
+                        else if (subt == "driven")
+                            type = ElementType.Pile_Driven;
+                        else if (subt == "jetgrouting" || subt == "jet grouting" || subt == "jet_grouting")
+                            type = ElementType.Pile_Jetgrouting;
+                        else if (subt == "cohesion")
+                            type = ElementType.Pile_Cohesion;
+                        else if (subt == "friction")
+                            type = ElementType.Pile_Friction;
+                        else if (subt == "support")
+                            type = ElementType.Pile_Support;
+                        else if (subt == "userdefined")
+                            type = ElementType.Pile_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Pile_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 12:
-                    type = ElementType.Plate_Notdefined;
+
+                case "ifcplate":
+                case "plate":
+                    {
+                        if (subt == "curtain_panel" || subt == "curtainpanel" || subt == "curtain panel")
+                            type = ElementType.Plate_Curtain_Panel;
+                        else if (subt == "sheet")
+                            type = ElementType.Plate_Sheet;
+                        else if (subt == "userdefined")
+                            type = ElementType.Plate_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Plate_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 13:
-                    type = ElementType.Railing_Notdefined;
+
+                case "ifcrailing":
+                case "railing":
+                    {
+                        if (subt == "handrail")
+                            type = ElementType.Railing_Handrail;
+                        else if (subt == "guardrail")
+                            type = ElementType.Railing_Guardrail;
+                        else if (subt == "balustrade")
+                            type = ElementType.Railing_Balustrade;
+                        else if (subt == "userdefined")
+                            type = ElementType.Railing_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Railing_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 14:
-                    type = ElementType.RampFlight_Notdefined;
+
+                case "ifcramp":
+                case "ramp":
+                    {
+                        if (subt == "straightrunramp" || subt == "straight run ramp" || subt == "straight_run_ramp")
+                            type = ElementType.Ramp_StraightRunRamp;
+                        else if (subt == "twostraightrunramp" || subt == "two straight run ramp" || subt == "two_straight_run_ramp")
+                            type = ElementType.Ramp_TwoStraightRunRamp;
+                        else if (subt == "quarterturnramp" || subt == "quarter turn ramp" || subt == "quarter_turn_ramp")
+                            type = ElementType.Ramp_QuarterTurnRamp;
+                        else if (subt == "twoquarterturnramp" || subt == "two quarter turn ramp" || subt == "two_quarter_turn_ramp")
+                            type = ElementType.Ramp_TwoQuarterTurnRamp;
+                        else if (subt == "halfturnramp" || subt == "half turn ramp" || subt == "half_turn_ramp")
+                            type = ElementType.Ramp_HalfTurnRamp;
+                        else if (subt == "spiralramp" || subt == "spiral ramp" || subt == "spiral_ramp")
+                            type = ElementType.Ramp_SpiralRamp;
+                        else if (subt == "userdefined")
+                            type = ElementType.Ramp_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Ramp_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 15:
-                    type = ElementType.RampFlight;
+
+                case "ifcrampflight":
+                case "rampflight":
+                case "ramp flight":
+                case "ramp_flight":
+                    {
+                        if (subt == "straight")
+                            type = ElementType.RampFlight_Straight;
+                        else if (subt == "spiral")
+                            type = ElementType.RampFlight_Spiral;
+                        else if (subt == "userdefined")
+                            type = ElementType.RampFlight_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.RampFlight_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 16:
-                    type = ElementType.Roof_Notdefined;
+
+                case "ifcroof":
+                case "roof":
+                    {
+                        if (subt == "flatroof" || subt == "flat roof" || subt == "flat_roof")
+                            type = ElementType.Roof_Flatroof;
+                        else if (subt == "shedroof" || subt == "shed_roof" || subt == "shed roof")
+                            type = ElementType.Roof_Shedroof;
+                        else if (subt == "gableroof" || subt == "gable_roof" || subt == "gable_roof")
+                            type = ElementType.Roof_Gableroof;
+                        else if (subt == "hiproof" || subt == "hip roof" || subt == "hip_roof")
+                            type = ElementType.Roof_Hiproof;
+                        else if (subt == "hippedgableroof" || subt == "hipped_gable_roof" || subt == "hipped gable roof")
+                            type = ElementType.Roof_HippedGableRoof;
+                        else if (subt == "gambrelroof" || subt == "gambrel roof" || subt == "gambrel_roof")
+                            type = ElementType.Roof_GambrelRoof;
+                        else if (subt == "mansardroof" || subt == "mansard roof" || subt == "mansard_roof")
+                            type = ElementType.Roof_MansardRoof;
+                        else if (subt == "barrelroof" || subt == "barrel roof" || subt == "barrel_roof")
+                            type = ElementType.Roof_BarrelRoof;
+                        else if (subt == "rainbowroof" || subt == "rainbow roof" || subt == "rainbow_roof")
+                            type = ElementType.Roof_RainbowRoof;
+                        else if (subt == "butterflyroof" || subt == "butterfly roof" || subt == "butterfly_roof")
+                            type = ElementType.Roof_ButterflyRoof;
+                        else if (subt == "pavilionroof" || subt == "pavilion_roof" || subt == "pavilion roof")
+                            type = ElementType.Roof_PavilionRoof;
+                        else if (subt == "domeroof" || subt == "dome roof" || subt == "dome_roof")
+                            type = ElementType.Roof_DomeRoof;
+                        else if (subt == "freeform" || subt == "free form" || subt == "free_form")
+                            type = ElementType.Roof_Freeform;
+                        else if (subt == "userdefined")
+                            type = ElementType.Roof_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Roof_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 17:
-                    type = ElementType.Slab;
+
+                case "ifcslab":
+                case "slab":
+                    {
+                        if (subt == "floor")
+                            type = ElementType.Slab_Floor;
+                        else if (subt == "roof")
+                            type = ElementType.Slab_Roof;
+                        else if (subt == "landing")
+                            type = ElementType.Slab_Landing;
+                        else if (subt == "baseslab")
+                            type = ElementType.Slab_Baseslab;
+                        else if (subt == "userdefined")
+                            type = ElementType.Slab_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Slab_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 18:
-                    type = ElementType.StairFlight_Notdefined;
+
+                case "ifcstairflight":
+                case "stairflight":
+                case "stair flight":
+                case "stair_flight":
+                    {
+                        if (subt == "straight")
+                            type = ElementType.StairFlight_Straight;
+                        else if (subt == "winder")
+                            type = ElementType.StairFlight_Winder;
+                        else if (subt == "spiral")
+                            type = ElementType.StairFlight_Spiral;
+                        else if (subt == "curved")
+                            type = ElementType.StairFlight_Curved;
+                        else if (subt == "freeform" || subt == "free form" || subt == "free_form")
+                            type = ElementType.StairFlight_Freeform;
+                        else if (subt == "userdefined")
+                            type = ElementType.StairFlight_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.StairFlight_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 19:
-                    type = ElementType.Wall;
+
+                case "ifcwall":
+                case "wall":
+                    {
+                        if (subt == "movable")
+                            type = ElementType.Wall_Movable;
+                        else if (subt == "parapet")
+                            type = ElementType.Wall_Parapet;
+                        else if (subt == "partitioning")
+                            type = ElementType.Wall_Partitioning;
+                        else if (subt == "plumbingwall")
+                            type = ElementType.Wall_Plumbingwall;
+                        else if (subt == "shear")
+                            type = ElementType.Wall_Shear;
+                        else if (subt == "solidwall")
+                            type = ElementType.Wall_Solidwall;
+                        else if (subt == "standard")
+                            type = ElementType.Wall_Standard;
+                        else if (subt == "polygonal")
+                            type = ElementType.Wall_Polygonal;
+                        else if (subt == "elementedwall")
+                            type = ElementType.Wall_Elementedwall;
+                        else if (subt == "userdefined")
+                            type = ElementType.Wall_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Wall_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 20:
-                    type = ElementType.Window;
+
+                case "ifcwindow":
+                case "window":
+                    {
+                        if (subt == "window")
+                            type = ElementType.Window;
+                        else if (subt == "skylight")
+                            type = ElementType.Window_Skylight;
+                        else if (subt == "lightdome")
+                            type = ElementType.Window_Lightdome;
+                        else if (subt == "userdefined")
+                            type = ElementType.Window_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Window_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 21:
-                    type = ElementType.BuildingElementProxy_Notdefined;
+
+                case "ifcbuildingelementproxy":
+                case "buildingelementproxy":
+                case "building element proxy":
+                case "building_element_proxy":
+                    {
+                        if (subt == "complex")
+                            type = ElementType.BuildingElementProxy_Complex;
+                        else if (subt == "element")
+                            type = ElementType.BuildingElementProxy_Element;
+                        else if (subt == "partial")
+                            type = ElementType.BuildingElementProxy_Partial;
+                        else if (subt == "provisionforvoid" || subt == "provision for void" || subt == "provision_for_void")
+                            type = ElementType.BuildingElementProxy_ProvisionForVoid;
+                        else if (subt == "userdefined")
+                            type = ElementType.BuildingElementProxy_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.BuildingElementProxy_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 22:
-                    type = ElementType.BuildingElementPart_Notdefined;
+
+                case "ifcbuildingelementpart":
+                case "buildingelementpart":
+                case "building element part":
+                case "building_element_part":
+                    {
+                        if (subt == "insulation")
+                            type = ElementType.Wall_Notdefined;
+                        else if (subt == "precastpanel" || subt == "pre cast panel" || subt == "pre_cast_panel")
+                            type = ElementType.Wall_Notdefined;
+                        else if (subt == "userdefined")
+                            type = ElementType.Wall_Notdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Wall_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 23:
-                    type = ElementType.ReinforcingBar_Stud;
+
+                case "ifcreinforcingbar":
+                case "reinforcingbar":
+                case "reinforcing bar":
+                case "reinforcing_bar":
+                    {
+                        if (subt == "anchoring")
+                            type = ElementType.ReinforcingBar_Anchoring;
+                        else if (subt == "edge")
+                            type = ElementType.ReinforcingBar_Edge;
+                        else if (subt == "ligature")
+                            type = ElementType.ReinforcingBar_Ligature;
+                        else if (subt == "main")
+                            type = ElementType.ReinforcingBar_Main;
+                        else if (subt == "punching")
+                            type = ElementType.ReinforcingBar_Punching;
+                        else if (subt == "ring")
+                            type = ElementType.ReinforcingBar_Ring;
+                        else if (subt == "shear")
+                            type = ElementType.ReinforcingBar_Shear;
+                        else if (subt == "stud")
+                            type = ElementType.ReinforcingBar_Stud;
+                        else if (subt == "userdefined")
+                            type = ElementType.ReinforcingBar_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.ReinforcingBar_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 24:
-                    type = ElementType.Reinforcingmesh_Userdefined;
+
+                case "ifcreinforcingmesh":
+                case "reinforcingmesh":
+                case "reinforcing mesh":
+                case "reinforcing_mesh":
+                    {
+                        if (subt == "userdefined")
+                            type = ElementType.Reinforcingmesh_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Reinforcingmesh_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 25:
-                    type = ElementType.Tendon_Bar;
+
+                case "ifctendon":
+                case "tendon":
+                    {
+                        if (subt == "bar")
+                            type = ElementType.Tendon_Bar;
+                        else if (subt == "coated")
+                            type = ElementType.Tendon_Coated;
+                        else if (subt == "strand")
+                            type = ElementType.Tendon_Strand;
+                        else if (subt == "wire")
+                            type = ElementType.Tendon_Wire;
+                        else if (subt == "userdefined")
+                            type = ElementType.Tendon_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Tendon_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 26:
-                    type = ElementType.TendonAnchor_Coupler;
+
+                case "ifctendonanchor":
+                case "tendonanchor":
+                case "tendon anchor":
+                case "tendon_anchor":
+                    {
+                        if (subt == "coupler")
+                            type = ElementType.TendonAnchor_Coupler;
+                        else if (subt == "fixed_end" || subt == "fixed end" || subt == "fixedend")
+                            type = ElementType.TendonAnchor_FixedEnd;
+                        else if (subt == "tensioning_end" || subt == "tensioning end" || subt == "tensioningend")
+                            type = ElementType.TendonAnchor_TensioningEnd;
+                        else if (subt == "userdefined")
+                            type = ElementType.TendonAnchor_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.TendonAnchor_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 27:
+
+                case "ifcdistributionelement":
+                case "distributionelement":
+                case "distribution element":
+                case "distribution_element":
                     type = ElementType.DistributionElement;
                     break;
-                case 28:
+
+                case "ifcdistributioncontrolelement":
+                case "distributioncontrolelement":
+                case "distribution control element":
+                case "distribution_control_element":
                     type = ElementType.DistributionControlElement;
                     break;
-                case 29:
+
+                case "ifcdistributionflowelement":
+                case "distributionflowelement":
+                case "distribution_flow_element":
+                case "distribution flow element":
                     type = ElementType.DistributionFlowElement;
                     break;
-                case 30:
-                    type = ElementType.DistributionChamberElement_FormedDuct;
+
+                case "ifcdistributionchamberelement":
+                case "distributionchamberelement":
+                case "distribution_chamber_element":
+                case "distribution chamber element":
+                    {
+                        if (subt == "formedduct" || subt == "formed_duct" || subt == "formed duct")
+                            type = ElementType.DistributionChamberElement_FormedDuct;
+                        else if (subt == "inspectionchamber" || subt == "inspection chamber" || subt == "inspection_chamber")
+                            type = ElementType.DistributionChamberElement_InspectionChamber;
+                        else if (subt == "inspectionpit" || subt == "inspection pit" || subt == "inspection_pit")
+                            type = ElementType.DistributionChamberElement_InspectionPit;
+                        else if (subt == "manhole" || subt == "man hole" || subt == "man_hole")
+                            type = ElementType.DistributionChamberElement_Manhole;
+                        else if (subt == "meterchamber" || subt == "meter chamber" || subt == "meter_chamber")
+                            type = ElementType.DistributionChamberElement_MeterChamber;
+                        else if (subt == "sump")
+                            type = ElementType.DistributionChamberElement_Sump;
+                        else if (subt == "trench")
+                            type = ElementType.DistributionChamberElement_Trench;
+                        else if (subt == "valvechamber" || subt == "valve chamber" || subt == "valve_chamber")
+                            type = ElementType.DistributionChamberElement_ValveChamber;
+                        else if (subt == "userdefined")
+                            type = ElementType.DistributionChamberElement_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.DistributionChamberElement_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 31:
+
+                case "ifcenergyconversiondevice":
+                case "energyconversiondevice":
+                case "energy_conversion_device":
+                case "energy conversion device":
                     type = ElementType.EnergyConversionDevice;
                     break;
-                case 32:
+
+                case "ifcflowcontroller":
+                case "flowcontroller":
+                case "flow_controller":
+                case "flow controller":
                     type = ElementType.FlowController;
                     break;
-                case 33:
+
+                case "ifcflowfitting":
+                case "flowfitting":
+                case "flow_fitting":
+                case "flow fitting":
                     type = ElementType.FlowFitting;
                     break;
-                case 34:
+
+                case "ifcflowmovingdevice":
+                case "flowmovingdevice":
+                case "flow_moving_device":
+                case "flow moving device":
                     type = ElementType.FlowMovingDevice;
                     break;
-                case 35:
+
+                case "ifcflowsegment":
+                case "flowsegment":
+                case "flow_segment":
+                case "flow segment":
                     type = ElementType.FlowSegment;
                     break;
-                case 36:
+
+                case "ifcflowstoragedevice":
+                case "flowstoragedevice":
+                case "flow_storage_device":
+                case "flow storage device":
                     type = ElementType.FlowStorageDevice;
                     break;
-                case 37:
+
+                case "IfcFlowTerminal":
+                case "IFCFlowTerminal":
+                case "FlowTerminal":
+                case "Flow Terminal":
                     type = ElementType.FlowTerminal;
                     break;
-                case 38:
+
+                case "ifcflowtreatmentdevice":
+                case "flowtreatmentdevice":
+                case "flow_treatment_device":
+                case "flow treatment device":
                     type = ElementType.FlowTreatmentDevice;
                     break;
-                case 39:
-                    type = ElementType.ElementAssembly_AccessoryAssembly;
+
+                case "ifcelementassembly":
+                case "elementassembly":
+                case "element_assembly":
+                case "element assembly":
+                    {
+                        if (subt == "accessoryassembly" || subt == "accessory assembly" || subt == "accessory_assembly")
+                            type = ElementType.ElementAssembly_AccessoryAssembly;
+                        else if (subt == "arch")
+                            type = ElementType.ElementAssembly_Arch;
+                        else if (subt == "beamgrid" || subt == "beam_grid" || subt == "beam grid")
+                            type = ElementType.ElementAssembly_BeamGrid;
+                        else if (subt == "bracedframe" || subt == "braced_frame" || subt == "braced frame")
+                            type = ElementType.ElementAssembly_BracedFrame;
+                        else if (subt == "girder")
+                            type = ElementType.ElementAssembly_Girder;
+                        else if (subt == "reinforcementunit" || subt == "reinforcement_unit" || subt == "reinforcement unit")
+                            type = ElementType.ElementAssembly_ReinforcementUnit;
+                        else if (subt == "rigidframe" || subt == "rigid_frame" || subt == "rigid frame")
+                            type = ElementType.ElementAssembly_RigidFrame;
+                        else if (subt == "slabfield" || subt == "slab_field" || subt == "slab field")
+                            type = ElementType.ElementAssembly_SlabField;
+                        else if (subt == "truss")
+                            type = ElementType.ElementAssembly_Truss;
+                        else if (subt == "userdefined")
+                            type = ElementType.ElementAssembly_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.ElementAssembly_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 40:
-                    type = ElementType.DiscreteAccessory_Anchorplate;
+
+                case "ifcdiscreteaccessory":
+                case "discreteaccessory":
+                case "discrete_accessory":
+                case "discrete accessory":
+                    {
+                        if (subt == "anchorplate")
+                            type = ElementType.DiscreteAccessory_Anchorplate;
+                        else if (subt == "bracket")
+                            type = ElementType.DiscreteAccessory_Bracket;
+                        else if (subt == "shoe")
+                            type = ElementType.DiscreteAccessory_Shoe;
+                        else if (subt == "userdefined")
+                            type = ElementType.DiscreteAccessory_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.DiscreteAccessory_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 41:
-                    type = ElementType.MechanicalFastener_Userdefined;
+
+                case "ifcmechanicalfastener":
+                case "mechanicalfastener":
+                case "mechanical_fastener":
+                case "mechanical fastener":
+                    {
+                        if (subt == "anchorbolt" || subt == "anchor bolt" || subt == "anchor_bolt")
+                            type = ElementType.MechanicalFastener_AnchorBolt;
+                        else if (subt == "bolt")
+                            type = ElementType.MechanicalFastener_Bolt;
+                        else if (subt == "dowel")
+                            type = ElementType.MechanicalFastener_Dowel;
+                        else if (subt == "nail")
+                            type = ElementType.MechanicalFastener_Nail;
+                        else if (subt == "nailplate" || subt == "nail plate" || subt == "nail_plate")
+                            type = ElementType.MechanicalFastener_NailPlate;
+                        else if (subt == "rivet")
+                            type = ElementType.MechanicalFastener_Rivet;
+                        else if (subt == "screw")
+                            type = ElementType.MechanicalFastener_Screw;
+                        else if (subt == "shearconnector" || subt == "shear connector" || subt == "shear_connector")
+                            type = ElementType.MechanicalFastener_ShearConnector;
+                        else if (subt == "staple")
+                            type = ElementType.MechanicalFastener_Staple;
+                        else if (subt == "studshearconnector" || subt == "stud shear connector" || subt == "stud_shear_connector")
+                            type = ElementType.MechanicalFastener_StudShearConnector;
+                        else if (subt == "userdefined")
+                            type = ElementType.MechanicalFastener_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.MechanicalFastener_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 42:
-                    type = ElementType.Fastener_Userdefined;
+
+                case "ifcfastener":
+                case "fastener":
+                    {
+                        if (subt == "glue")
+                            type = ElementType.Fastener_Glue;
+                        else if (subt == "mortar")
+                            type = ElementType.Fastener_Mortar;
+                        else if (subt == "weld")
+                            type = ElementType.Fastener_Weld;
+                        else if (subt == "userdefined")
+                            type = ElementType.Fastener_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.Fastener_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 43:
+
+                case "ifcfurnishingelement":
+                case "furnishingelement":
+                case "furnishing_element":
+                case "furnishing element":
                     type = ElementType.FurnishingElement;
                     break;
-                case 44:
-                    type = ElementType.TransportElement_Userdefined;
+
+                case "ifctransportelement":
+                case "transportelement":
+                case "transport_element":
+                case "transport element":
+                    {
+                        if (subt == "elevator")
+                            type = ElementType.TransportElement_Elevator;
+                        else if (subt == "escalator")
+                            type = ElementType.TransportElement_Escalator;
+                        else if (subt == "movingwalkway" || subt == "moving walk way" || subt == "moving walkway" || subt == "moving_walk_way" || subt == "moving_walkway")
+                            type = ElementType.TransportElement_MovingWalkWay;
+                        else if (subt == "craneway" || subt == "crane_way" || subt == "crane way")
+                            type = ElementType.TransportElement_Craneway;
+                        else if (subt == "liftinggear" || subt == "lifting_gear" || subt == "lifting gear")
+                            type = ElementType.TransportElement_LiftingGear;
+                        else if (subt == "userdefined")
+                            type = ElementType.TransportElement_Userdefined;
+                        else if (subt == "notdefined")
+                            type = ElementType.TransportElement_Notdefined;
+                        else
+                            throw new ArgumentException("Element Sub Type type not recognized");
+                    }
                     break;
-                case 45:
+
+                case "ifcvirtualelement":
+                case "virtualelement":
+                case "virtual element":
+                case "virtual_element":
                     type = ElementType.VirtualElement;
-                    break;
-                case 101:
-                    type = ElementType.Door_Gate;
-                    break;
-                case 102:
-                    type = ElementType.Door_Trapdoor;
-                    break;
-                case 103:
-                    type = ElementType.Door_Userdefined;
-                    break;
-                case 104:
-                    type = ElementType.Door_Notdefined;
-                    break;
-                case 105:
-                    type = ElementType.Wall_Movable;
-                    break;
-                case 106:
-                    type = ElementType.Wall_Parapet;
-                    break;
-                case 107:
-                    type = ElementType.Wall_Partitioning;
-                    break;
-                case 108:
-                    type = ElementType.Wall_Plumbingwall;
-                    break;
-                case 109:
-                    type = ElementType.Wall_Shear;
-                    break;
-                case 110:
-                    type = ElementType.Wall_Solidwall;
-                    break;
-                case 111:
-                    type = ElementType.Wall_Standard;
-                    break;
-                case 112:
-                    type = ElementType.Wall_Polygonal;
-                    break;
-                case 113:
-                    type = ElementType.Wall_Elementedwall;
-                    break;
-                case 114:
-                    type = ElementType.Wall_Userdefined;
-                    break;
-                case 115:
-                    type = ElementType.Wall_Notdefined;
-                    break;
-                case 116:
-                    type = ElementType.Slab_Floor;
-                    break;
-                case 117:
-                    type = ElementType.Slab_Roof;
-                    break;
-                case 118:
-                    type = ElementType.Slab_Landing;
-                    break;
-                case 119:
-                    type = ElementType.Slab_Baseslab;
-                    break;
-                case 120:
-                    type = ElementType.Slab_Userdefined;
-                    break;
-                case 121:
-                    type = ElementType.Slab_Notdefined;
-                    break;
-                case 122:
-                    type = ElementType.Beam_Joist;
-                    break;
-                case 123:
-                    type = ElementType.Beam_Hollowcore;
-                    break;
-                case 124:
-                    type = ElementType.Beam_Lintel;
-                    break;
-                case 125:
-                    type = ElementType.Beam_Spandrel;
-                    break;
-                case 126:
-                    type = ElementType.Beam_T_Beam;
-                    break;
-                case 127:
-                    type = ElementType.Beam_Userdefined;
-                    break;
-                case 128:
-                    type = ElementType.Beam_Notdefined;
-                    break;
-                case 129:
-                    type = ElementType.Column_Pilaster;
-                    break;
-                case 130:
-                    type = ElementType.Column_Userdefined;
-                    break;
-                case 131:
-                    type = ElementType.Column_Notdefined;
-                    break;
-                case 132:
-                    type = ElementType.Stair_StraightRunStair;
-                    break;
-                case 133:
-                    type = ElementType.Stair_TwoStraightRunStair;
-                    break;
-                case 134:
-                    type = ElementType.Stair_QuarterWindingStair;
-                    break;
-                case 135:
-                    type = ElementType.Stair_QuarterTurnStair;
-                    break;
-                case 136:
-                    type = ElementType.Stair_HalfWindingStair;
-                    break;
-                case 137:
-                    type = ElementType.Stair_HalfTurnStair;
-                    break;
-                case 138:
-                    type = ElementType.Stair_TwoQuarterWindingStair;
-                    break;
-                case 139:
-                    type = ElementType.Stair_TwoQuarterTurnStair;
-                    break;
-                case 140:
-                    type = ElementType.Stair_ThreeQuarterWindingStair;
-                    break;
-                case 141:
-                    type = ElementType.Stair_ThreeQuarterTurnStair;
-                    break;
-                case 142:
-                    type = ElementType.Stair_SpiralStair;
-                    break;
-                case 143:
-                    type = ElementType.Stair_DoubleReturnStair;
-                    break;
-                case 144:
-                    type = ElementType.Stair_CurvedRunStair;
-                    break;
-                case 145:
-                    type = ElementType.Stair_TwoCurvedRunStair;
-                    break;
-                case 146:
-                    type = ElementType.Stair_Userdefined;
-                    break;
-                case 147:
-                    type = ElementType.Stair_Notdefined;
-                    break;
-                case 148:
-                    type = ElementType.Window_Skylight;
-                    break;
-                case 149:
-                    type = ElementType.Window_Lightdome;
-                    break;
-                case 150:
-                    type = ElementType.Window_Userdefined;
-                    break;
-                case 151:
-                    type = ElementType.Window_Notdefined;
-                    break;
-                case 152:
-                    type = ElementType.RampFlight_Straight;
-                    break;
-                case 153:
-                    type = ElementType.RampFlight_Spiral;
-                    break;
-                case 154:
-                    type = ElementType.RampFlight_Userdefined;
-                    break;
-                case 155:
-                    type = ElementType.RampFlight_Notdefined;
-                    break;
-                case 156:
-                    type = ElementType.CurtainWall_Notdefined;
-                    break;
-                case 157:
-                    type = ElementType.Plate_Curtain_Panel;
-                    break;
-                case 158:
-                    type = ElementType.Plate_Sheet;
-                    break;
-                case 159:
-                    type = ElementType.Plate_Userdefined;
-                    break;
-                case 160:
-                    type = ElementType.Plate_Notdefined;
-                    break;
-                case 161:
-                    type = ElementType.Railing_Handrail;
-                    break;
-                case 162:
-                    type = ElementType.Railing_Guardrail;
-                    break;
-                case 163:
-                    type = ElementType.Railing_Balustrade;
-                    break;
-                case 164:
-                    type = ElementType.Railing_Userdefined;
-                    break;
-                case 165:
-                    type = ElementType.Railing_Notdefined;
-                    break;
-                case 166:
-                    type = ElementType.StairFlight_Straight;
-                    break;
-                case 167:
-                    type = ElementType.StairFlight_Winder;
-                    break;
-                case 168:
-                    type = ElementType.StairFlight_Spiral;
-                    break;
-                case 169:
-                    type = ElementType.StairFlight_Curved;
-                    break;
-                case 170:
-                    type = ElementType.StairFlight_Freeform;
-                    break;
-                case 171:
-                    type = ElementType.StairFlight_Userdefined;
-                    break;
-                case 172:
-                    type = ElementType.StairFlight_Notdefined;
-                    break;
-                case 173:
-                    type = ElementType.Ramp_StraightRunRamp;
-                    break;
-                case 174:
-                    type = ElementType.Ramp_TwoStraightRunRamp;
-                    break;
-                case 175:
-                    type = ElementType.Ramp_QuarterTurnRamp;
-                    break;
-                case 176:
-                    type = ElementType.Ramp_TwoQuarterTurnRamp;
-                    break;
-                case 177:
-                    type = ElementType.Ramp_HalfTurnRamp;
-                    break;
-                case 178:
-                    type = ElementType.Ramp_SpiralRamp;
-                    break;
-                case 179:
-                    type = ElementType.Ramp_Userdefined;
-                    break;
-                case 180:
-                    type = ElementType.Ramp_Notdefined;
-                    break;
-                case 181:
-                    type = ElementType.Footing_Caisson_Foundation;
-                    break;
-                case 182:
-                    type = ElementType.Footing_Footing_Beam;
-                    break;
-                case 183:
-                    type = ElementType.Footing_Pad_Footing;
-                    break;
-                case 184:
-                    type = ElementType.Footing_Pile_Cap;
-                    break;
-                case 185:
-                    type = ElementType.Footing_Strip_Footing;
-                    break;
-                case 186:
-                    type = ElementType.Footing_Userdefined;
-                    break;
-                case 187:
-                    type = ElementType.Footing_Notdefined;
-                    break;
-                case 188:
-                    type = ElementType.Pile_Bored;
-                    break;
-                case 189:
-                    type = ElementType.Pile_Driven;
-                    break;
-                case 190:
-                    type = ElementType.Pile_Jetgrouting;
-                    break;
-                case 191:
-                    type = ElementType.Pile_Cohesion;
-                    break;
-                case 192:
-                    type = ElementType.Pile_Friction;
-                    break;
-                case 193:
-                    type = ElementType.Pile_Support;
-                    break;
-                case 194:
-                    type = ElementType.Pile_Userdefined;
-                    break;
-                case 195:
-                    type = ElementType.Pile_Notdefined;
-                    break;
-                case 196:
-                    type = ElementType.Covering_Ceiling;
-                    break;
-                case 197:
-                    type = ElementType.Covering_Flooring;
-                    break;
-                case 198:
-                    type = ElementType.Covering_Cladding;
-                    break;
-                case 199:
-                    type = ElementType.Covering_Roofing;
-                    break;
-                case 200:
-                    type = ElementType.Covering_Molding;
-                    break;
-                case 201:
-                    type = ElementType.Covering_Skirtingboard;
-                    break;
-                case 202:
-                    type = ElementType.Covering_Insulation;
-                    break;
-                case 203:
-                    type = ElementType.Covering_Membrane;
-                    break;
-                case 204:
-                    type = ElementType.Covering_Sleeving;
-                    break;
-                case 205:
-                    type = ElementType.Covering_Wrapping;
-                    break;
-                case 206:
-                    type = ElementType.Covering_Userdefined;
-                    break;
-                case 207:
-                    type = ElementType.Covering_Notdefined;
-                    break;
-                case 208:
-                    type = ElementType.Member_Brace;
-                    break;
-                case 209:
-                    type = ElementType.Member_Chord;
-                    break;
-                case 210:
-                    type = ElementType.Member_Collar;
-                    break;
-                case 211:
-                    type = ElementType.Member_Member;
-                    break;
-                case 212:
-                    type = ElementType.Member_Mullion;
-                    break;
-                case 213:
-                    type = ElementType.Member_Plate;
-                    break;
-                case 214:
-                    type = ElementType.Member_Post;
-                    break;
-                case 215:
-                    type = ElementType.Member_Purlin;
-                    break;
-                case 216:
-                    type = ElementType.Member_Rafter;
-                    break;
-                case 217:
-                    type = ElementType.Member_Stringer;
-                    break;
-                case 218:
-                    type = ElementType.Member_Strut;
-                    break;
-                case 219:
-                    type = ElementType.Member_Stud;
-                    break;
-                case 220:
-                    type = ElementType.Member_Userdefined;
-                    break;
-                case 221:
-                    type = ElementType.Member_Notdefined;
-                    break;
-                case 222:
-                    type = ElementType.Roof_Flatroof;
-                    break;
-                case 223:
-                    type = ElementType.Roof_Shedroof;
-                    break;
-                case 224:
-                    type = ElementType.Roof_Gableroof;
-                    break;
-                case 225:
-                    type = ElementType.Roof_Hiproof;
-                    break;
-                case 226:
-                    type = ElementType.Roof_HippedGableRoof;
-                    break;
-                case 227:
-                    type = ElementType.Roof_GambrelRoof;
-                    break;
-                case 228:
-                    type = ElementType.Roof_MansardRoof;
-                    break;
-                case 229:
-                    type = ElementType.Roof_BarrelRoof;
-                    break;
-                case 230:
-                    type = ElementType.Roof_RainbowRoof;
-                    break;
-                case 231:
-                    type = ElementType.Roof_ButterflyRoof;
-                    break;
-                case 232:
-                    type = ElementType.Roof_PavilionRoof;
-                    break;
-                case 233:
-                    type = ElementType.Roof_DomeRoof;
-                    break;
-                case 234:
-                    type = ElementType.Roof_Freeform;
-                    break;
-                case 235:
-                    type = ElementType.Roof_Userdefined;
-                    break;
-                case 236:
-                    type = ElementType.Roof_Notdefined;
-                    break;
-                case 237:
-                    type = ElementType.Reinforcingmesh_Userdefined;
-                    break;
-                case 238:
-                    type = ElementType.Reinforcingmesh_Notdefined;
-                    break;
-                case 239:
-                    type = ElementType.BuildingElementPart_Insulation;
-                    break;
-                case 240:
-                    type = ElementType.BuildingElementPart_Precastpanel;
-                    break;
-                case 241:
-                    type = ElementType.BuildingElementPart_Userdefined;
-                    break;
-                case 242:
-                    type = ElementType.BuildingElementPart_Notdefined;
-                    break;
-                case 243:
-                    type = ElementType.Fastener_Glue;
-                    break;
-                case 244:
-                    type = ElementType.Fastener_Mortar;
-                    break;
-                case 245:
-                    type = ElementType.Fastener_Weld;
-                    break;
-                case 246:
-                    type = ElementType.Fastener_Userdefined;
-                    break;
-                case 247:
-                    type = ElementType.Fastener_Notdefined;
-                    break;
-                case 248:
-                    type = ElementType.DiscreteAccessory_Anchorplate;
-                    break;
-                case 249:
-                    type = ElementType.DiscreteAccessory_Bracket;
-                    break;
-                case 250:
-                    type = ElementType.DiscreteAccessory_Shoe;
-                    break;
-                case 251:
-                    type = ElementType.DiscreteAccessory_Userdefined;
-                    break;
-                case 252:
-                    type = ElementType.DiscreteAccessory_Notdefined;
-                    break;
-                case 253:
-                    type = ElementType.TendonAnchor_Coupler;
-                    break;
-                case 254:
-                    type = ElementType.TendonAnchor_FixedEnd;
-                    break;
-                case 255:
-                    type = ElementType.TendonAnchor_TensioningEnd;
-                    break;
-                case 256:
-                    type = ElementType.TendonAnchor_Userdefined;
-                    break;
-                case 257:
-                    type = ElementType.TendonAnchor_Notdefined;
-                    break;
-                case 258:
-                    type = ElementType.BuildingElementProxy_Complex;
-                    break;
-                case 259:
-                    type = ElementType.BuildingElementProxy_Element;
-                    break;
-                case 260:
-                    type = ElementType.BuildingElementProxy_Partial;
-                    break;
-                case 261:
-                    type = ElementType.BuildingElementProxy_ProvisionForVoid;
-                    break;
-                case 262:
-                    type = ElementType.BuildingElementProxy_Userdefined;
-                    break;
-                case 263:
-                    type = ElementType.BuildingElementProxy_Notdefined;
-                    break;
-                case 264:
-                    type = ElementType.TransportElement_Elevator;
-                    break;
-                case 265:
-                    type = ElementType.TransportElement_Escalator;
-                    break;
-                case 266:
-                    type = ElementType.TransportElement_MovingWalkWay;
-                    break;
-                case 267:
-                    type = ElementType.TransportElement_Craneway;
-                    break;
-                case 268:
-                    type = ElementType.TransportElement_LiftingGear;
-                    break;
-                case 269:
-                    type = ElementType.TransportElement_Userdefined;
-                    break;
-                case 270:
-                    type = ElementType.TransportElement_Notdefined;
-                    break;
-                case 271:
-                    type = ElementType.ReinforcingBar_Anchoring;
-                    break;
-                case 272:
-                    type = ElementType.ReinforcingBar_Edge;
-                    break;
-                case 273:
-                    type = ElementType.ReinforcingBar_Ligature;
-                    break;
-                case 274:
-                    type = ElementType.ReinforcingBar_Main;
-                    break;
-                case 275:
-                    type = ElementType.ReinforcingBar_Punching;
-                    break;
-                case 276:
-                    type = ElementType.ReinforcingBar_Ring;
-                    break;
-                case 277:
-                    type = ElementType.ReinforcingBar_Shear;
-                    break;
-                case 278:
-                    type = ElementType.ReinforcingBar_Stud;
-                    break;
-                case 279:
-                    type = ElementType.ReinforcingBar_Userdefined;
-                    break;
-                case 280:
-                    type = ElementType.ReinforcingBar_Notdefined;
-                    break;
-                case 281:
-                    type = ElementType.DistributionChamberElement_FormedDuct;
-                    break;
-                case 282:
-                    type = ElementType.DistributionChamberElement_InspectionChamber;
-                    break;
-                case 283:
-                    type = ElementType.DistributionChamberElement_InspectionPit;
-                    break;
-                case 284:
-                    type = ElementType.DistributionChamberElement_Manhole;
-                    break;
-                case 285:
-                    type = ElementType.DistributionChamberElement_MeterChamber;
-                    break;
-                case 286:
-                    type = ElementType.DistributionChamberElement_Sump;
-                    break;
-                case 287:
-                    type = ElementType.DistributionChamberElement_Trench;
-                    break;
-                case 288:
-                    type = ElementType.DistributionChamberElement_ValveChamber;
-                    break;
-                case 289:
-                    type = ElementType.DistributionChamberElement_Userdefined;
-                    break;
-                case 290:
-                    type = ElementType.DistributionChamberElement_Notdefined;
-                    break;
-                case 291:
-                    type = ElementType.ElementAssembly_AccessoryAssembly;
-                    break;
-                case 292:
-                    type = ElementType.ElementAssembly_Arch;
-                    break;
-                case 293:
-                    type = ElementType.ElementAssembly_BeamGrid;
-                    break;
-                case 294:
-                    type = ElementType.ElementAssembly_BracedFrame;
-                    break;
-                case 295:
-                    type = ElementType.ElementAssembly_Girder;
-                    break;
-                case 296:
-                    type = ElementType.ElementAssembly_ReinforcementUnit;
-                    break;
-                case 297:
-                    type = ElementType.ElementAssembly_RigidFrame;
-                    break;
-                case 298:
-                    type = ElementType.ElementAssembly_SlabField;
-                    break;
-                case 299:
-                    type = ElementType.ElementAssembly_Truss;
-                    break;
-                case 300:
-                    type = ElementType.ElementAssembly_Userdefined;
-                    break;
-                case 301:
-                    type = ElementType.ElementAssembly_Notdefined;
-                    break;
-                case 302:
-                    type = ElementType.MechanicalFastener_AnchorBolt;
-                    break;
-                case 303:
-                    type = ElementType.MechanicalFastener_Bolt;
-                    break;
-                case 304:
-                    type = ElementType.MechanicalFastener_Dowel;
-                    break;
-                case 305:
-                    type = ElementType.MechanicalFastener_Nail;
-                    break;
-                case 306:
-                    type = ElementType.MechanicalFastener_NailPlate;
-                    break;
-                case 307:
-                    type = ElementType.MechanicalFastener_Rivet;
-                    break;
-                case 308:
-                    type = ElementType.MechanicalFastener_Screw;
-                    break;
-                case 309:
-                    type = ElementType.MechanicalFastener_ShearConnector;
-                    break;
-                case 310:
-                    type = ElementType.MechanicalFastener_Staple;
-                    break;
-                case 311:
-                    type = ElementType.MechanicalFastener_StudShearConnector;
-                    break;
-                case 312:
-                    type = ElementType.MechanicalFastener_Userdefined;
-                    break;
-                case 313:
-                    type = ElementType.MechanicalFastener_Notdefined;
-                    break;
-                case 314:
-                    type = ElementType.Tendon_Bar;
-                    break;
-                case 315:
-                    type = ElementType.Tendon_Coated;
-                    break;
-                case 316:
-                    type = ElementType.Tendon_Strand;
-                    break;
-                case 317:
-                    type = ElementType.Tendon_Wire;
-                    break;
-                case 318:
-                    type = ElementType.Tendon_Userdefined;
-                    break;
-                case 319:
-                    type = ElementType.Tendon_Notdefined;
                     break;
 
                 default:
-                    throw new ArgumentException("Element type not recognized => IntToType");
-            }
+                    throw new ArgumentException("Element type not recognized");
 
+            }
             return type;
         }
 
