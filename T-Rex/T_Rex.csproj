@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="BendingRollerGH.cs" />
     <Compile Include="CoverDimensionsGH.cs" />
+    <Compile Include="CreateDotbimGH.cs" />
     <Compile Include="CreateIfcGH.cs" />
     <Compile Include="CurveSpacingGH.cs" />
     <Compile Include="CurveToRebarShapeGH.cs" />
@@ -193,10 +194,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "C:\Users\code-structures\AppData\Roaming\Grasshopper\Libraries\T-Rex\T-Rex.gha"
-Erase "$(TargetPath)"</PostBuildEvent>
-  </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
   </PropertyGroup>

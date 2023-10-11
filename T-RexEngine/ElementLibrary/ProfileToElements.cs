@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Rhino.Geometry;
+using T_RexEngine.Interfaces;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
@@ -14,7 +15,7 @@ using Xbim.Ifc4.StructuralElementsDomain;
 
 namespace T_RexEngine.ElementLibrary
 {
-    public class ProfileToElements: ElementGroup
+    public class ProfileToElements: ElementGroup, IElementSetConvertable
     {
         public ProfileToElements(string name, Profile elementProfile, List<Line> insertLines, double angle, Material material, int type)
         {
@@ -54,6 +55,10 @@ namespace T_RexEngine.ElementLibrary
             return $"Element Group{Environment.NewLine}" + $"Count: {Amount}";
         }
 
+        public override BimElementSet ToElementSet()
+        {
+            throw new ArgumentException("Profile elements are not supported for .bim file export");
+        }
 
         public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
         {

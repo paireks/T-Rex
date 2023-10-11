@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
 using T_RexEngine.Enums;
+using T_RexEngine.Interfaces;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
@@ -12,7 +14,7 @@ using Xbim.Ifc4.StructuralElementsDomain;
 
 namespace T_RexEngine
 {
-    public class RebarGroup : ElementGroup
+    public class RebarGroup : ElementGroup, IElementSetConvertable
     {
         private int _id;
 
@@ -71,6 +73,33 @@ namespace T_RexEngine
                                  "Count: {2}",
                 Environment.NewLine, Id, Amount);
         }
+
+        public override BimElementSet ToElementSet()
+        {
+            switch (SpacingType)
+            {
+                case RebarSpacingType.NormalSpacing:
+                {
+                    Mesh triangulatedMesh = OriginRebarShape.RebarMesh.DuplicateMesh();
+                    triangulatedMesh.Faces.ConvertQuadsToTriangles();
+                    return new BimElementSet(triangulatedMesh, RebarInsertPlanes, "Rebar", Color.Chocolate, new Dictionary<string, string>
+                    {
+                        {"Diameter", Diameter.ToString(CultureInfo.InvariantCulture)},
+                        {"Bar Length", Math.Round(OriginRebarShape.RebarCurve.GetLength()).ToString(CultureInfo.InvariantCulture)},
+                        {"Steel Grade", Material.Grade},
+                    });
+                }
+
+                case RebarSpacingType.CustomSpacing:
+                {
+                    throw new ArgumentException("Not supported for .bim export");
+                }
+
+                default:
+                    throw new ArgumentException("Spacing type not recognized");
+            }
+        }
+
         public int Id
         {
             get { return _id; }

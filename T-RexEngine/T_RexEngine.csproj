@@ -145,8 +145,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BendingRoller.cs" />
+    <Compile Include="BimElement.cs" />
     <Compile Include="BimElementSet.cs" />
     <Compile Include="CoverDimensions.cs" />
+    <Compile Include="Dotbim.cs" />
     <Compile Include="ElementLibrary\MeshToElements.cs" />
     <Compile Include="ElementLibrary\ProfileToElements.cs" />
     <Compile Include="Enums\RebarSpacingType.cs" />
