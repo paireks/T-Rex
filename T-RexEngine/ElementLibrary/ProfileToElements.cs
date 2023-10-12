@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eto.Drawing;
 using Rhino.Geometry;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
@@ -11,6 +12,7 @@ using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.ProfileResource;
 using Xbim.Ifc4.RepresentationResource;
 using Xbim.Ifc4.StructuralElementsDomain;
+using Color = System.Drawing.Color;
 
 namespace T_RexEngine.ElementLibrary
 {
@@ -59,7 +61,26 @@ namespace T_RexEngine.ElementLibrary
 
         public override List<BimElementSet> ToElementSetList()
         {
-            throw new ArgumentException("Profile elements are not supported for .bim file export");
+            List<BimElementSet> bimElementSets = new List<BimElementSet>();
+            foreach (var brep in Breps)
+            {
+                var meshes = Mesh.CreateFromBrep(brep, MeshingParameters.Default);
+                Mesh joinedMesh = meshes[0];
+                for (int i = 1; i < meshes.Length; i++)
+                {
+                    joinedMesh.Append(meshes[i]);    
+                }
+                Mesh triangulatedMesh = joinedMesh.DuplicateMesh();
+                triangulatedMesh.Faces.ConvertQuadsToTriangles();
+                BimElement bimElement =
+                    new BimElement(triangulatedMesh, Name, Color.White, new Dictionary<string, string>
+                    {
+                        {"Profile Name", Profile.Name},
+                    });
+                bimElementSets.Add(bimElement.ToElementSet());
+            }
+
+            return bimElementSets;
         }
 
         public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
