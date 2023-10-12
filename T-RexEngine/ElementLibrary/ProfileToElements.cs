@@ -15,7 +15,7 @@ using Xbim.Ifc4.StructuralElementsDomain;
 
 namespace T_RexEngine.ElementLibrary
 {
-    public class ProfileToElements: ElementGroup, IElementSetConvertable
+    public class ProfileToElements: ElementGroup
     {
         public ProfileToElements(string name, Profile elementProfile, List<Line> insertLines, double angle, Material material, int type)
         {
@@ -55,7 +55,7 @@ namespace T_RexEngine.ElementLibrary
             return $"Element Group{Environment.NewLine}" + $"Count: {Amount}";
         }
 
-        public override BimElementSet ToElementSet()
+        public override List<BimElementSet> ToElementSetList()
         {
             throw new ArgumentException("Profile elements are not supported for .bim file export");
         }

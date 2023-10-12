@@ -11,7 +11,7 @@ namespace T_RexEngine
             List<IElementSetConvertable> elementSetConvertables = new List<IElementSetConvertable>();
             foreach (var elementGroup in elementGroups) 
             {
-                elementSetConvertables.Add(elementGroup);    
+                elementSetConvertables.AddRange(elementGroup.ToElementSetList());    
             }
             
             Dictionary<string, string> info = new Dictionary<string, string>

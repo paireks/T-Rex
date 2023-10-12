@@ -14,7 +14,7 @@ using Xbim.Ifc4.StructuralElementsDomain;
 
 namespace T_RexEngine
 {
-    public class RebarGroup : ElementGroup, IElementSetConvertable
+    public class RebarGroup : ElementGroup
     {
         private int _id;
 
@@ -74,7 +74,7 @@ namespace T_RexEngine
                 Environment.NewLine, Id, Amount);
         }
 
-        public override BimElementSet ToElementSet()
+        public override List<BimElementSet> ToElementSetList()
         {
             switch (SpacingType)
             {
@@ -82,17 +82,38 @@ namespace T_RexEngine
                 {
                     Mesh triangulatedMesh = OriginRebarShape.RebarMesh.DuplicateMesh();
                     triangulatedMesh.Faces.ConvertQuadsToTriangles();
-                    return new BimElementSet(triangulatedMesh, RebarInsertPlanes, "Rebar", Color.Chocolate, new Dictionary<string, string>
+                    BimElementSet bimElementSet = new BimElementSet(triangulatedMesh, RebarInsertPlanes, "Rebar", Color.Chocolate, new Dictionary<string, string>
                     {
                         {"Diameter", Diameter.ToString(CultureInfo.InvariantCulture)},
-                        {"Bar Length", Math.Round(OriginRebarShape.RebarCurve.GetLength()).ToString(CultureInfo.InvariantCulture)},
+                        {"Bar Length", OriginRebarShape.RebarCurve.GetLength().ToString(CultureInfo.InvariantCulture)},
                         {"Steel Grade", Material.Grade},
                     });
+
+                    return new List<BimElementSet>
+                    {
+                        bimElementSet
+                    };
                 }
 
                 case RebarSpacingType.CustomSpacing:
                 {
-                    throw new ArgumentException("Not supported for .bim export");
+                    List<BimElementSet> bimElementSets = new List<BimElementSet>();
+
+                    for (int i = 0; i < RebarGroupMesh.Count; i++) 
+                    {
+                        Mesh triangulatedMesh = RebarGroupMesh[i].DuplicateMesh();
+                        triangulatedMesh.Faces.ConvertQuadsToTriangles();
+                        BimElement bimElement = new BimElement(triangulatedMesh, "Rebar", Color.Chocolate,
+                            new Dictionary<string, string>
+                            {
+                                {"Diameter", Diameter.ToString(CultureInfo.InvariantCulture)},
+                                {"Bar Length", RebarGroupCurves[i].GetLength().ToString(CultureInfo.InvariantCulture)},
+                                {"Steel Grade", Material.Grade},
+                            });
+                        bimElementSets.Add(bimElement.ToElementSet());
+                    }
+
+                    return bimElementSets;
                 }
 
                 default:

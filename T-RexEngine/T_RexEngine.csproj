@@ -153,6 +153,7 @@
     <Compile Include="ElementLibrary\ProfileToElements.cs" />
     <Compile Include="Enums\RebarSpacingType.cs" />
     <Compile Include="Interfaces\IElementSetConvertable.cs" />
+    <Compile Include="Interfaces\IElementSetConvertableList.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Ifc.cs" />
     <Compile Include="ElementGroup.cs" />

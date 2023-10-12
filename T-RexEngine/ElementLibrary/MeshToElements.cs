@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
-using T_RexEngine.Interfaces;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
@@ -12,7 +11,7 @@ using Color = System.Drawing.Color;
 
 namespace T_RexEngine.ElementLibrary
 {
-    public class MeshToElements: ElementGroup, IElementSetConvertable
+    public class MeshToElements: ElementGroup
     {
         private Mesh _mesh;
         public MeshToElements(string name, Mesh mesh, Material material, int type, List<Plane> insertPlanes)
@@ -41,16 +40,21 @@ namespace T_RexEngine.ElementLibrary
             return $"Element Group{Environment.NewLine}" + $"Count: {Amount}";
         }
 
-        public override BimElementSet ToElementSet()
+        public override List<BimElementSet> ToElementSetList()
         {
             Mesh triangulatedMesh = Mesh.DuplicateMesh();
             triangulatedMesh.Faces.ConvertQuadsToTriangles();
-            return new BimElementSet(triangulatedMesh, InsertPlanes, Name, Color.White, new Dictionary<string, string>
+            BimElementSet bimElementSet = new BimElementSet(triangulatedMesh, InsertPlanes, Name, Color.White, new Dictionary<string, string>
             {
                 {"Material Name", Material.Name},
                 {"Material Grade", Material.Grade},
                 {"Element Type", ElementType.ToString()},
             });
+
+            return new List<BimElementSet>
+            {
+                bimElementSet
+            };
         }
 
         public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)

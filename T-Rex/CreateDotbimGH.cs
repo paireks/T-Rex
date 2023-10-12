@@ -15,13 +15,13 @@ namespace T_Rex
         }
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Groups", "Groups", "T-Rex groups to add to the IFC file",
+            pManager.AddGenericParameter("Groups", "Groups", "T-Rex groups to add to the dotbim file",
                 GH_ParamAccess.list);
             pManager.AddTextParameter("Project Name", "Project Name", "Name of the project",
                 GH_ParamAccess.item);
             pManager.AddTextParameter("Building Name", "Building Name", "Name of the building",
                 GH_ParamAccess.item);
-            pManager.AddTextParameter("Path", "Path", "Path where the IFC file will be saved, should end up with .ifc",
+            pManager.AddTextParameter("Path", "Path", "Path where the dotbim file will be saved, should end up with .bim",
                 GH_ParamAccess.item);
         }
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
