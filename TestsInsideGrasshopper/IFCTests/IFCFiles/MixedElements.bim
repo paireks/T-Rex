@@ -130801,7 +130801,7 @@
         "qz": 0.68349063776998342,
         "qw": -0.18121961284800642
       },
-      "guid": "8f53e60c-130c-4186-bccb-e5db39eb39be",
+      "guid": "adb10ec5-ae7e-4b49-955d-ecf6a315f30a",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -130828,7 +130828,7 @@
         "qz": 0.622774096214103,
         "qw": -0.3348916617127205
       },
-      "guid": "09c6e0ba-6a65-44f7-aa8d-da842064dc73",
+      "guid": "5d1cb18c-cdfe-4cba-a7d3-4f8bc81236f2",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -130855,7 +130855,7 @@
         "qz": 0.43223184926109331,
         "qw": -0.55962096858886168
       },
-      "guid": "b455ff3f-bab5-4328-b4fb-09e97ba79ac3",
+      "guid": "fb5260e3-a403-4ea8-a822-9e04e7021637",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -130882,7 +130882,7 @@
         "qz": 0.2153420102326247,
         "qw": -0.67351898163969526
       },
-      "guid": "e454964b-84ce-4875-84dc-a5ed2447d385",
+      "guid": "a63c72fe-9009-4fb6-b45e-b998748e536e",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -130909,7 +130909,7 @@
         "qz": -0.098713368671724727,
         "qw": -0.70018259821669393
       },
-      "guid": "5a36774e-f4f3-4b44-a958-18c008c2e618",
+      "guid": "716465e2-38c2-44c5-98b9-4943b913879f",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -130936,7 +130936,7 @@
         "qz": 0.51174943113628968,
         "qw": 0.65680666389999909
       },
-      "guid": "f13c1f93-a720-45d8-8a91-218e7c95f05e",
+      "guid": "4fe945d5-7a78-4cde-9ffc-d6320ee221d4",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -130963,7 +130963,7 @@
         "qz": 0.55496151880201428,
         "qw": 0.69426085349850331
       },
-      "guid": "95e9564f-4710-4db2-bca1-82c8e3ca6eca",
+      "guid": "1a1982a3-7a82-4b9c-84bb-a2b1b9d441d6",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -130990,7 +130990,7 @@
         "qz": 0.65536328458431115,
         "qw": 0.677033110718045
       },
-      "guid": "1b471567-c17f-469d-9157-f907d73c5882",
+      "guid": "0a402cef-01c1-416b-8318-4a8441cbe657",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -131017,7 +131017,7 @@
         "qz": 0.66859693180272373,
         "qw": 0.50457093287586541
       },
-      "guid": "f7bad69c-da5d-42e7-ae7b-327b589b365a",
+      "guid": "7a83d755-6c7b-43b5-bcc4-d6dddc8650eb",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -131044,7 +131044,7 @@
         "qz": 0.63912814789323336,
         "qw": 0.46918031651717929
       },
-      "guid": "cd11f7f6-163a-464f-a7d5-272beb1b92b3",
+      "guid": "6ec12dec-cd23-4868-93db-d806eec59196",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -131071,8 +131071,8 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "2c0516f0-c8c7-4efb-9b49-e6e20982caf4",
-      "type": "Element name",
+      "guid": "ef114ef1-4ddd-48da-b4c4-bad85156f937",
+      "type": "StripFooting",
       "color": {
         "r": 255,
         "g": 255,
@@ -131080,7 +131080,10 @@
         "a": 255
       },
       "info": {
-        "Profile Name": "Profile name"
+        "Name": "Element name",
+        "Profile Name": "Profile name",
+        "Material Name": "Material name",
+        "Material Grade": "Grade name"
       }
     },
     {
@@ -131096,8 +131099,8 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "0f4a5693-94ef-4297-8386-6c8d14c29d53",
-      "type": "Element name",
+      "guid": "2cad31f4-6c5c-4a2e-a9d7-a6b978c7ab8f",
+      "type": "Column",
       "color": {
         "r": 255,
         "g": 255,
@@ -131105,9 +131108,9 @@
         "a": 255
       },
       "info": {
+        "Name": "Element name",
         "Material Name": "Other name",
-        "Material Grade": "Other Grade name",
-        "Element Type": "Column"
+        "Material Grade": "Other Grade name"
       }
     },
     {
@@ -131123,8 +131126,8 @@
         "qz": 0.0,
         "qw": 0.70710678118654746
       },
-      "guid": "cbcd5c5f-40b5-4c51-9654-782c380f2bbd",
-      "type": "Element name",
+      "guid": "ccf37bc0-8dc8-4098-8b76-9ab88b93b6cc",
+      "type": "Column",
       "color": {
         "r": 255,
         "g": 255,
@@ -131132,9 +131135,9 @@
         "a": 255
       },
       "info": {
+        "Name": "Element name",
         "Material Name": "Other name",
-        "Material Grade": "Other Grade name",
-        "Element Type": "Column"
+        "Material Grade": "Other Grade name"
       }
     },
     {
@@ -131150,8 +131153,8 @@
         "qz": 0.5,
         "qw": 0.5
       },
-      "guid": "097d5929-8ca9-4e54-bbb2-ecb074284ca0",
-      "type": "Element name",
+      "guid": "feed9b36-ad36-44b0-b5c4-f2195e640aba",
+      "type": "Column",
       "color": {
         "r": 255,
         "g": 255,
@@ -131159,9 +131162,9 @@
         "a": 255
       },
       "info": {
+        "Name": "Element name",
         "Material Name": "Other name",
-        "Material Grade": "Other Grade name",
-        "Element Type": "Column"
+        "Material Grade": "Other Grade name"
       }
     }
   ],

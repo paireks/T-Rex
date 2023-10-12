@@ -73,9 +73,12 @@ namespace T_RexEngine.ElementLibrary
                 Mesh triangulatedMesh = joinedMesh.DuplicateMesh();
                 triangulatedMesh.Faces.ConvertQuadsToTriangles();
                 BimElement bimElement =
-                    new BimElement(triangulatedMesh, Name, Color.White, new Dictionary<string, string>
+                    new BimElement(triangulatedMesh, ElementType.ToString(), Color.White, new Dictionary<string, string>
                     {
+                        {"Name", Name},
                         {"Profile Name", Profile.Name},
+                        {"Material Name", Material.Name},
+                        {"Material Grade", Material.Grade},
                     });
                 bimElementSets.Add(bimElement.ToElementSet());
             }

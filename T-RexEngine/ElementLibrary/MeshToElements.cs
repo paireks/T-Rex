@@ -44,11 +44,11 @@ namespace T_RexEngine.ElementLibrary
         {
             Mesh triangulatedMesh = Mesh.DuplicateMesh();
             triangulatedMesh.Faces.ConvertQuadsToTriangles();
-            BimElementSet bimElementSet = new BimElementSet(triangulatedMesh, InsertPlanes, Name, Color.White, new Dictionary<string, string>
+            BimElementSet bimElementSet = new BimElementSet(triangulatedMesh, InsertPlanes, ElementType.ToString(), Color.White, new Dictionary<string, string>
             {
+                {"Name", Name},
                 {"Material Name", Material.Name},
                 {"Material Grade", Material.Grade},
-                {"Element Type", ElementType.ToString()},
             });
 
             return new List<BimElementSet>
