@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Rhino.Geometry;
-using T_RexEngine.Interfaces;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
@@ -45,8 +44,11 @@ namespace T_RexEngine.ElementLibrary
                 Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, sectionInsertPlane);
                 Curve duplicateCurve = elementProfile.ProfileCurve.DuplicateCurve();
                 duplicateCurve.Transform(planeToPlane);
-                
-                Breps.Add(Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true, elementProfile.Tolerance)[0]);
+
+                var sweep = Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true,
+                    elementProfile.Tolerance)[0];
+                var closed = sweep.CapPlanarHoles(elementProfile.Tolerance);
+                Breps.Add(closed);
             }
         }
 
