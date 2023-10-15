@@ -12,7 +12,7 @@ T-Rex can help you to create 3D models of reinforced concrete structures with Gr
 
 Basically T-Rex can help you to model different rebars, which are represented by meshes, which allows real-time generation of model even for thousands of bars.
 
-Check Manual here: https://code-structures.com/T_Rex_Manual/Manual%20for%20T-Rex.html
+Check Manual here: https://htmlpreview.github.io/?https://github.com/paireks/T-Rex/blob/master/Manual/Manual%20for%20T-Rex.html
 
 ## Features (0.3.0) BETA
 
@@ -40,6 +40,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 Code is not designed to be used outside Grasshopper environment.
 
 xbim library was used to allow IFCs creation: https://docs.xbim.net/, license: https://docs.xbim.net/license/license.html.
+
+dotbim library was used to allow dotbim file creation: https://dotbim.net, license: https://github.com/paireks/dotbim
 
 xUnit library was used to unit-test the project.
 
