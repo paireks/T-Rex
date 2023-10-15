@@ -6,7 +6,7 @@ namespace T_RexEngine
 {
     public class Dotbim
     {
-        public Dotbim(List<ElementGroup> elementGroups, string projectName, string buildingName, string path)
+        public Dotbim(List<ElementGroup> elementGroups, string projectName, string buildingName, double scaleFactor, string path)
         {
             List<IElementSetConvertable> elementSetConvertables = new List<IElementSetConvertable>();
             foreach (var elementGroup in elementGroups) 
@@ -20,7 +20,7 @@ namespace T_RexEngine
                 {"Building Name", buildingName},
             };
 
-            File file = Tools.CreateFile(elementSetConvertables, info);
+            File file = Tools.CreateFile(elementSetConvertables, info, scaleFactor);
             file.Save(path);
         }
     }

@@ -9,7 +9,8 @@ namespace T_Rex
     {
         public CreateDotbimGH()
           : base("Create Dotbim", "Create Dotbim",
-              "Creates Dotbim file. Make sure that groups are modelled in meters, because right now all of the input will be exported as meters.",
+              "Creates Dotbim file. Make sure that groups are modelled in meters, because dotbim requires geometry modelled in meters." +
+              "You can try to adjust Geometry Scale Factor if necessary.",
               "T-Rex", "Dotbim")
         {
         }
@@ -20,6 +21,8 @@ namespace T_Rex
             pManager.AddTextParameter("Project Name", "Project Name", "Name of the project",
                 GH_ParamAccess.item);
             pManager.AddTextParameter("Building Name", "Building Name", "Name of the building",
+                GH_ParamAccess.item);
+            pManager.AddNumberParameter("Geometry Scale Factor", "Geometry Scale Factor", "Scaling factor in all directions for geometry only.",
                 GH_ParamAccess.item);
             pManager.AddTextParameter("Path", "Path", "Path where the dotbim file will be saved, should end up with .bim",
                 GH_ParamAccess.item);
@@ -33,14 +36,16 @@ namespace T_Rex
             List<ElementGroup> elementGroups = new List<ElementGroup>();
             string projectName = string.Empty;
             string buildingName = string.Empty;
+            double scaleFactor = double.NaN;
             string path = string.Empty;
 
             DA.GetDataList(0, elementGroups);
             DA.GetData(1, ref projectName);
             DA.GetData(2, ref buildingName);
-            DA.GetData(3, ref path);
+            DA.GetData(3, ref scaleFactor);
+            DA.GetData(4, ref path);
             
-            Dotbim dotbim = new Dotbim(elementGroups, projectName, buildingName, path);
+            Dotbim dotbim = new Dotbim(elementGroups, projectName, buildingName, scaleFactor, path);
         }
         protected override System.Drawing.Bitmap Icon
         {
