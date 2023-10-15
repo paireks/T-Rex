@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
@@ -71,6 +72,54 @@ namespace T_RexEngine
                                  "Count: {2}",
                 Environment.NewLine, Id, Amount);
         }
+
+        public override List<BimElementSet> ToElementSetList()
+        {
+            switch (SpacingType)
+            {
+                case RebarSpacingType.NormalSpacing:
+                {
+                    Mesh triangulatedMesh = OriginRebarShape.RebarMesh.DuplicateMesh();
+                    triangulatedMesh.Faces.ConvertQuadsToTriangles();
+                    BimElementSet bimElementSet = new BimElementSet(triangulatedMesh, RebarInsertPlanes, "Rebar", Color.Chocolate, new Dictionary<string, string>
+                    {
+                        {"Diameter", Diameter.ToString(CultureInfo.InvariantCulture)},
+                        {"Bar Length", OriginRebarShape.RebarCurve.GetLength().ToString(CultureInfo.InvariantCulture)},
+                        {"Steel Grade", Material.Grade},
+                    });
+
+                    return new List<BimElementSet>
+                    {
+                        bimElementSet
+                    };
+                }
+
+                case RebarSpacingType.CustomSpacing:
+                {
+                    List<BimElementSet> bimElementSets = new List<BimElementSet>();
+
+                    for (int i = 0; i < RebarGroupMesh.Count; i++) 
+                    {
+                        Mesh triangulatedMesh = RebarGroupMesh[i].DuplicateMesh();
+                        triangulatedMesh.Faces.ConvertQuadsToTriangles();
+                        BimElement bimElement = new BimElement(triangulatedMesh, "Rebar", Color.Chocolate,
+                            new Dictionary<string, string>
+                            {
+                                {"Diameter", Diameter.ToString(CultureInfo.InvariantCulture)},
+                                {"Bar Length", RebarGroupCurves[i].GetLength().ToString(CultureInfo.InvariantCulture)},
+                                {"Steel Grade", Material.Grade},
+                            });
+                        bimElementSets.Add(bimElement.ToElementSet());
+                    }
+
+                    return bimElementSets;
+                }
+
+                default:
+                    throw new ArgumentException("Spacing type not recognized");
+            }
+        }
+
         public int Id
         {
             get { return _id; }

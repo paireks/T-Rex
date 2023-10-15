@@ -1,4 +1,4 @@
-# Manual for T-Rex 0.2.0
+# Manual for T-Rex 0.3.0
 
 [TOC]
 
@@ -14,7 +14,7 @@ T-Rex is an open-source plug-in for Grasshopper.
 
 **Purpose: **T-Rex can help you to create parametric models of reinforced concrete structures with Grasshopper.
 
-**Requirements:** Rhino 6 or Rhino 7
+**Requirements:** Rhino 7
 
 **Status:** BETA, Work in progress
 
@@ -27,10 +27,11 @@ T-Rex is an open-source plug-in for Grasshopper.
 **Used libraries:**
 
 - xbim: for IFC export: https://docs.xbim.net/, license: https://docs.xbim.net/license/license.html
+- dotbim: for dotbim export: https://dotbim.net/, license: https://github.com/paireks/dotbim
 
 ### License (MIT License)
 
-Copyright © 2021 Wojciech Radaczyński
+Copyright © 2023 Wojciech Radaczyński
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -77,7 +78,9 @@ Grasshopper is unit-less, you can read more about it there: https://www.grasshop
 
 So is the T-Rex. It means that you will have to choose your unit system by yourself. If you choose to use meters then make sure that every dimension is in meters and the Rhino document related to Grasshopper script is set to meters.
 
-**Important note:** In T-Rex 0.2.0 IFC export is always treating the model as it is in **millimeters**.
+**Important note:** From T-Rex 0.2.0 IFC export is always treating the model as it is in **millimeters**.
+
+**Important note 2:** From T-Rex 0.3.0 there is dotbim export. Dotbim requires geometries exported in **meters**. Scale factor in dotbim component can help you to scale your geometries exported to .bim.
 
 ### Tolerances
 
@@ -119,8 +122,6 @@ When we have an element, that can be represented as Sweep along the curve: we ca
 
 It's not easy to obtain needed position of the profile along the line. That's why there is Rotation Angle as input, which allows to rotate the profiles of elements.
 
-Profile Elements look empty inside, but this just the visual representation, they are treated as if they were closed solids - you can see it after IFC export.
-
 #### Mesh To Elements
 
 Mesh elements should be used when the geometry of an element is complex and it cannot be represented in any different way. Meshes have to store a lot of information (about vertices coordinates, faces), which will affect the size of the IFC file.
@@ -143,6 +144,28 @@ This component allows to read the properties of the group of elements.
 
 Remember that Volume and Mass is a sum of the whole group.
 
+## Dotbim
+
+### About
+
+Tools for dotbim files creation.
+
+Read more about .bim file here: https://github.com/paireks/dotbim
+
+### Components
+
+#### Create Dotbim
+
+Component creates a .bim file of given groups of elements.
+
+You can view and check a .bim file here: https://3dviewer.net/ <- just drag and drop a .bim file.
+
+![Dotbim](Img\Dotbim.png)
+
+To Groups input you can plug Rebar Groups and Element Groups.
+
+Path should have .bim extension at the end.
+
 ## IFC
 
 ### About
@@ -151,7 +174,7 @@ Tools for IFC files creation.
 
 T-Rex is using xbim library for IFC export.
 
-T-Rex 0.2.0 allows only models in **millimeters** to be exported to IFC.
+From T-Rex 0.2.0 only models in **millimeters** are allowed to be exported to IFC.
 
 ### Components
 

@@ -89,7 +89,7 @@ namespace T_RexEngine
                 ApplicationDevelopersName = "xbim developer",
                 ApplicationFullName = "T-Rex",
                 ApplicationIdentifier = "T-Rex",
-                ApplicationVersion = "0.2",
+                ApplicationVersion = "0.3",
                 EditorsFamilyName = "Team",
                 EditorsGivenName = "xbim",
                 EditorsOrganisationName = "xbim developer"

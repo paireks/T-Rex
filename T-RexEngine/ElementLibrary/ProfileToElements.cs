@@ -11,6 +11,7 @@ using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.ProfileResource;
 using Xbim.Ifc4.RepresentationResource;
 using Xbim.Ifc4.StructuralElementsDomain;
+using Color = System.Drawing.Color;
 
 namespace T_RexEngine.ElementLibrary
 {
@@ -44,8 +45,11 @@ namespace T_RexEngine.ElementLibrary
                 Transform planeToPlane = Transform.PlaneToPlane(Plane.WorldXY, sectionInsertPlane);
                 Curve duplicateCurve = elementProfile.ProfileCurve.DuplicateCurve();
                 duplicateCurve.Transform(planeToPlane);
-                
-                Breps.Add(Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true, elementProfile.Tolerance)[0]);
+
+                var sweep = Brep.CreateFromSweep(line.ToNurbsCurve(), duplicateCurve, true,
+                    elementProfile.Tolerance)[0];
+                var closed = sweep.CapPlanarHoles(elementProfile.Tolerance);
+                Breps.Add(closed);
             }
         }
 
@@ -54,6 +58,32 @@ namespace T_RexEngine.ElementLibrary
             return $"Element Group{Environment.NewLine}" + $"Count: {Amount}";
         }
 
+        public override List<BimElementSet> ToElementSetList()
+        {
+            List<BimElementSet> bimElementSets = new List<BimElementSet>();
+            foreach (var brep in Breps)
+            {
+                var meshes = Mesh.CreateFromBrep(brep, MeshingParameters.FastRenderMesh);
+                Mesh joinedMesh = meshes[0];
+                for (int i = 1; i < meshes.Length; i++)
+                {
+                    joinedMesh.Append(meshes[i]);    
+                }
+                Mesh triangulatedMesh = joinedMesh.DuplicateMesh();
+                triangulatedMesh.Faces.ConvertQuadsToTriangles();
+                BimElement bimElement =
+                    new BimElement(triangulatedMesh, ElementType.ToString(), Color.FromArgb(100,255,255,255), new Dictionary<string, string>
+                    {
+                        {"Name", Name},
+                        {"Profile Name", Profile.Name},
+                        {"Material Name", Material.Name},
+                        {"Material Grade", Material.Grade},
+                    });
+                bimElementSets.Add(bimElement.ToElementSet());
+            }
+
+            return bimElementSets;
+        }
 
         public override List<IfcBuildingElement> ToBuildingElementIfc(IfcStore model)
         {

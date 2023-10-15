@@ -7,6 +7,7 @@ using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
 using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.StructuralElementsDomain;
+using Color = System.Drawing.Color;
 
 namespace T_RexEngine.ElementLibrary
 {
@@ -37,6 +38,23 @@ namespace T_RexEngine.ElementLibrary
         public override string ToString()
         {
             return $"Element Group{Environment.NewLine}" + $"Count: {Amount}";
+        }
+
+        public override List<BimElementSet> ToElementSetList()
+        {
+            Mesh triangulatedMesh = Mesh.DuplicateMesh();
+            triangulatedMesh.Faces.ConvertQuadsToTriangles();
+            BimElementSet bimElementSet = new BimElementSet(triangulatedMesh, InsertPlanes, ElementType.ToString(), Color.FromArgb(100,255,255,255), new Dictionary<string, string>
+            {
+                {"Name", Name},
+                {"Material Name", Material.Name},
+                {"Material Grade", Material.Grade},
+            });
+
+            return new List<BimElementSet>
+            {
+                bimElementSet
+            };
         }
 
         public override List<IfcReinforcingElement> ToReinforcingElementIfc(IfcStore model)

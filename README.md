@@ -1,13 +1,12 @@
 # T-Rex
 Parametric Reinforcement Plug-in for Grasshopper.
 
-<p align="center">
-  <img width="100" height="100" src="https://github.com/paireks/T-Rex/blob/Version1_0_0/IMG/TRexLogo100x100.png">
-</p>
+Introduction video: https://youtu.be/r2GVTfjJHdA 
+
 
 ## Purpose
 
-T-Rex can help you to create 3D models of reinforced concrete structures with Grasshopper (Rhino 6 or 7).
+T-Rex can help you to create 3D models of reinforced concrete structures with Grasshopper.
 
 ## How it works?
 
@@ -15,7 +14,7 @@ Basically T-Rex can help you to model different rebars, which are represented by
 
 Check Manual here: https://code-structures.com/T_Rex_Manual/Manual%20for%20T-Rex.html
 
-## Features (0.2.0) BETA
+## Features (0.3.0) BETA
 
 
 - Concrete: Profile, Profile To Elements, Mesh To Elements, Element Group Info
@@ -28,7 +27,7 @@ Check Manual here: https://code-structures.com/T_Rex_Manual/Manual%20for%20T-Rex
 
 ## License (MIT License)
 
-Copyright © 2021 Wojciech Radaczyński
+Copyright © 2023 Wojciech Radaczyński
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
