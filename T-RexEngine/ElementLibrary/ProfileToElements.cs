@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Eto.Drawing;
 using Rhino.Geometry;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
@@ -73,7 +72,7 @@ namespace T_RexEngine.ElementLibrary
                 Mesh triangulatedMesh = joinedMesh.DuplicateMesh();
                 triangulatedMesh.Faces.ConvertQuadsToTriangles();
                 BimElement bimElement =
-                    new BimElement(triangulatedMesh, ElementType.ToString(), Color.White, new Dictionary<string, string>
+                    new BimElement(triangulatedMesh, ElementType.ToString(), Color.FromArgb(100,255,255,255), new Dictionary<string, string>
                     {
                         {"Name", Name},
                         {"Profile Name", Profile.Name},

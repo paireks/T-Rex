@@ -5,7 +5,6 @@ using System.Globalization;
 using Rhino.Geometry;
 using Rhino.Geometry.Collections;
 using T_RexEngine.Enums;
-using T_RexEngine.Interfaces;
 using Xbim.Ifc;
 using Xbim.Ifc4.GeometricModelResource;
 using Xbim.Ifc4.GeometryResource;
