@@ -180,6 +180,7 @@
     <None Include="Resources\BendingRoller.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Dotbim.png" />
     <Content Include="Resources\ElementInfo.png" />
     <Content Include="Resources\IFC.png" />
     <Content Include="Resources\Mesh.png" />

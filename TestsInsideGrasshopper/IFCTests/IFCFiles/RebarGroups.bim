@@ -2290,7 +2290,88 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "5b366eaf-31cd-45ec-a38c-094caf3418ee",
+      "guid": "374aff12-48c3-425c-a1df-aa5d3838ff66",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.02777777777777778,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "388c6ec7-43ca-4f48-8250-7cd4f376734b",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.055555555555555559,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "b25a9bf5-04fb-4ce3-abb9-7a9b5d9ce71c",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.083333333333333343,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "73a17b1f-9f26-4613-a2da-f06309aa70f9",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2317,7 +2398,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "3a8574a2-d84e-4eae-bdce-9163ee334f2c",
+      "guid": "5e431e7f-e40d-4d45-96be-bd050ed6689b",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2335,7 +2416,7 @@
       "mesh_id": 0,
       "vector": {
         "x": 0.0,
-        "y": 0.22222222222222224,
+        "y": 0.1388888888888889,
         "z": 0.0
       },
       "rotation": {
@@ -2344,7 +2425,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "a6520b37-96a0-427e-b3ed-af5e6c954093",
+      "guid": "91245cb8-a19a-4bf2-bbe1-a0817a5497c3",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2362,7 +2443,7 @@
       "mesh_id": 0,
       "vector": {
         "x": 0.0,
-        "y": 0.33333333333333337,
+        "y": 0.16666666666666666,
         "z": 0.0
       },
       "rotation": {
@@ -2371,7 +2452,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "d001b7c2-0cb2-4392-8c89-c2710e76da62",
+      "guid": "e1eac0bc-1905-4089-b71e-26cc2ee2530e",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2389,7 +2470,7 @@
       "mesh_id": 0,
       "vector": {
         "x": 0.0,
-        "y": 0.44444444444444448,
+        "y": 0.19444444444444442,
         "z": 0.0
       },
       "rotation": {
@@ -2398,7 +2479,331 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "84df804e-aebb-4bad-ae6f-9121505b8b38",
+      "guid": "738cac91-2c81-4638-a507-c2e307e2a9fb",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.22222222222222221,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "b772afe3-bdca-48ea-8ef8-2b7a9ceff7e3",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.24999999999999997,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "9c89e27e-5827-41bc-8f84-9696dddffa6e",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.27777777777777779,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "d9bf3c69-b14c-4e6f-a6c5-54ba96aa7a5d",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.30555555555555552,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "72817e42-f87b-4605-8e13-6b92c082d432",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.33333333333333331,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "57b6e481-1c4e-4372-ba98-63ee18950bd1",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.3611111111111111,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "7562c209-811f-4d63-bd89-02772504a7bf",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.38888888888888884,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "5455dea3-d277-48c4-9dab-3e8cfd515483",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.41666666666666663,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "7e992651-8e05-4cb5-9b7a-c145ca6b082b",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.44444444444444442,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "c04f09c7-b462-47c0-af5e-d50c97e17e80",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.47222222222222215,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "6c6b17fc-71e2-4516-a3f1-8136a0d603fc",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.49999999999999994,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "22d974ca-1e88-4974-bb73-80a86efc51ab",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.52777777777777768,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "8666997a-9f0c-4fc9-bb00-19a3c637c388",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2425,7 +2830,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "471fc95c-f2ca-4cf9-a354-2a4733f81369",
+      "guid": "d61d285b-8f72-4293-be1e-922e757843a4",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2443,7 +2848,7 @@
       "mesh_id": 0,
       "vector": {
         "x": 0.0,
-        "y": 0.66666666666666663,
+        "y": 0.58333333333333337,
         "z": 0.0
       },
       "rotation": {
@@ -2452,7 +2857,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "5d09fb4d-c357-48c3-88b6-cd9de340eaaf",
+      "guid": "b9151694-70de-4526-aaab-814ea179c6e5",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2470,7 +2875,7 @@
       "mesh_id": 0,
       "vector": {
         "x": 0.0,
-        "y": 0.77777777777777768,
+        "y": 0.61111111111111116,
         "z": 0.0
       },
       "rotation": {
@@ -2479,7 +2884,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "62719a7a-48f3-4833-b619-2bda7f0b3238",
+      "guid": "87b8cd84-5dbf-45d6-8dbb-8a959748296b",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2497,7 +2902,7 @@
       "mesh_id": 0,
       "vector": {
         "x": 0.0,
-        "y": 0.88888888888888884,
+        "y": 0.63888888888888906,
         "z": 0.0
       },
       "rotation": {
@@ -2506,7 +2911,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "7d2bcda9-43f3-45d6-96d1-3e731815e523",
+      "guid": "af94ada5-1a86-4d85-9191-d1a2df033893",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2524,7 +2929,7 @@
       "mesh_id": 0,
       "vector": {
         "x": 0.0,
-        "y": 0.99999999999999989,
+        "y": 0.66666666666666685,
         "z": 0.0
       },
       "rotation": {
@@ -2533,7 +2938,331 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "bd79ac99-f9b1-48ee-b8f5-8eeda40286ad",
+      "guid": "38d1835e-c79d-4e8c-8a52-7efc2ecdebe7",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.69444444444444475,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "0583ace8-65d1-4b64-911f-0e940c4fef83",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.72222222222222254,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "d25338e1-e9a0-4899-b270-f7caefd57ca3",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.75000000000000033,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "39db1489-1259-4b46-80f6-7280b54243bd",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.77777777777777823,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "e163f3b4-dd04-4461-8d9b-6c8fb9990266",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.805555555555556,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "3dc3fd56-cbca-4621-89f4-31010f861653",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.83333333333333381,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "ac02a7f0-6ea8-480b-9290-a927fc5d7352",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.86111111111111172,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "4dba5d73-456e-4541-bdb7-649edd815c84",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.88888888888888951,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "1d7f6951-7c8c-43cb-982f-9104bcc1f4c9",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.9166666666666673,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "639eaf59-d75a-414a-bfd7-3190b6b33332",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.9444444444444452,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "a1dc9803-9f73-4c8c-af5a-4d24566426ef",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 0.972222222222223,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "518d11fa-978b-4d39-9287-0c716119b866",
+      "type": "Rebar",
+      "color": {
+        "r": 210,
+        "g": 105,
+        "b": 30,
+        "a": 255
+      },
+      "info": {
+        "Diameter": "12",
+        "Bar Length": "500",
+        "Steel Grade": "Grade of the material"
+      }
+    },
+    {
+      "mesh_id": 0,
+      "vector": {
+        "x": 0.0,
+        "y": 1.0000000000000009,
+        "z": 0.0
+      },
+      "rotation": {
+        "qx": 0.0,
+        "qy": 0.0,
+        "qz": 0.0,
+        "qw": 1.0
+      },
+      "guid": "4d909e1b-4583-427e-a1aa-5f50a4355ebf",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2560,7 +3289,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "81dc81bc-4758-4871-81d1-393238a7af2c",
+      "guid": "e276def5-e8f3-4751-a61d-0f717d894a89",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2587,7 +3316,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "bc7c28bb-e5d1-4ed9-ad7d-8fc7b54312a5",
+      "guid": "d29340b3-6eeb-401e-8b0b-bf203515c96d",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2614,7 +3343,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "d71accbd-26d9-4c29-a1fe-c46f03fe0a5b",
+      "guid": "f4d6ab31-11e2-4c6d-9931-88ae592235de",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2641,7 +3370,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "f168ae13-3caf-4559-9c06-c6693fe71bd1",
+      "guid": "496c4668-b311-477b-8ce3-14589d86e090",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2668,7 +3397,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "c6b9398d-ea6f-457d-a372-da9819254211",
+      "guid": "4d3400b3-1f90-49ba-ab50-0645178afdc3",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2695,7 +3424,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "399bc6f3-5ec7-423f-bb10-f2b808b96013",
+      "guid": "e30f2181-d02f-468a-8e57-949b73e93064",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2722,7 +3451,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "07c39e4b-f2cc-4bcb-b5f8-f898c27ef42d",
+      "guid": "6ca12a4a-6204-4489-ae39-9b62bd8bf4ea",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2749,7 +3478,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "2f068852-0519-4572-b433-8764f647d73e",
+      "guid": "41722d91-0858-424a-bc28-3b95f0548fbd",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2776,7 +3505,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "17de2c07-a1d2-48a2-ae64-4723a7b869c9",
+      "guid": "4abb4020-1395-4e2c-8472-86e198158a4f",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2803,7 +3532,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "9237d6e1-d349-42e4-bd87-25a164e62bf2",
+      "guid": "57b2132f-1372-470c-ac7f-adc7a79d1299",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2830,7 +3559,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "d3326a0e-f46d-4cc4-be97-b81b9abae427",
+      "guid": "9031da51-07a0-4f1e-92dc-72054028a888",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2857,7 +3586,7 @@
         "qz": 0.68349063776998342,
         "qw": -0.18121961284800611
       },
-      "guid": "4dbfbf23-d88d-4908-8023-8bf9c82e7fec",
+      "guid": "ab11d8a9-2f3a-43f5-a99b-5118fc2d550c",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2884,7 +3613,7 @@
         "qz": 0.62277409621410207,
         "qw": -0.33489166171272217
       },
-      "guid": "24ecc2e9-0035-403f-91f3-f3442d708d86",
+      "guid": "3f57b915-0a85-42be-ae19-4cbd79eb2fed",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2911,7 +3640,7 @@
         "qz": 0.43223184926109165,
         "qw": -0.5596209685888629
       },
-      "guid": "06192941-5a78-48e6-90ec-81e84f434385",
+      "guid": "0ebcf402-afcc-4750-8711-a15abb1c866d",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2938,7 +3667,7 @@
         "qz": 0.21534201023262498,
         "qw": -0.67351898163969526
       },
-      "guid": "121fd738-8310-4e66-a9bf-affc8c5ecc77",
+      "guid": "60623a52-ba6b-4dee-a45f-09b2ef3d4b3d",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2965,7 +3694,7 @@
         "qz": -0.098713368671722063,
         "qw": -0.70018259821669437
       },
-      "guid": "44442ef0-d6eb-4456-aced-39047f824524",
+      "guid": "ca48f063-ac57-4eae-8e4a-7ee0e335ee3f",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -2992,7 +3721,7 @@
         "qz": 0.51174943113644311,
         "qw": 0.65680666389987863
       },
-      "guid": "330178b6-8add-4732-ae30-343076d2ccc3",
+      "guid": "7c6a0181-a4ae-4218-982b-7890105c3553",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -3019,7 +3748,7 @@
         "qz": 0.55496151880217592,
         "qw": 0.69426085349837185
       },
-      "guid": "de622d54-594e-467c-be56-c1c873948a6b",
+      "guid": "7a8414af-6134-4776-8884-bc76e9e59b26",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -3046,7 +3775,7 @@
         "qz": 0.655363284584471,
         "qw": 0.67703311071788874
       },
-      "guid": "cc78a2ec-af7f-4dcf-b5d6-17df2252788e",
+      "guid": "627d0a46-5d58-4549-ae4e-5f5fbf1397e5",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -3073,7 +3802,7 @@
         "qz": 0.6685969318028625,
         "qw": 0.50457093287568067
       },
-      "guid": "74c64610-95a6-4347-8d61-3f095fb9c7b5",
+      "guid": "7d493db4-d3af-4c3d-91e5-e72efca69c2b",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -3100,7 +3829,7 @@
         "qz": 0.63912814789336336,
         "qw": 0.46918031651700337
       },
-      "guid": "4c709c7e-829a-4042-88b2-e671f9632f22",
+      "guid": "2571807a-4ef7-49ae-8b64-d7dea331d6c3",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -3127,7 +3856,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "273d3815-0aa3-45a1-9e22-18cd0d74c857",
+      "guid": "aa4524bb-51b5-49bf-a202-634f8044708c",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -3154,7 +3883,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "9342544d-b1c0-493b-97de-38091cf4921b",
+      "guid": "75bae1bb-4f65-41a3-9fb1-46d7fdb7dd16",
       "type": "Rebar",
       "color": {
         "r": 210,
@@ -3181,7 +3910,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "de47de93-acdd-4a2f-8d61-9c1ed766615b",
+      "guid": "3edfbb04-e7db-48ed-9f9d-e9798d2f9950",
       "type": "Rebar",
       "color": {
         "r": 210,

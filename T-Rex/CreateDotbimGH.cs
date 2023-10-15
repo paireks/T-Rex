@@ -22,7 +22,8 @@ namespace T_Rex
                 GH_ParamAccess.item);
             pManager.AddTextParameter("Building Name", "Building Name", "Name of the building",
                 GH_ParamAccess.item);
-            pManager.AddNumberParameter("Geometry Scale Factor", "Geometry Scale Factor", "Scaling factor in all directions for geometry only.",
+            pManager.AddNumberParameter("Geometry Scale Factor", "Geometry Scale Factor",
+                "Scaling factor in all directions for geometry only. It won't scale any properties exported.",
                 GH_ParamAccess.item);
             pManager.AddTextParameter("Path", "Path", "Path where the dotbim file will be saved, should end up with .bim",
                 GH_ParamAccess.item);
@@ -51,7 +52,7 @@ namespace T_Rex
         {
             get
             {
-                return Properties.Resources.IFC;
+                return Properties.Resources.Dotbim;
             }
         }
         public override Guid ComponentGuid
