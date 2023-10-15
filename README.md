@@ -18,6 +18,7 @@ Check Manual here: https://htmlpreview.github.io/?https://github.com/paireks/T-R
 
 
 - Concrete: Profile, Profile To Elements, Mesh To Elements, Element Group Info
+- Dotbim: Create dotbim files
 - IFC: Create IFC
 - Rebar Shapes from curves: Curve To Rebar, Polyline To Rebar
 - Rebar Shapes from rectangle: Rectangle To Line Bar Shape, Rectangle To U-Bar Shape, Rectangle To Stirrup Shape
