@@ -63,7 +63,7 @@ namespace T_RexEngine.ElementLibrary
             List<BimElementSet> bimElementSets = new List<BimElementSet>();
             foreach (var brep in Breps)
             {
-                var meshes = Mesh.CreateFromBrep(brep, MeshingParameters.Default);
+                var meshes = Mesh.CreateFromBrep(brep, MeshingParameters.FastRenderMesh);
                 Mesh joinedMesh = meshes[0];
                 for (int i = 1; i < meshes.Length; i++)
                 {
