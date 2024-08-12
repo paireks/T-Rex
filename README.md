@@ -1,11 +1,11 @@
 # T-Rex
 Parametric Reinforcement Plug-in for Grasshopper.
 
-<img src="IMG\TRexLogoOk.png" alt="TRexLogoOk" style="zoom:30%;" />
+<img src="IMG\TRexLogo100x100bg.png" alt="TRexLogo100x100bg" />
 
 Introduction video: https://youtu.be/r2GVTfjJHdA
 
-<img src="IMG\2024-08-13_01h13_58.png" alt="TRexLogoOk" style="zoom:67%;" />
+<img src="IMG\2024-08-13_01h13_58.png" alt="TRexLogoOk"/>
 
 
 ## Purpose
