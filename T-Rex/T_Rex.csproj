@@ -184,6 +184,7 @@
     <Content Include="Resources\Dotbim.png" />
     <Content Include="Resources\ElementInfo.png" />
     <Content Include="Resources\IFC.png" />
+    <Content Include="Resources\InsertPlanesSpacing.png" />
     <Content Include="Resources\Mesh.png" />
     <Content Include="Resources\Profile.png" />
     <Content Include="Resources\ProfileElements.png" />

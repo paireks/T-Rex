@@ -49,7 +49,7 @@ namespace T_Rex
         {
             get
             {
-                return null;
+                return Properties.Resources.InsertPlanesSpacing;
             }
         }
         public override Guid ComponentGuid

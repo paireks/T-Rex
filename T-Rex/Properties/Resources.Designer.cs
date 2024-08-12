@@ -142,6 +142,16 @@ namespace T_Rex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap InsertPlanesSpacing {
+            get {
+                object obj = ResourceManager.GetObject("InsertPlanesSpacing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LBarShape {
             get {
                 object obj = ResourceManager.GetObject("LBarShape", resourceCulture);
