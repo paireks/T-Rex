@@ -1768,7 +1768,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "6448a631-2cdb-4b65-8279-a9723d56a850",
+      "guid": "35303724-1a48-4bbb-bd95-36d1431ace70",
       "type": "PadFooting",
       "color": {
         "r": 255,
@@ -1796,7 +1796,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "deec2ddc-6f72-4c39-82b5-c0fee81f87cb",
+      "guid": "59c906d9-d5e3-4696-a29c-56d2c327d9bb",
       "type": "StripFooting",
       "color": {
         "r": 255,
@@ -1824,7 +1824,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "28da89f6-48ec-4608-acce-558b4c5e82fe",
+      "guid": "4fc63204-b41a-489f-93b6-dbbc5fc0e2ed",
       "type": "Beam",
       "color": {
         "r": 255,
@@ -1852,7 +1852,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "cfdc1928-bf27-4363-a3d4-5441e2f239c2",
+      "guid": "7c4b7cc7-6eb3-4db0-991f-fcae94366f64",
       "type": "Column",
       "color": {
         "r": 255,
@@ -1880,7 +1880,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "24f1871d-b3d0-40f1-9119-a03eca3b2a72",
+      "guid": "969d695b-a4e6-4e96-96fc-317b32989f88",
       "type": "Column",
       "color": {
         "r": 255,
@@ -1908,7 +1908,7 @@
         "qz": 0.0,
         "qw": 1.0
       },
-      "guid": "79b2b3bc-fd82-4a18-8ce7-ea1960607043",
+      "guid": "18829bb8-77fa-4d5d-a4b2-8c6797b270ce",
       "type": "Column",
       "color": {
         "r": 255,

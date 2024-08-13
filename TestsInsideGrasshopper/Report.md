@@ -1,6 +1,6 @@
-Sunday, October 15th 2023
+Tuesday, August 13rd 2024
 Total result: 100% tests passed.
-Tests passed: 226
+Tests passed: 234
 Tests failed: 0
 | Name | Result |
 | :---: | :---: |
@@ -230,4 +230,12 @@ Tests failed: 0
 | MeshToElementsMillimeters_Dino_Volume | <span style="color: green">OK</span> |
 | MeshToElementsMillimeters_Dino_Mass | <span style="color: green">OK</span> |
 | MeshToElementsMillimeters_DifferentPlanes_Meshes | <span style="color: green">OK</span> |
+| InsertPlanesSpacingMilimeters_Normal_Mesh | <span style="color: green">OK</span> |
+| InsertPlanesSpacingMilimeters_Diameter_Mesh | <span style="color: green">OK</span> |
+| InsertPlanesSpacingMilimeters_Id_String | <span style="color: green">OK</span> |
+| InsertPlanesSpacingMilimeters_Normal_Curve | <span style="color: green">OK</span> |
+| InsertPlanesSpacingMeters_Normal_Mesh | <span style="color: green">OK</span> |
+| InsertPlanesSpacingMeters_Diameter_Mesh | <span style="color: green">OK</span> |
+| InsertPlanesSpacingMeters_Id_String | <span style="color: green">OK</span> |
+| InsertPlanesSpacingMeters_Normal_Curve | <span style="color: green">OK</span> |
 
