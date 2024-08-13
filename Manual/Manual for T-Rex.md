@@ -1,4 +1,4 @@
-# Manual for T-Rex 0.3.0
+# Manual for T-Rex 0.3.1
 
 [TOC]
 
@@ -31,7 +31,7 @@ T-Rex is an open-source plug-in for Grasshopper.
 
 ### License (MIT License)
 
-Copyright © 2023 Wojciech Radaczyński
+Copyright © 2024 Wojciech Radaczyński
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -80,7 +80,7 @@ So is the T-Rex. It means that you will have to choose your unit system by yours
 
 **Important note:** From T-Rex 0.2.0 IFC export is always treating the model as it is in **millimeters**.
 
-**Important note 2:** From T-Rex 0.3.0 there is dotbim export. Dotbim requires geometries exported in **meters**. Scale factor in dotbim component can help you to scale your geometries exported to .bim.
+**Important note 2:** From T-Rex 0.3.0 there is dotbim export. Dotbim requires geometries exported in **meters**. Scale factor in dotbim component can help you to scale your geometries exported to .bim, so you can still model in **millimeters and later use scale factor**.
 
 ### Tolerances
 
@@ -370,6 +370,14 @@ For the example above - Vector Count Spacing or Vector Length Spacing components
 It can be also only one Rebar Shape without any spacing.
 
 ![Custom1Shape](Img\Custom1Shape.png)
+
+#### Insert Planes Spacing
+
+This component let you place same Rebar Shape anywhere you want by using planes as an input. So original Rebar Shape should be placed on World XY Plane, and then you insert planes where actual rebars should be placed.
+
+Here below you can see a Rebar Shape in the middle in World XY Plane and green rebars that are inside defined Rebar Group, located where the Insert Planes are located.
+
+![InsertPlanesSpacing](Img\InsertPlanesSpacing.png)
 
 #### Vector Count Spacing
 
