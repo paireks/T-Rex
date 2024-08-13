@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Rhino.Geometry;
 
 namespace T_RexEngine
@@ -22,6 +23,12 @@ namespace T_RexEngine
         {
             OriginRebarShape = rebarShape;
             UseVectorLengthSpacing(startEndVector, spacingLength, spacingType, tolerance);
+        }
+
+        public RebarSpacing(RebarShape rebarShape, List<Plane> rebarInsertPlanes)
+        {
+            OriginRebarShape = rebarShape;
+            UseInsertPlanesSpacing(rebarInsertPlanes);
         }
         
         private void UseCurveSpacing(int count, Curve spaceCurve, double angle)
@@ -306,6 +313,34 @@ namespace T_RexEngine
                 
                 default:
                     throw new ArgumentException("Spacing type should be between 0 and 3");
+            }
+        }
+
+        private void UseInsertPlanesSpacing(List<Plane> insertPlanes)
+        {
+            Count = insertPlanes.Count;
+            RebarInsertPlanes = insertPlanes.Select(x => x.Clone()).ToList();
+            
+            Mesh rebarShapeMesh = OriginRebarShape.RebarMesh.DuplicateMesh();
+            Curve rebarShapeCurve = OriginRebarShape.RebarCurve.DuplicateCurve();
+            
+            Mesh duplicateMesh = rebarShapeMesh.DuplicateMesh();
+            Curve duplicateCurve = rebarShapeCurve.DuplicateCurve();
+
+            RebarGroupMesh = new List<Mesh>();
+            RebarGroupCurves = new List<Curve>();
+            foreach (var insertPlane in RebarInsertPlanes)
+            {
+                var transform = Transform.PlaneToPlane(Plane.WorldXY, insertPlane);
+                        
+                var duplicateMeshForTranslation = duplicateMesh.DuplicateMesh();
+                var duplicateCurveForTranslation = duplicateCurve.DuplicateCurve();
+                
+                duplicateMeshForTranslation.Transform(transform);
+                duplicateCurveForTranslation.Transform(transform);
+                        
+                RebarGroupMesh.Add(duplicateMeshForTranslation);
+                RebarGroupCurves.Add(duplicateCurveForTranslation);
             }
         }
         

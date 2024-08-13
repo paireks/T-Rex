@@ -53,7 +53,7 @@ namespace T_Rex
     {
         get
         {
-            return "0.2.0.0";
+            return "0.3.1.0";
         }
     }
 }

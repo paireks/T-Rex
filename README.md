@@ -1,7 +1,11 @@
 # T-Rex
 Parametric Reinforcement Plug-in for Grasshopper.
 
-Introduction video: https://youtu.be/r2GVTfjJHdA 
+<img src="IMG\TRexLogo100x100bg.png" alt="TRexLogo100x100bg" />
+
+Introduction video: https://youtu.be/r2GVTfjJHdA
+
+<img src="IMG\2024-08-13_01h13_58.png" alt="TRexLogoOk"/>
 
 
 ## Purpose
@@ -14,7 +18,7 @@ Basically T-Rex can help you to model different rebars, which are represented by
 
 Check Manual here: https://htmlpreview.github.io/?https://github.com/paireks/T-Rex/blob/master/Manual/Manual%20for%20T-Rex.html
 
-## Features (0.3.0) BETA
+## Features (0.3.1) BETA
 
 
 - Concrete: Profile, Profile To Elements, Mesh To Elements, Element Group Info
@@ -23,12 +27,12 @@ Check Manual here: https://htmlpreview.github.io/?https://github.com/paireks/T-R
 - Rebar Shapes from curves: Curve To Rebar, Polyline To Rebar
 - Rebar Shapes from rectangle: Rectangle To Line Bar Shape, Rectangle To U-Bar Shape, Rectangle To Stirrup Shape
 - Rebar Shapes library: L-Bar Shape, Stirrup Shape, Spacer Shape
-- Rebar Spacings: Curve Spacing, Custom Spacing, Vector Count Spacing, Vector Length Spacing, Rebar Group Info
+- Rebar Spacings: Curve Spacing, Custom Spacing, Insert Planes Spacing, Vector Count Spacing, Vector Length Spacing, Rebar Group Info
 - Properties: Bending Roller, Cover Dimensions, Material, Rebar Properties
 
 ## License (MIT License)
 
-Copyright © 2023 Wojciech Radaczyński
+Copyright © 2024 Wojciech Radaczyński
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
