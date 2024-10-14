@@ -7,7 +7,6 @@ Introduction video: https://youtu.be/r2GVTfjJHdA
 
 <img src="IMG\2024-08-13_01h13_58.png" alt="TRexLogoOk"/>
 
-
 ## Purpose
 
 T-Rex can help you to create 3D models of reinforced concrete structures with Grasshopper.
@@ -43,6 +42,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## About the code
 
 Code is not designed to be used outside Grasshopper environment.
+
+There is a Development checklist here: https://github.com/paireks/T-Rex/blob/master/Development%20checklist.md
 
 xbim library was used to allow IFCs creation: https://docs.xbim.net/, license: https://docs.xbim.net/license/license.html.
 
